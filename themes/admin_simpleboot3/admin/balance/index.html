@@ -1,0 +1,54 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_BLANCE_ADD_CHONGZHILIST')}</a></li>
+			<li><a href="{:url('Balance/add')}">{:lang('ADMIN_BLANCE_ADD_CHONGZHI')}</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" name="form1" method="post" action="">
+			{:lang('SUBMIT_TIME')}
+			<input class="form-control js-bootstrap-date" name="start_time" autocomplete="off" id="start_time" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;"> -
+            <input class="form-control js-bootstrap-date" name="end_time" autocomplete="off" id="end_time" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;">
+			{:lang('KEYWORD')}
+            <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                   placeholder="{:lang('ADMIN_SHOPAPPLY_INDEX_SHURUMEMBERID')}">
+
+			<input type="button" class="btn btn-primary" value="{:lang('SEARCH')}" onclick="form1.action='{:url('Balance/index')}';form1.submit();"/>
+            <input type="button" class="btn btn-success" value="{:lang('EXPORT')}" onclick="form1.action='{:url('Balance/export')}';form1.submit();"/>
+
+            <div style="margin-top:10px">
+				{:lang('ADMIN_BLANCE_ADD_TOTALJE')}{$balance} ({:lang('ADMIN_BLANCE_INDEX_SHAIXUANTIAOJ')})
+			</div>
+		</form>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ID')}</th>
+						<th> {:lang('ADMIN_BLANCE_INDEX_GUANLIYUAN')}</th>
+						<th>{:lang('ADMIN_BLANCE_INDEX_HUIYUAN')}</th>
+						<th> {:lang('ADMIN_BLANCE_INDEX_CHONGZHIJE')}</th>
+						<th> {:lang('ADMIN_BLANCE_INDEX_IP')}</th>
+						<th> {:lang('ADMIN_BLANCE_INDEX_SHIJIAN')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo['admin']}</td>
+						<td>{$vo['userinfo']['user_nicename']} ({$vo['touid']})</td>
+						<td>{$vo['balance']}</td>
+						<td>{$vo['ip']}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

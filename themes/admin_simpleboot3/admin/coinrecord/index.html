@@ -1,0 +1,88 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_COINRECORD_YUN_COIN_INDEX_RECORD')}</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" name="form1" method="post" action="">
+
+			{:lang('ADMIN_COINRECORD_INDEX_REVENUETYPE')}
+            <select class="form-control" name="type">
+				<option value="">{:lang('ALL')}</option>
+                <volist name="type" id="v">
+                    <option value="{$key}" <if condition="input('request.type') neq '' && input('request.type') eq $key">selected</if>>{$v}</option>
+                </volist>
+			</select>
+
+			{:lang('ADMIN_COINRECORD_INDEX_BEHAVIOR')}
+            <select class="form-control" name="actions">
+				<option value="">{:lang('ALL')}</option>
+                <volist name="actions" id="v">
+                    <option value="{$key}" <if condition="input('request.actions') neq '' && input('request.actions') eq $key">selected</if>>{$v}</option>
+                </volist>
+			</select>
+
+			{:lang('ADMIN_COINRECORD_INDEX_TIME')}
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;" autocomplete="off"> - 
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;" autocomplete="off">
+			{:lang('ADMIN_CHARGE_INDEX_USERID')}
+            <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                   placeholder="{:lang('ADMIN_CHARGE_INDEX_USER_OPTION')}">
+
+			{:lang('ADMIN_COINRECORD_INDEX_OTHERUSERID')}
+            <input class="form-control" type="text" name="touid" style="width: 200px;" value="{:input('request.touid')}"
+                   placeholder="{:lang('ADMIN_CHARGE_INDEX_USER_OPTION')}">
+			
+            <input type="button" class="btn btn-primary" value="{:lang('SEARCH')}" onclick="form1.action='{:url('Coinrecord/index')}';form1.submit();"/>
+			<input type="button" class="btn btn-success" value="{:lang('EXPORT')}" onclick="form1.action='{:url('Coinrecord/export')}';form1.submit();"/>
+            <a class="btn btn-danger" href="{:url('Admin/Coinrecord/index')}">{:lang('CLEAN')}</a>
+            
+	
+		</form>	
+    	
+		<form method="post" class="js-ajax-form" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ID')}</th>
+						<th>{:lang('ADMIN_COINRECORD_INDEX_TYPE')}</th>
+						<th>{:lang('ADMIN_VOTESRECORD_INDEX_BEHAVIOR')}</th>
+						<th>{:lang('ADMIN_COINRECORD_INDEX_USERIDS')}</th>
+						<th>{:lang('ADMIN_COINRECORD_INDEX_OTHERUSERIDS')}</th>
+						<th>{:lang('ADMIN_COINRECORD_INDEX_EXPLAIN')}</th>
+						<th>{:lang('ADMIN_COINRECORD_INDEX_NUMBER')}</th>
+						<th>{:lang('ADMIN_COINRECORD_INDEX_ALLPRICE')}</th>
+						<th>{:lang('ADMIN_COINRECORD_INDEX_DIRECT_SEEDING_ID')}</th>
+						<th>{:lang('ADMIN_MANUAL_INDEX_TIME')}</th>
+						<!-- <th>{:lang('ACTIONS')}</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td align="center">{$vo.id}</td>
+						<td>{$type[$vo['type']]}</td>
+						<td>{$actions[$vo['action']]}</td>
+						<td>{$vo['userinfo']['user_nicename']} ( {$vo['uid']} )</td>
+						<td>{$vo['touserinfo']['user_nicename']} ( {$vo['touid']} )</td>
+						<td>{$vo['giftinfo']['giftname']} ( {$vo['giftid']} )</td>
+						<td>{$vo['giftcount']}</td>
+						<td>{$vo['totalcoin']}</td>
+						<td>{$vo['showid']}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<!-- <td>	
+                            <if condition="$vo['status'] eq 0 ">
+                            <a class="btn btn-xs btn-danger js-ajax-dialog-btn" href="{:url('Votesrecord/del',array('id'=>$vo['id']))}" data-msg="您确定要删除吗？">删除</a>
+                            </if>
+						</td> -->
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

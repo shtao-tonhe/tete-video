@@ -1,0 +1,187 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">			
+			<li><a href="{:url('Adminpage/index')}">{:lang('ADMIN_ADMINPAGE_EDIT_GUANLI')}</a></li>
+			<li class="active"><a >{:lang('ADMIN_ADMINPAGE_EDIT_PAGEWENZ')}</a></li>
+		</ul>
+		<form class="form-horizontal js-ajax-form margin-top-20" action="{:url('Adminpage/edit_post')}" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="post[id]" value="{$info['id']}" />
+			<table class="table table-bordered">
+				<tr>
+					<th width="80">{:lang('ADMIN_ADMINPAGE_ADD_CLASS')}</th>
+					<td>
+						<select  class="form-control" id="input-post_type"  name="post[post_type]">
+							<option value="0">{:lang('ADMIN_ADMINPAGE_ADD_DANYEMIAN')}</option>
+						</select>
+						<span class="form-required">*</span>
+					
+					</td>
+				</tr>
+				<tr>
+					<th>{:lang('TITLE')}</th>
+					<td>
+						<input type="text" class="form-control" id="input-post_title" name="post[post_title]" id="title" required value="{$info['post_title']}" placeholder="{:lang('ADMIN_ADMINPAGE_ADD_SHURUTITLE')}"/>
+						<span class="form-required">*</span>
+					</td>
+				</tr>
+				<tr>
+					<th>{:lang('CONTENT')}</th>
+					<td>
+						<script type="text/plain"  id="content" name="post[post_content]">{$info['post_content']}</script>
+					</td>
+				</tr>
+			</table>
+			
+			<div class="form-group">
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+				<a class="btn btn-default" href="{:url('Adminpage/index')}">{:lang('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+		//编辑器路径定义
+		var editorURL = GV.WEB_ROOT;
+	</script>
+	<script type="text/javascript" src="__STATIC__/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="__STATIC__/ueditor/ueditor.all.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			/////---------------------
+			Wind.use('validate', 'ajaxForm', 'artDialog', function() {
+				//javascript
+
+				//编辑器
+				editorcontent = new baidu.editor.ui.Editor();
+				editorcontent.render('content');
+				try {
+					editorcontent.sync();
+				} catch (err) {
+				}
+				//增加编辑器验证规则
+				jQuery.validator.addMethod('editorcontent', function() {
+					try {
+						editorcontent.sync();
+					} catch (err) {
+					}
+					return editorcontent.hasContents();
+				});
+				var form = $('form.js-ajax-forms');
+				//ie处理placeholder提交问题
+				if ($.browser && $.browser.msie) {
+					form.find('[placeholder]').each(function() {
+						var input = $(this);
+						if (input.val() == input.attr('placeholder')) {
+							input.val('');
+						}
+					});
+				}
+
+				var formloading = false;
+				//表单验证开始
+				form.validate({
+					//是否在获取焦点时验证
+					onfocusout : false,
+					//是否在敲击键盘时验证
+					onkeyup : false,
+					//当鼠标掉级时验证
+					onclick : false,
+					//验证错误
+					showErrors : function(errorMap, errorArr) {
+						//errorMap {'name':'错误信息'}
+						//errorArr [{'message':'错误信息',element:({})}]
+						try {
+							$(errorArr[0].element).focus();
+							art.dialog({
+								id : 'error',
+								icon : 'error',
+								lock : true,
+								fixed : true,
+								background : "#CCCCCC",
+								opacity : 0,
+								content : errorArr[0].message,
+								cancelVal : '{:lang(\'OK\')}',
+								cancel : function() {
+									$(errorArr[0].element).focus();
+								}
+							});
+						} catch (err) {
+						}
+					},
+					//验证规则
+					rules : {
+						'post[post_title]' : {
+							required : 1
+						},
+						'post[post_content]' : {
+							editorcontent : true
+						}
+					},
+					//验证未通过提示消息
+					messages : {
+						'post[post_title]' : {
+							required : ' {:lang(\'ADMIN_ADMINPAGE_ADD_SHURUTITLE\')}'
+						},
+						'post[post_content]' : {
+							editorcontent : ' {:lang(\'ADMIN_ADMINPAGE_ADD_NEIRNOTNULL\')}'
+						}
+					},
+					//给未通过验证的元素加效果,闪烁等
+					highlight : false,
+					//是否在获取焦点时验证
+					onfocusout : false,
+					//验证通过，提交表单
+					submitHandler : function(forms) {
+						if (formloading)
+							return;
+						$(forms).ajaxSubmit({
+							url : form.attr('action'), //按钮上是否自定义提交地址(多按钮情况)
+							dataType : 'json',
+							beforeSubmit : function(arr, $form, options) {
+								formloading = true;
+							},
+							success : function(data, statusText, xhr, $form) {
+								formloading = false;
+								if (data.status) {
+									setCookie("refersh_time", 1);
+									//添加成功
+									Wind.use("artDialog", function() {
+										art.dialog({
+											id : "succeed",
+											icon : "succeed",
+											fixed : true,
+											lock : true,
+											background : "#CCCCCC",
+											opacity : 0,
+											content : data.info,
+											button : [ {
+												name : '{:lang(\'ADMIN_ADMINPAGE_ADD_ADD\')}',
+												callback : function() {
+													reloadPage(window);
+													return true;
+												},
+												focus : true
+											}, {
+												name : '{:lang(\'ADMIN_ADMINPAGE_ADD_LIST\')}',
+												callback : function() {
+													location = "{:Url('Adminpage/index')}";
+													return true;
+												}
+											} ]
+										});
+									});
+								} else {
+									artdialog_alert(data.info);
+								}
+							}
+						});
+					}
+				});
+			});
+			////-------------------------
+		});
+	</script>
+</body>
+</html>

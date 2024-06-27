@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <include file="Public/head"/> <!--公共css-->
+    <link type="text/css" rel="stylesheet" href="__STATIC__/appapi/css/agent.css"/> 
+    <title>邀请好友赚钱</title>
+</head>
+<body>
+    <div class="agent">
+        <div class="top">
+            <div class="top_img">
+                <img src="__STATIC__/appapi/images/agent/top.png">
+            </div>
+            <div class="agent_code">
+                
+                <div class="tips_bd_title">- 您的邀请码 -</div>
+                <ul class="tips_bd_codes">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <div class="clearboth"></div>
+                </ul>
+                <div class="tips_bd_title copy_btn">点击复制</div>
+                
+            </div>
+			<div class="agent_top">
+				<div class="myagent">
+					<span class="li_l">我的上级</span> 
+					
+					<if condition="$agentinfo">
+						<span class="li_r">{$agentinfo['user_nicename']}</span>
+					<else/>
+						<a class="li_r" href="/Appapi/Agent/agent?uid={$uid}&token={$token}">去设置</a>
+					</if>
+				</div>
+			</div>
+        </div>
+        <div class="info clearfix">
+            <div class="info_p">
+                <div class="info_p_t">已邀请好友</div>
+                <div class="info_p_bd">
+                    {$agnet_profit['count']} >
+                </div>
+            </div>
+            <div class="info_p">
+                <div class="info_p_t">昨日收益</div>
+                <div class="info_p_bd">
+                    {$agnet_profit['total']} <img class="score" src="__STATIC__/appapi/images/agent/coin.png">
+                </div>
+            </div>
+            <div class="info_p">
+                <div class="info_p_t">累计收益</div>
+                <div class="info_p_bd">
+                    {$agnet_profit['one_p']} <img class="score" src="__STATIC__/appapi/images/agent/coin.png">
+                </div>
+            </div>            
+        </div>
+        <div class="cash">前往提现 ></div>
+
+        <div class="top_tips_bg">
+            <div class="top_tips">
+                <div class="tips_bd">
+                    <div class="tips_label">分享说明</div>
+                    <ul>
+                        <li>
+                            <div class="li_n">1)</div>
+                            <div class="li_i">分享链接发送给好友，好友通过链接下载填写邀请码注册App后，建立上下级关系。</div>
+                        </li>
+                        <li>
+                            <div class="li_n">2)</div>
+                            <div class="li_i">每邀请一个好友，分享人可得到{$agent_reward}{$name_votes}奖励。</div>
+                        </li>
+                        <li>
+                            <div class="li_n">3)</div>
+                            <div class="li_i">好友观看视频获得金币奖励，分享人可得到相应提成。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="share">
+            <div class="share_btn">
+                分享赚钱
+            </div>
+        </div>
+    </div>
+    <script>
+        var uid='{$uid}';
+        var token='{$token}';
+        var baseSize = 100;
+        function setRem () {
+          var scale = document.documentElement.clientWidth / 750;
+          document.documentElement.style.fontSize = (baseSize * Math.min(scale, 3)) + 'px';
+        }
+        setRem();
+        window.onresize = function () {
+          setRem();
+        }
+    </script>
+    <include file="Public/footer"/> <!--公共底-->
+    <script>
+        (function(){
+            var code_str='{$agnet_code}';
+            var code_len=code_str.length;
+            for(var i=0;i<code_len;i++){
+                $(".tips_bd_codes").children().eq(i).text(code_str[i]);
+            }
+
+            $('.cash').click(function(){
+                location.href='cash://';
+            })
+            $('.share_btn').click(function(){
+                location.href='agentshare://';
+            })
+            $('.copy_btn').click(function(){
+                location.href='copycode://'+code_str;
+            })
+        })()
+    </script>
+</body>
+</html>

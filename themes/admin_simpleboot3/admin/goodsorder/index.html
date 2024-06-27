@@ -1,0 +1,160 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a>{:lang('ADMIN_GOODSORDER_INDEX_ORDERLIST')}</a></li>
+		</ul>
+
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Goodsorder/index')}">
+
+			{:lang('ADMIN_GOODSORDER_INDEX_ORDERSTATUS')}
+            <select class="form-control" name="status">
+				<option value="">{:lang('ADMIN_GOODSORDER_INDEX_MOREN')}</option>
+                <volist name="status" id="v">
+                    <option value="{$key}" <if condition="input('request.status') neq '' && input('request.status') eq $key">selected</if>>{$v}</option>
+                </volist>
+			</select>
+			{:lang('ADMIN_GOODSORDER_INDEX_ORDERTYPE')}
+            <select class="form-control" name="type">
+				<option value="">{:lang('ADMIN_GOODSORDER_INDEX_MOREN')}</option>
+				<option value="0" <if condition="input('request.type') neq '' && input('request.type') eq 0">selected</if>>{:lang('SELF_OPERATED_SHOP')}</option>
+				<option value="1" <if condition="input('request.type') neq '' && input('request.type') eq 1">selected</if>>{:lang('SELLER_RELEASE')}</option>
+			</select>
+
+			{:lang('ADMIN_GOODSORDER_INDEX_YONGJIN')}
+            <select class="form-control" name="share_income">
+				<option value="">{:lang('ALL')}</option>
+				<option value="0" <if condition="input('request.share_income') neq '' && input('request.share_income') eq 0">selected</if>>{:lang('ADMIN_GOODSORDER_INDEX_YOUYONGJ')}</option>
+				<option value="1" <if condition="input('request.share_income') neq '' && input('request.share_income') eq 1">selected</if>>{:lang('ADMIN_GOODSORDER_INDEX_WUYONGJ')}</option>
+			</select>
+
+			{:lang('ADMIN_SHOPGOODS_INDEX_SHANGPINGNAME')}
+            <input class="form-control" type="text" name="goods_name" style="width: 200px;" value="{:input('request.goods_name')}"
+                   placeholder="{:lang('ADMIN_GOODSORDER_INDEX_PARTNAME')}">
+			{:lang('ADMIN_GOODSORDER_INDEX_USERID')}
+            <input class="form-control" type="text" name="buyer_uid" style="width: 200px;" value="{:input('request.buyer_uid')}"
+                   placeholder="{:lang('ADMIN_GOODSORDER_INDEX_SHURUUUSERID')}">
+
+			{:lang('ADMIN_GOODSORDER_INDEX_MAIJIAUSERID')}
+            <input class="form-control" type="text" name="seller_uid" style="width: 200px;" value="{:input('request.seller_uid')}"
+                   placeholder="{:lang('ADMIN_GOODSORDER_INDEX_SHURUMAIJIAID')}">
+
+			{:lang('ADMIN_GOODSORDER_INDEX_DINGDANTIJIAOTIME')}
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" autocomplete="off" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;"> - 
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" autocomplete="off" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;">
+
+			{:lang('ADMIN_GOODSORDER_INDEX_ORDERCODE')}
+            <input class="form-control" type="text" name="orderno" style="width: 200px;" value="{:input('request.orderno')}"
+                   placeholder="{:lang('ADMIN_GOODSORDER_INDEX_PARTORDERCODE')}">
+			{:lang('ADMIN_GOODSORDER_INDEX_THREEORDERCODE')}
+            <input class="form-control" type="text" name="trade_no" style="width: 200px;" value="{:input('request.trade_no')}"
+                   placeholder="{:lang('ADMIN_GOODSORDER_INDEX_SHURUTHREECODE')}">
+
+			{:lang('ADMIN_GOODSORDER_INDEX_PHONE')}
+            <input class="form-control" type="text" name="phone" style="width: 200px;" value="{:input('request.phone')}"
+                   placeholder="{:lang('ADMIN_GOODSORDER_INDEX_SHURUGOUMAIZHE')}">
+            
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Goodsorder/index')}">{:lang('CLEAN')}</a>
+		</form>
+
+		<form method="post" class="js-ajax-form">
+			<table class="table table-hover table-bordered">
+				<thead id="bignav">
+					<tr>
+						<th>{:lang('ID')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_GOUMAIYONGHU')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_SHANGJIA')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_DINGDANCODE')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_SHANGPNAME')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_SHANGPGUIGE')}</th>
+						<th>{:lang('ADMIN_SHOPGOODS_INDEX_GUIGEFACE')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_NUMBER')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_SHANGPDANJIA')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_SHANGPYUNFEI')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_TATOL')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_BUYER')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_GOUMAIZHEDIANHUA')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_ZHIFUFANGSHI')}</th>
+						<th> {:lang('ADMIN_GOODSORDER_INDEX_SANFANGDINGDANHAO')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_DINGDANZHUANGTAI')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_XIADANSHIJIAN')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_QUXIAOSHIJIAN')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_FUKUANGSHIIJIAN')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_FAHUOSHIJIAN')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_SHOUHUOSHIJIAN')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_PINGJIASHIJIAN')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_JIESUANSHIJIAN')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_SHATEUSER')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_FENXIANGYONGJIN')}</th>
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.buyer_info['user_nicename']}({$vo['uid']})</td>
+						<td><if condition="$vo['shop_uid'] eq 1">{:lang('SELF_OPERATED_SHOP')}<else />{$vo.seller_info['user_nicename']}({$vo['shop_uid']})</if></td>
+						<td>{$vo['orderno']}</td>
+						<td style="min-width: 100px;">{$vo['goods_name']}</td>
+						<td>{$vo['spec_name']}</td>
+						<td><img width="40" height="40" class="imgtip" src="{$vo['spec_thumb']}" /></td>
+						<td>{$vo['nums']}</td>
+						<td>￥{$vo['price']}</td>
+						<td>￥{$vo['postage']}</td>
+						<td>￥{$vo['total']}</td>
+						<td>{$vo['username']}</td>
+						<td>{$vo['phone']}</td>
+						<td>{$type[$vo['type']]}</td>
+						<td>{$vo['trade_no']}</td>
+						<td>{$status[$vo['status']]}</td>
+						<td>{:date('Y-m-d H:i',$vo['addtime'])}</td>
+						<td><if condition="$vo['cancel_time'] gt 0">{:date('Y-m-d H:i',$vo['cancel_time'])}<else />--</if></td>
+						<td><if condition="$vo['paytime'] gt 0">{:date('Y-m-d H:i',$vo['paytime'])}<else />--</if></td>
+						<td><if condition="$vo['shipment_time'] gt 0">{:date('Y-m-d H:i',$vo['shipment_time'])}<else />--</if></td>
+						<td><if condition="$vo['receive_time'] gt 0">{:date('Y-m-d H:i',$vo['receive_time'])}<else />--</if></td>
+						<td><if condition="$vo['evaluate_time'] gt 0">{:date('Y-m-d H:i',$vo['evaluate_time'])}<else />--</if></td>
+						<td><if condition="$vo['settlement_time'] gt 0">{:date('Y-m-d H:i',$vo['settlement_time'])}<else />--</if></td>
+						<td><if condition="$vo['shareuid'] gt 0">{$vo['share_info']['user_nicename']}({$vo['shareuid']})<else />--</if></td>
+						<td>￥{$vo['share_income']}</td>
+						<td>
+                            <if condition="$vo['shop_uid'] eq 1 && $vo['status'] eq 1">
+                            	<a class="btn btn-xs btn-primary" href='{:url("Goodsorder/setexpress",array("id"=>$vo["id"]))}'>{:lang('FILL_IN_LOGISTICS')}</a>
+                            </if>
+                            
+                            <if condition="$vo['shipment_time'] gt 0">
+                            	<a class="btn btn-xs btn-primary" onclick="express({$vo['id']})">{:lang('ADMIN_GOODSORDER_INDEX_WULIUXINX')}</a>
+                            </if>
+                            <a class="btn btn-xs btn-primary" href='{:url("Goodsorder/info",array("id"=>$vo["id"]))}'>{:lang('ADMIN_GOODSORDER_INDEX_DETAIL')}</a>
+							
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			Wind.use('layer');
+		});
+
+		function express(orderid){
+			layer.open({
+			  type: 2,
+			  title: '{:lang(\'ADMIN_GOODSORDER_INDEX_WULIUXINX\')}',
+			  shadeClose: true,
+			  shade: 0.8,
+			  area: ['500px', '90%'],
+			  content: '/Appapi/Express/index?user_type=platform&orderid='+orderid //iframe的url
+			}); 
+		}
+	</script>
+
+	
+</body>
+</html>

@@ -1,0 +1,38 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<div id="error_tips">
+			<h2>{:lang('APLICATION')}{$app}{:lang('MENU_IMPORTED_SUCCESSFULLY')}！</h2>
+			<div class="error_cont">
+				<ul>
+					<if condition="!empty($new_menus)">
+						<foreach name="new_menus" item="vo">
+						<li>{$vo}</li>
+						</foreach>
+					<else />
+						<li>{:lang('APLICATION')}{$app}{:lang('NO_NEW_MENU_IMPORTED')}！</li>
+					</if>
+				</ul>
+				<if condition="!empty($next_app)">
+					<script>
+						setTimeout(function() {
+							location.href = "{:url('admin/menu/getactions',array('app'=>$next_app))}";
+						}, 1000);
+					</script>
+					<div class="error_return">
+						<a href="{:url('admin/menu/getActions',array('app'=>$next_app))}" class="btn btn-primary">{:lang('NEXT_APP')}</a>
+						<a href="{:url('admin/menu/index')}" class="btn btn-default" style="margin-left: 10px;">{:lang('BACK')}</a>
+					</div>
+				<else />
+					<div>{:lang('ALL_IMPORTED_SUCCESSFULLY')}！</div>
+					<div class="error_return">
+						<a href="{:url('menu/index')}" class="btn btn-default">{:lang('BACK')}</a>
+					</div>
+				</if>
+			</div>
+		</div>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

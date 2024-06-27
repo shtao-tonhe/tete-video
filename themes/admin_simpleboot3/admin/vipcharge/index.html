@@ -1,0 +1,81 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_VIPCHARGE_INDEX_ORDER_RECORD')}</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" name="form1" method="post" action="">
+			{:lang('ADMIN_CASH_INDEX_ORDERCONDITION')}
+            <select class="form-control" name="status">
+				<option value="">{:lang('ALL')}</option>
+                <volist name="status" id="v">
+                    <option value="{$key}" <if condition="input('request.status') neq '' && input('request.status') eq $key">selected</if>>{$v}</option>
+                </volist>
+			</select>
+
+			{:lang('SUBMIT_TIME')}:
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;" autocomplete="off"> - 
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;" autocomplete="off">
+			{:lang('ADMIN_CHARGE_INDEX_USERID')}
+            <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                   placeholder="{:lang('ADMIN_CHARGE_INDEX_USER_OPTION')}">
+			{:lang('KEYWORD')}：
+            <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+                   placeholder="{:lang('ADMIN_CHARGE_INDEX_KEYWORD_OPTION')}">
+            <input type="button" class="btn btn-primary" value="{:lang('SEARCH')}" onclick="form1.action='{:url('Vipcharge/index')}';form1.submit();"/>
+            <a class="btn btn-danger" href="{:url('Admin/Vipcharge/index')}">{:lang('CLEAN')}</a>
+			<input type="button" class="btn btn-success" value="{:lang('EXPORT')}" onclick="form1.action='{:url('Vipcharge/export')}';form1.submit();"/>
+            
+			<div style="margin-top:10px">
+				{:lang('ADMIN_CHARGE_INDEX_OPTION')} {$moneysum|default=0} {:lang('ADMIN_CHARGE_INDEX_OPTION_END')}
+			</div>		
+		</form>	
+    	
+		<form method="post" class="js-ajax-form" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ID')}</th>
+						<th>{:lang('ADMIN_POPULAR_INDEX_VIP')}</th>
+						<th>{:lang('ADMIN_CHARGE_INDEX_AMOUNT')}</th>
+						<th>{:lang('ADMIN_VIPCHARGERULES_INDEX_RECHARGE_DAY_NUMBER')}</th>
+						<th>{:lang('ADMIN_VIPCHARGE_INDEX_CONSUMPTION')}{$name_coin}</th>
+						<th>{:lang('ADMIN_CHARGE_INDEX_SHOP_ORDERID')}</th>
+						<th>{:lang('ADMIN_CHARGE_INDEX_PAYMENT_TYPE')}</th>
+						<th>{:lang('ADMIN_CHARGE_INDEX_PAYMENT_ENVIRONMENT')}</th>
+						<th>{:lang('ADMIN_CHARGE_INDEX_PAYMENT_ORDERID')}</th>
+						<th>{:lang('ADMIN_CHARGE_INDEX_ORDER_CONDITION')}</th>
+						<th>{:lang('SUBMIT_TIME')}</th>
+						<th>{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo['userinfo']['user_nicename']} ({$vo['uid']})</td>	
+						<td>{$vo['money']}</td>
+						<td>{$vo['days']}</td>
+						<td>{$vo['coin']}</td>
+						<td>{$vo['orderno']}</td>
+						<td>{$type[$vo['type']]}</td>
+						<td>{$ambient[$vo['type']][$vo['ambient']]}</td>
+						<td>{$vo['trade_no']}</td>
+						<td>{$status[$vo['status']]}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td>	
+                            <if condition="$vo['status'] eq 0 ">
+                            <a class="btn btn-xs btn-danger js-ajax-dialog-btn" href="{:url('Vipcharge/setPay',array('id'=>$vo['id']))}" >{:lang('ADMIN_CHARGE_INDEX_PAY')}</a>
+                            </if>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

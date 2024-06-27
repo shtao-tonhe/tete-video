@@ -1,0 +1,76 @@
+<include file="public@header"/>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_GIFT_ADD_GIFTLIST')}</a></li>
+			<li><a href="{:url('Gift/add')}">{:lang('ADMIN_GIFT_ADD_GIFTADD')}</a></li>
+		</ul>
+		
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Gift/index')}">
+			{:lang('KEYWORD')}：
+			<input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}" placeholder="{:lang('ADMIN_REPORT_ADD_LIWUMINGCHENG')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}"/>
+			<a class="btn btn-danger" href="{:url('Admin/Gift/index')}">{:lang('CLEAN')}</a>
+		</form>
+
+		<form method="post" class="js-ajax-form" action="{:url('Gift/listordersset')}">
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit">{:lang('SORT')}</button>
+			</div>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('SORT')}</th>
+						<th align="center">{:lang('ID')}</th>
+						<th>{:lang('TYPE')}</th>
+						<th>{:lang('ADMIN_GIFT_INDEX_BIAOSHI')}</th>
+						<th>{:lang('ADMIN_GIFT_INDEX_MINGCHNEG')}</th>
+						<th>{:lang('ADMIN_REPORT_ADD_SUOXUDIANSHU')}</th>
+						<th>{:lang('PIC')}</th>
+						<th>{:lang('ADMIN_GIFT_INDEX_DONGHUA')}</th>
+						<th>{:lang('ADMIN_GIFT_INDEX_DONGHUA_LEIIXNG')}</th>
+						<th>{:lang('ADMIN_GIFT_INDEX_DONGHUA_SHICHANG')}</th>
+						<th>{:lang('PUBLISH_TIME')}</th>
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td><input name="listorders[{$vo['id']}]" type="text" size="3" value="{$vo['orderno']}" class="input input-order"></td>
+						<td align="center">{$vo.id}</td>
+						<td>{$type[$vo['type']]}</td>
+						<td>{$mark[$vo['mark']]}</td>
+						<td>{$vo['giftname']}</td>
+						<td>{$vo['needcoin']}</td>
+						<td><img width="25" height="25" class="imgtip" src="{:get_upload_path($vo['gifticon'])}" /></td>
+						<td><if condition="$vo['type'] eq 1">{$swftype[$vo['swftype']]}</if></td>
+						<td style="max-width: 300px;">
+							<if condition="$vo['swf']">
+                                <if condition="$vo['swftype'] eq 1">
+                                    {$vo['swf']}
+                                <else/>
+                                    <img width="100" height="100" src="{:get_upload_path($vo['swf'])}" />
+                                </if>
+                            </if>
+                        </td>
+						<td>{$vo['swftime']}</td>
+						
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td align="center">
+							<a class="btn btn-xs btn-primary" href="{:url('Gift/edit',array('id'=>$vo['id']))}" >{:lang('EDIT')}</a>
+							
+							<a class="btn btn-xs btn-danger  js-ajax-dialog-btn" href="{:url('Gift/del',array('id'=>$vo['id']))}" data-msg="{:lang('ADMIN_GIFT_INDEX_SURE_DELETE')}">{:lang('DELETE')}</a>
+							
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

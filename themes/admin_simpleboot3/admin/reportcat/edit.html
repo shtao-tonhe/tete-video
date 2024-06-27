@@ -1,0 +1,53 @@
+<include file="public@header"/>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Reportcat/index')}">{:lang('ADMIN_REPORTCAT_INDEX_REPORTCATLIST')}</a></li>
+			<li class="active"><a >{:lang('ADMIN_REPORTCAT_INDEX_LEIXING_EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Reportcat/edit_post')}">
+			<fieldset>
+
+				<input type="hidden" name="id" value="{$info['id']}">
+				<div class="form-group" >
+					<label for="input-orderno" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('NUMBER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-orderno"  name="orderno" value="{$info['orderno']}">
+						<p class="help-block">{:lang('ADMIN_MUSIC_CLASSIFY_UPDATE_FILL_POSITIVE')}</p>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-title" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REPORTCAT_EDIT_JUBAOLEIXING_NAME')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-title"  name="title" value="{$info['title']}"> 
+						<p class="help-block">{:lang('ADMIN_MUSIC_CLASSIFY_UPDATE_CONCISE')}</p>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-isdel" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('DISPLAY_FLAG')}</label>
+					<div class="col-md-6 col-sm-10">
+						<label class="radio-inline"><input type="radio" name="isdel" value="0" <if condition="$info['isdel'] eq 0">checked="checked"</if>>{:lang('DISPLAY')}</label>
+						<label class="radio-inline"><input type="radio" name="isdel" value="1" <if condition="$info['isdel'] eq 1">checked="checked"</if> >{:lang('ADMIN_REPORTCAT_EDIT_BUXIANSHI')}</label>
+					</div>
+				</div>
+
+
+			</fieldset>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+					<a class="btn btn-default" href="{:url('Reportcat/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	
+	
+</body>
+</html>

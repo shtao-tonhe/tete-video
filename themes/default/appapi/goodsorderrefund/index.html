@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="telephone=no" name="format-detection">
+		<title>协商历史</title>
+        <link href='__STATIC__/appapi/css/common.css?t=1576653373' rel="stylesheet" type="text/css" >
+		<link href='__STATIC__/appapi/css/refundconsult.css?t=1576653396' rel="stylesheet" type="text/css" >
+	</head>
+	<body>
+        <div class="list">
+            <ul>
+                <foreach name="refund_list" id="vo">
+                    <li>
+                        <p class="list_title">{$vo.desc}</p>
+                        <if condition="$vo.refuse_reason neq ''"><p>{$vo.refuse_reason}</p></if>
+                        <if condition="$vo.handle_desc neq ''"><p>{$vo.handle_desc}</p></if>
+                        <p class="list_time">{:date('Y-m-d H:i:s',$vo['addtime'])}</p>
+                        <if condition="$vo.type eq 1">
+                            <p class="list_tip list_buyer_tip"></p>
+                        <elseif condition="$vo.type eq 2" />
+                            <p class="list_tip list_seller_tip"></p>
+                        <elseif condition="$vo.type eq 3" />
+                            <p class="list_tip list_platform_tip"></p>
+                        <elseif condition="$vo.type eq 4" />
+                            <p class="list_tip list_system_tip"></p>
+                        </if>
+                    </li>  
+                </foreach>
+                
+            
+                <li class="border_none">
+                    <p class="list_title">买家申请退款</p>
+                    <p>退款金额：<span>￥{$refund_info['total']}</span></p>
+                    <p>退款原因：{$refund_info['reason']}</p>
+                    <p>问题描述：{$refund_info['content']}</p>
+                    <p class="list_time">{:date('Y-m-d H:i:s',$refund_info['addtime'])}</p>
+                    <p class="list_tip list_buyer_tip"></p>
+                </li>
+            </ul>
+        </div>
+
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+    <script>
+        var uid='{$uid}';
+        var token='{$token}';
+        var baseSize = 100;
+        function setRem () {
+          var scale = document.documentElement.clientWidth / 750;
+          document.documentElement.style.fontSize = (baseSize * Math.min(scale, 3)) + 'px';
+        }
+        setRem();
+        window.onresize = function () {
+          setRem();
+        }
+    </script>
+    
+	</body>
+</html>

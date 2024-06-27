@@ -1,0 +1,64 @@
+<include file="public@header"/>
+<style>
+.comment_lists_table{
+	border: 0;
+	width: 100%;
+}
+.comment_lists_table td{
+	border:0;
+}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<form method="post" class="js-ajax-form">
+			<if condition="!empty($lists)">
+			<table class="table table-hover table-bordered">
+				<tbody>
+					<foreach name="lists" item="vo">
+						<tr>
+							<td align="center">
+								<table class="table table-hover table-bordered comment_lists_table">
+									<tbody>
+										<tr>
+											<if condition="$vo.type eq '0'">
+												<td width="70%">{$vo['content']}</td>
+											<else />
+												<td width="70%">
+													<audio src="{$vo.voice}" controls="controls">
+														<source src="{$vo.voice}" >
+													您浏览器不支持此音频类型
+													</audio>
+												</td>
+											</if>
+											<td width="30%">{$vo['user_nicename']}({$vo['uid']})</td>
+										</tr>
+										<tr>
+											<td>评论时间 : {:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+											<td>获赞数:{$vo['likes']}</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+							
+						</tr>
+					</foreach>
+					
+				</tbody>
+			</table>
+
+			<else />
+				<table style="border: none;width: 100%;">
+					<tbody>
+						<tr>
+							<td style="border: none;height: 50px;line-height: 50px;text-align: center;">暂无评论数据~</td>
+						</tr>
+					</tbody>
+				</table>
+			</if>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

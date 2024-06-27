@@ -1,0 +1,56 @@
+<include file="public@header"/>
+<style type="text/css">
+	.green_tips{
+		color: green;
+	}
+	.red_tips{
+		color: red;
+	}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_VIDEOCLASS_INDEX_CLASSIFY_LIST')}</a></li>
+			<li><a href="{:url('Videoclass/add')}">{:lang('ADMIN_VIDEOCLASS_INDEX_ADD_CLASSIFY')}</a></li>
+		</ul>
+		<form method="post" class="js-ajax-form margin-top-20" action="{:url('Videoclass/listordersset')}">
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit">{:lang('SORT')}</button>
+			</div>
+		
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('SORT')}</th>
+						<th align="center">{:lang('ID')}</th>
+						<th>{:lang('ADMIN_VIDEOCLASS_INDEX_TITLE')}</th>
+						<th>{:lang('DISPLAY_FLAG')}</th>
+						<th>{:lang('PUBLISH_TIME')}</th>
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+					   <td><input name="listorders[{$vo['id']}]" type="text" size="3" value="{$vo['orderno']}" class="input input-order"></td>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo['title']}</td>
+						<td><if condition="$vo.status eq 1"><span class="green_tips">√</span><else /><span class="red_tips">×</span></if></td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td align="center">	
+							<a class="btn btn-xs btn-primary" href="{:url('Videoclass/edit',array('id'=>$vo['id']))}" >{:lang('EDIT')}</a>
+							<a href="{:url('Videoclass/del',array('id'=>$vo['id']))}" class="btn btn-xs btn-danger js-ajax-delete" data-msg="{:lang('DELETE_CONFIRM_MESSAGE')}">{:lang('DELETE')}</a>
+
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

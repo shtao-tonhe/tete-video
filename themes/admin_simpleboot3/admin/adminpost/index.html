@@ -1,0 +1,119 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('Adminpost/index')}">{:lang('ADMIN_ADMINPOST_ADD_WENZAHNGGUANLI')}</a></li>
+			<li><a href="{:url('Adminpost/add')}">{:lang('ADMIN_ADMINPOST_ADD_ADDWENZ')}</a></li>
+		</ul>
+        <form class="well form-inline margin-top-20" method="post" action="{:url('Adminpost/index')}">
+			{:lang('ADMIN_ADMINPOST_INDEX_CLASS')}
+			<select name="termid" class="form-control" style="width: 150px;">
+				<option value=""> {:lang('ALL')}</option>
+				<volist name="terms_list" id="vo">
+					<option value="{$vo['id']}" <if condition="$_GET['termid'] eq  $vo['id']"> selected</if>>{$vo['name']}</option>
+				</volist>
+			</select>&nbsp;&nbsp;
+			{:lang('ADMIN_ADMINPOST_INDEX_BOOKID')}
+            <input type="text" class="form-control" name="id" style="width: 200px;" value="{$_GET['id']}" placeholder="{:lang('ADMIN_ADMINPOST_INDEX_SHURUWENZID')}" oninput = "value=value.replace(/[^\d]/g,'')">&nbsp;&nbsp;
+			{:lang('KEYWORD')}：
+            <input type="text" class="form-control" name="keyword" style="width: 200px;" value="{$_GET['keyword']}" placeholder="{:lang('ADMIN_ADMINPOST_INDEX_BIAOTIGUANJIANZI')}">
+            <input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}" />
+            <a class="btn btn-danger" href="{:url('Adminpost/index')}">{:lang('CLEAN')}</a>
+        </form>
+		<form class="js-ajax-form" action="" method="post">
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" data-action="{:url('Adminpost/listordersset')}" type="submit">{:lang('SORT')}</button>
+				
+				<!--<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:url('Adminpost/check',array('check'=>1))}" data-subcheck="true">审核</button>
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:url('Adminpost/check',array('check'=>0))}" data-subcheck="true">取消审核</button>
+				
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:url('Adminpost/tops',array('top'=>1))}" data-subcheck="true">置顶</button>
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:url('Adminpost/tops',array('top'=>0))}" data-subcheck="true">取消置顶</button>-->
+				<button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:url('Adminpost/deletes')}" data-subcheck="true" data-msg="您确定删除吗？">{:lang('DELETE')}</button>
+				
+				
+		
+			</div>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th>{:lang('NUMBER')}</th>
+						<th width="50">{:lang('ID')}</th>
+						<th>{:lang('TITLE')}</th>
+						<th> {:lang('ADMIN_ADMINPOST_INDEX_DIZHI')}</th>
+						<th>{:lang('ADMIN_ADMINPAGE_INDEX_ANTHOR')}</th>
+						<th>{:lang('ADMIN_ADMINPOST_INDEX_CLASS')}</th>
+						<!-- <th>点击量</th> -->
+						<!-- <th>关键字/来源/摘要/缩略图</th> -->
+						<!-- <th>相关阅读</th> -->
+						<th>{:lang('PUBLISH_TIME')}</th>
+						<!-- <th>状态</th> -->
+						<th width="140">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="posts" item="vo">
+					<tr>
+						<td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}" title="ID:{$vo.id}"></td>
+						<td><input name="listordersset[{$vo['id']}]" type="text" size="3" value="{$vo['orderno']}" class="input input-order"></td>
+						<td><b>{$vo.id}</b></td>
+						<td>{$vo.post_title}</td>
+						<td><a href="{$site}/Appapi/page/news?id={$vo.id}" target="_blank">{$site}/Appapi/page/news?id={$vo.id}</a></td>
+						<td>{$vo['userinfo']['user_nicename']}</td>
+						<td>{$vo['termsinfo']['name']}</td>
+						<!-- <td>{$vo.post_hits}</td>
+						<td>
+							<notempty name="vo.post_keywords">
+								<i class="fa fa-check fa-fw"></i>
+							<else/>
+								<i class="fa fa-close fa-fw"></i> 
+							</notempty>
+							<notempty name="vo.post_source">
+								<i class="fa fa-check fa-fw"></i>
+							<else/>
+								<i class="fa fa-close fa-fw"></i> 
+							</notempty>
+							<notempty name="vo.post_excerpt">
+								<i class="fa fa-check fa-fw"></i>
+							<else/>
+								<i class="fa fa-close fa-fw"></i> 
+							</notempty>
+							
+							<notempty name="vo.smeta">
+								<a onclick="image_preview_dialog('{:cmf_get_image_url($vo.smeta)}');">
+									<i class="fa fa-photo fa-fw"></i>
+								</a>
+							</notempty>
+						</td>
+						<td>{$vo['post_relevant']}</td> -->
+						<td>{:date('Y-m-d H:i:s',$vo['post_date'])}</td>
+						
+						<!--<td>
+							<notempty name="vo.post_status">
+								<a data-toggle="tooltip" title="已审核"><i class="fa fa-check"></i></a>
+								<else/>
+								<a data-toggle="tooltip" title="未审核"><i class="fa fa-close"></i></a>
+							</notempty>
+
+							<notempty name="vo.istop">
+								<a data-toggle="tooltip" title="已置顶"><i class="fa fa-arrow-up"></i></a>
+								<else />
+								<a data-toggle="tooltip" title="未置顶"><i class="fa fa-arrow-down"></i></a>
+							</notempty>
+						</td>-->
+						<td>
+							<a class="btn btn-xs btn-primary" href="{:url('Adminpost/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+							<a class="btn btn-xs btn-danger js-ajax-delete" class="" href="{:url('Adminpost/del',array('id'=>$vo['id']))}" data-msg="{:lang('ADMIN_GIFT_INDEX_SURE_DELETE')}">{:lang('DELETE')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

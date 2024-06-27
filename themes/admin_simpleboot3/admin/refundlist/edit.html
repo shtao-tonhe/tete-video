@@ -1,0 +1,170 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Refundlist/index')}">{:lang('ADMIN_REFUNDLIST_INDEX_LIST')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Refundlist/edit_post')}">
+            
+            
+            <div class="form-group">
+				<label for="input-orderid" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_ORDERID')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-orderid" name="orderid" value="{$data['orderid']}" readonly="readonly">
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-orderno" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_CODE')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-orderno" value="{$data['orderno']}" readonly="readonly">
+				</div>
+			</div>
+
+            <div class="form-group">
+                <label for="input-user_nicename" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_MAIJIAXINX')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-user_nicename" value="{$data['buyer_info']['user_nicename']}（{$data['uid']}）" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-buyer_phone" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_LAIXIFANGSHI')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-buyer_phone" value="{$data['phone']}" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-seller_user_nicename" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_SHANGJIAXINX')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-seller_user_nicename" value="{$data['seller_info']['user_nicename']}（{$data['shop_uid']}）" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-reason" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_TUIKREASON')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-reason" value="{$data['reason']}" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-content" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_TUIKSHUOM')}</label>
+                <div class="col-md-6 col-sm-10">
+                    
+                    <textarea readonly="readonly" style="width: 100%;min-height: 100px;">{$data['content']}</textarea>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="input-type" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_TUIKLEIX')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-type" value="{$type[$data['type']]}" readonly="readonly">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="input-addtime" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_SHENQSHIJ')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-addtime" value="{:date('Y-m-d H:i',$data['addtime'])}" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-shop_result" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_DIANPCHULIJIEGUO')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-shop_result" value="{$shop_result[$data['shop_result']]}" readonly="readonly">
+                </div>
+            </div>
+
+            <if condition="$data['shop_process_time'] gt 0">
+                <div class="form-group">
+                    <label for="input-shop_process_time" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_CHULITIME')}</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-shop_process_time" value="{:date('Y-m-d H:i',$data['shop_process_time'])}" readonly="readonly">
+                    </div>
+                </div>
+            </if>
+
+            <if condition="$data['shop_process_num'] gt 0">
+                <div class="form-group">
+                    <label for="input-shop_process_num" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_BOHUICISHU')}</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-shop_process_num" value="{$data['shop_process_num']}" readonly="readonly">
+                    </div>
+                </div>
+            </if>
+
+            
+            <div class="form-group">
+                <label for="input-is_platform_interpose" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_PINGTAIJIERU')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-is_platform_interpose" <if condition="$data['is_platform_interpose'] eq 1"> value="是" <else />value="否"</if> readonly="readonly">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="input-platform_interpose_reason" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_LIYOU')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-platform_interpose_reason" value="{$data['platform_interpose_reason']}" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-platform_interpose_desc" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_SHUOM')}</label>
+                <div class="col-md-6 col-sm-10">
+                    
+                    <textarea readonly="readonly" style="width: 100%;min-height: 100px;">{$data['platform_interpose_desc']}</textarea>
+                </div>
+            </div>
+
+            <if condition="$data['platform_interpose_thumb'] neq ''">
+                <div class="form-group">
+                    <label for="input-platform_interpose_reason" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_TUP')}</label>
+                    <div class="col-md-6 col-sm-10">
+                        <img src="{$data['platform_interpose_thumb']}" width="200" class="imgtip">
+                    </div>
+                </div>
+            </if>
+
+            <div class="form-group">
+                <label for="input-platform_result" class="col-sm-2 control-label"><span class="form-required">*</span>:lang('ADMIN_REFUNDLIST_INDEX_JIEGUO')}</label>
+                <div class="col-md-6 col-sm-10" id="platform_result">
+
+                    <if condition="$data['platform_result'] neq 0">
+                        <label class="radio-inline"><input type="radio" name="platform_result" value="0" <if condition="$data['platform_result'] eq -1">checked="checked"</if>>{:lang('ADMIN_REFUNDLIST_INDEX_JUJUE')}</label>
+                        <label class="radio-inline"><input type="radio" name="platform_result" value="1" <if condition="$data['platform_result'] eq 1">checked="checked"</if>>{:lang('ADMIN_REFUNDLIST_INDEX_TONYI')}</label>
+                    <else />
+                        <label class="radio-inline"><input type="radio" name="platform_result" value="0">{:lang('ADMIN_REFUNDLIST_INDEX_JUJUE')}</label>
+                        <label class="radio-inline"><input type="radio" name="platform_result" value="1" checked="checked">{:lang('ADMIN_REFUNDLIST_INDEX_TONYI')}</label>
+                    </if>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-content" class="col-sm-2 control-label"><span class="form-required">*</span> {:lang('ADMIN_REFUNDLIST_INDEX_YIJIAN')}</label>
+                <div class="col-md-6 col-sm-10">
+                    
+                    <textarea name="desc" style="width: 100%;min-height: 100px;" maxlength="300" placeholder="{:lang('ADMIN_REFUNDLIST_INDEX_SHURUYIJIAN')}">{$data['platform_handle_desc']}</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="hidden" name="id" value="{$data.id}" />
+                    <if condition="$data['platform_result'] eq 0">
+					   <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+                    </if>
+					<a class="btn btn-default" href="{:url('Refundlist/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+    
+</body>
+</html>

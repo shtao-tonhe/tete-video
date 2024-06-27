@@ -1,0 +1,76 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_SHOPCATEGORY_INDEX_LIST')}</a></li>
+
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Shopcategory/index')}">
+			{:lang('CHECK_STATUS')}
+			<select class="form-control" name="status">
+				<option value="">{:lang('ALL')}</option>
+				<option value="0" <if condition="input('request.status') eq '0'">selected</if> >{:lang('UNHANDLE')}	</option>
+				<option value="1" <if condition="input('request.status') eq '1'">selected</if>>{:lang('ADMIN_CASH_INDEX_WITHDRAWAL_SUCCEED')}	</option>
+				<option value="2" <if condition="input('request.status') eq '2'">selected</if>>{:lang('ADMIN_CASH_INDEX_REFUSE_WITHDRAWAL')}	</option>
+
+			</select>
+			{:lang('SUBMIT_TIME')}
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" autocomplete="off" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;"> - 
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" autocomplete="off" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;">
+			{:lang('ADMIN_SHOPCATEGORY_INDEX_USERID')}
+            <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                   placeholder="{:lang('ADMIN_REPORT_INDEX_QINGSHURUHUIYUANID')}">
+			
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Shopcategory/index')}"> {:lang('CLEAN')}</a>
+		</form>				
+		<form method="post" class="js-ajax-form" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ID')}</th>
+						<th> {:lang('ADMIN_SHOPCATEGORY_INDEX_HUIYUANID')}</th>
+						<th>{:lang('ADMIN_SHOPCATEGORY_INDEX_JINGYLEIMU')}</th>
+						<th>{:lang('CHECK_STATUS')}</th>
+						<th>{:lang('SUBMIT_TIME')}</th>
+						<th>{:lang('HANDLE_TIME')}</th>
+						<th>{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo['userinfo']['user_nicename']} ({$vo.uid})</td>
+						<td>{$vo['classname']}</td>
+						<td>{$status[$vo['status']]}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td>
+						 <if condition="$vo['status'] eq '0'" >
+						    {:lang('PENDING')}
+						 <else/>
+						 	<if condition="$vo['uptime'] neq '0'">
+                             {:date('Y-m-d H:i:s',$vo['uptime'])}
+						    <else />
+						    --
+							</if>
+						 </if>						
+						 </td>
+						<td>
+							<if condition="$vo['status'] neq '1'" >
+                            <a class="btn btn-xs btn-primary" href='{:url("Shopcategory/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a>
+							<a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Shopcategory/del',array('id'=>$vo['id']))}" data-msg="{:lang('ADMIN_GIFT_INDEX_SURE_DELETE')}">{:lang('DELETE')}</a>
+							</if>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

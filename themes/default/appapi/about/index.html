@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="telephone=no" name="format-detection">
+    <title>关于{$site_info.sitename|default=''}</title>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/appapi/about/css/about.css?t={$time}">
+
+</head>
+<body>
+    <div class="icon_area">
+        <img src="/icon.png">
+    </div>
+    <div class="edition">版本号 {$version}</div>
+    <ul class="artice_list">
+        <foreach name="list" item="vo">
+            <a href="{:url('appapi/page/news',['id'=>$vo['id']])}">
+                <li>{$vo['post_title']}</li>
+            </a> 
+        </foreach>
+        <a href="{:url('appapi/page/questions')}">
+            <li>{$name}</li>
+        </a>
+        <a href="{:url('appapi/service/index',['ios'=>$ios])}">
+            <li>联系客服</li>
+        </a>
+		<a href="{:url('appapi/feedback/index',['uid'=>$uid,'token'=>$token,'version'=>$version,'model'=>$device])}">
+            <li>我要反馈</li>
+        </a>
+
+    </ul>
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/appapi/about/js/about.js?t={$time}"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+</body>
+</html>

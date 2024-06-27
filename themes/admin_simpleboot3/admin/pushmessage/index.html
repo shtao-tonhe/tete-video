@@ -1,0 +1,201 @@
+<include file="public@header"/>
+<style>
+.table img{
+	max-width:100px;
+	max-height:100px;
+}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_PUSHMESSAGE_DEFAULT')}</a></li>
+			<li><a href="{:url('Pushmessage/add')}">{:lang('ADMIN_PUSHMESSAGE_ADD')}</a></li>
+		</ul>
+
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Pushmessage/index')}">
+			{:lang('KEYWORD')}：
+			 <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="{:lang('ADMIN_PUSHMESSAGE_INDEX_BIAOTINEIRONG')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}"/>
+			<a class="btn btn-danger" href="{:url('Admin/Pushmessage/index')}">{:lang('CLEAN')}</a>
+		</form>		
+		
+		<form method="post" class="js-ajax-form">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">ID</th>
+						<th>{:lang('TITLE')}</th>
+						<th>{:lang('ADMIN_PUSHMESSAGE_INDEX_JIANJIE')}</th>
+						<th>{:lang('TYPE')}</th>
+						<th>{:lang('ADMIN_PUSHMESSAGE_INDEX_LIANJIE')}</th>
+						<th>{:lang('ADMIN_PUSHMESSAGE_INDEX_TUISONGZHE')}</th>
+						<th>{:lang('ADMIN_PUSHMESSAGE_INDEX_TUISONGIP')}</th>
+						<th>{:lang('ADMIN_PUSHMESSAGE_INDEX_TUISONG_TIME')}</th>
+						
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<php>$url_type=array("1"=>"{:lang('ADMIN_PUSHMESSAGE_INDEX_PUTONGNEIRONG')}","2"=>"{:lang('ADMIN_PUSHMESSAGE_ADD_WAIBU_LIANJIE')}");</php>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td align="center">{$vo.id}</td>
+						<td style="max-width: 200px;">{$vo['title']}</td>
+						<td style="max-width: 200px;">{$vo['synopsis']}</td>
+						<td>{$url_type[$vo['type']]}</td>
+						<td>
+							<if condition="$vo['type'] eq '1'">
+								<a href="/Appapi/Message/msginfo.html&id={$vo['id']}" target="_blank">/Appapi/Message/msginfo.html&id={$vo['id']}</a>
+							<else/>
+								<a href="{$vo['url']}" target="_blank">{$vo['url']}</a>
+							</if>
+						</td>
+						<td>{$vo['admin']}</td>
+						<td>{$vo['ip']}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						
+						<td align="center">							
+							<a class="btn btn-xs btn-primary" onclick="push({$vo['id']})" >{:lang('ADMIN_PUSHMESSAGE_INDEX_TUISONG')}</a>
+							<a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('pushmessage/del',array('id'=>$vo['id']))}" data-msg="{:lang('ARE_SURE_WANT_DELETE')}">{:lang('DELETE')}</a>
+						</td>
+						
+						
+						
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script src="__STATIC__/layer/layer.js"></script>
+
+
+	<script type="text/javascript">
+
+		var count={$count};
+		var lastid=0;
+		var res=0;
+
+
+		function push(id){
+			layer.confirm('{:lang(\'ADMIN_PUSHMESSAGE_INDEX_QUEDING_TUISONG\')}', {
+			  btn: ['{:lang(\'OK\')}','{:lang(\'CANCEL\')}'] //按钮
+			}, function(){
+			  
+				if(id==""){
+					layer.msg("{:lang('ADMIN_PUSHMESSAGE_TUISONGXIAOXISHIBAI')}");
+					return;
+				}
+
+				layer.closeAll('dialog');
+
+				$.ajax({
+					url: '/admin/pushmessage/push_return',
+					type: 'POST',
+					dataType: 'json',
+					data: {id: id},
+					async:true,
+
+					beforeSend:function(){
+
+						layer.open({
+						  title:"{:lang('ADMIN_PUSHMESSAGE_TISHI')}",
+						  type: 1,
+						  skin: 'layui-layer-demo', //样式类名
+						  closeBtn: 0, //不显示关闭按钮
+						  anim: 2,
+						  area: ['300px', '150px'],
+						  shadeClose: true, //开启遮罩关闭
+						  content: "<div style='width:90%;padding:5%;'>{:lang('ADMIN_PUSHMESSAGE_TUISONGZHONG')}</div>"
+						});
+
+					},
+					success:function(data){
+
+						if(data.code!=0){
+							layer.msg(data.msg);
+							return;
+						}
+
+						//var count=data.info;
+
+						var num=10; //每次查询推送人数
+
+						sendMsg(lastid,num,id,count);
+
+						if(res==-1){
+							layer.msg("{:lang('ADMIN_PUSHMESSAGE_XIAOXITUISONGSHIBAI')}",{time:1000},function(){
+								layer.closeAll('dialog');
+								location.reload();
+							});
+							
+							return;
+						}else{
+							layer.msg("{:lang('ADMIN_PUSHMESSAGE_TUISONGCHENG')}",{time:1000},function(){
+								layer.closeAll('dialog');
+								location.reload();
+							});
+						}
+
+						
+	
+					},
+					error:function(e){
+						console.log(e);
+						layer.msg("{:lang('ADMIN_PUSHMESSAGE_XIAOXITIANJIASHIBAI')}",{time:1000},function(){
+							layer.closeAll('dialog');
+							location.reload();
+						});
+				}
+				});
+				
+				
+				
+			}, function(){
+			  layer.closeAll();
+			});
+		}
+
+	/*发送信息*/
+	function sendMsg(lastid,num,msgid,count){
+
+		$.ajax({
+
+			url: '/admin/pushmessage/push',
+			type: 'POST',
+			dataType: 'json',
+			data: {lastid:lastid,num:num,msgid:msgid},
+			async:false,
+			
+			success:function(data){
+
+				if(data.code!=0){
+					res=-1;
+					return;
+				}
+
+				count=count-num;
+				lastid=data.info;
+
+				if(count>0){
+					sendMsg(lastid,num,msgid,count);
+				}
+				
+			},
+			error:function(e){
+				console.log(e);
+				res=-1;
+				return;
+			}
+		});
+	}
+		
+	</script>
+	
+</body>
+</html>

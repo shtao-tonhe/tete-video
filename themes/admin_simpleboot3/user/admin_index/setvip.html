@@ -1,0 +1,41 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('user/adminIndex/index')}">{:lang('USER_INDEXADMIN_INDEX')}</a></li>
+			<li class="active"><a >{:lang('USER_ADMIN_SET_VIP')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('user/adminIndex/setvip_post')}">
+        	
+        	<input type="hidden" name="id" value="{$data['id']}">
+            <div class="form-group">
+				<label for="input-userid" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_USER_ID')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-userid" value="{$data['user_nicename']}({$data['id']})" readonly="readonly" style="width: 200px;">
+				</div>
+			</div>
+            
+            
+            
+            <div class="form-group">
+				<label for="input-vip_endtime" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EXPIRATION_TIME')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="js-bootstrap-date form-control" id="input-vip_endtime" style="width:200px;" name="vip_endtime" <if condition="$data['vip_endtime']">value="{:date('Y-m-d',$data['vip_endtime'])}"<else />value=''</if> autocomplete="off">
+					<p class="help-block">{:lang('USER_ADMIN_TO_CHOICEDATE_TFHOUR')}</p>
+				</div>
+			</div>
+			
+            <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+					<a class="btn btn-default" href="{:url('user/adminIndex/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	
+</body>
+</html>

@@ -1,0 +1,55 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Liveing/index')}">{:lang('ADMIN_LIVE_INDEX')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Liveing/edit_post')}">
+		   
+			<fieldset>				
+				
+				<div class="form-group" id="liveclass">
+					<label for="input-type" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_LIVEING_LIVELIST_ZHIBO_FENLEI')}</label>
+					<div class="col-md-6 col-sm-10">
+	                    <select class="form-control" name="liveclassid">
+	                    	<option value="0" <eq name="live['liveclassid']" value="0">selected</eq>>{:lang('ADMIN_LIVEING_ADDSP_MORENG_FENLEI')}</option>
+	                        <volist name="liveclass" id="v">
+	                        <option value="{$key}" <if condition="$live['liveclassid'] gt 0 and $live['liveclassid'] eq $key">selected</if>>{$v}</option>
+	                        </volist>
+	                    </select>
+					</div>
+				</div>
+
+				<div class="form-group" >
+					<label for="input-uid" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_LIVEING_ADDSP_YONGHUID')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-uid"  name="uid" value="{$live['uid']}" readonly="readonly" />
+					</div>
+				</div>
+			
+				<div class="form-group" >
+					<label for="input-pull" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_LIVEING_ADDSP_SHIPINGID')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-pull" placeholder="{:lang('FILL_IN_THE_VIDEO_ADDRESS')}"  name="pull" value="{$live['pull']}" />
+					</div>
+				</div>
+
+				
+				
+			</fieldset>
+	
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+					<a class="btn btn-default" href="{:url('Liveing/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

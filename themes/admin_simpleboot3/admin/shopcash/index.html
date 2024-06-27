@@ -1,0 +1,92 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a>{:lang('ADMIN_SHOPCASH_INDEX_LIST')}</a></li>
+
+		</ul>
+		<form class="well form-inline margin-top-20" name="form1" method="post" action="">
+			{:lang('ADMIN_CASH_INDEX_ORDERCONDITION')}
+			<select class="form-control" name="status">
+				<option value="">{:lang('ALL')}</option>
+				<option value="0" <if condition="input('request.status') eq '0'">selected</if> >{:lang('UNHANDLE')}	</option>
+				<option value="1" <if condition="input('request.status') eq '1'">selected</if>>{:lang('ADMIN_CASH_INDEX_WITHDRAWAL_SUCCEED')}	</option>
+				<option value="2" <if condition="input('request.status') eq '2'">selected</if>>{:lang('ADMIN_CASH_INDEX_REFUSE_WITHDRAWAL')}	</option>
+
+			</select>
+			{:lang('SUBMIT_TIME')}:
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" autocomplete="off" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;"> - 
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" autocomplete="off" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;">
+
+			{:lang('ADMIN_CHARGE_INDEX_USERID')}
+            <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                   placeholder="{:lang('ADMIN_SHOPCASH_INDEX_SHURUUSERID')}">
+
+			{:lang('KEYWORD')}:
+            <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+                   placeholder="{:lang('ADMIN_SHOPCASH_INDEX_SHURUDINGDH')}">
+			<input type="button" class="btn btn-primary" value="{:lang('SEARCH')}" onclick="form1.action='{:url('Shopcash/index')}';form1.submit();"/>
+			<input type="button" class="btn btn-success" value="{:lang('EXPORT')}" onclick="form1.action='{:url('Shopcash/export')}';form1.submit();"/>
+			<a class="btn btn-danger" href="{:url('Shopcash/index')}">{:lang('CLEAN')}</a>
+			<div class="admin_main" style="margin-top:10px">
+				{:lang('ADMIN_CASH_INDEX_CURRENT_COST')}{$cash['total']}
+				<if condition="$cash['type'] eq '0'" >
+					{:lang('ADMIN_CASH_INDEX_SUCCEED_COST')}{$cash['success']}
+					{:lang('ADMIN_CASH_INDEX_WAIT_COST')}{$cash['fail']}
+				</if>
+			</div>
+		</form>	
+		
+		<form method="post" class="js-ajax-form" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ID')}</th>
+						<th>{:lang('ADMIN_SHOPCASH_INDEX_USERNAME')}</th>
+						<th>{:lang('ADMIN_SHOPCASH_INDEX_TIXIANJINGE')}</th>
+						<th>{:lang('ADMIN_SHOPCASH_INDEX_TIXIANZHANGHAO')}</th>
+						<th>{:lang('ADMIN_SHOPCASH_INDEX_THREEDINGDANH')}</th>
+						<th>{:lang('STATUS')}</th>
+						<th>{:lang('SUBMIT_TIME')}</th>
+						<th>{:lang('HANDLE_TIME')}</th>
+						<th>{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo['userinfo']['user_nicename']} ({$vo['uid']})</td>	
+						<td>{$vo['money']}</td>				
+						<td>
+                            {$type[$vo['type']]}<br>{$vo['name']}<br>{$vo['account']}<br>{$vo['account_bank']}
+                        </td>				
+						<td>{$vo['trade_no']}</td>
+						<td>{$status[$vo['status']]}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>						
+						<td>
+						 <if condition="$vo['status'] eq '0'" >
+						    --
+						 <else/>
+                             {:date('Y-m-d H:i:s',$vo['uptime'])}
+						 </if>						
+						 </td>
+						<td>	
+						<if condition="$vo['status'] eq '0'" >
+                        <a class="btn btn-xs btn-primary" href='{:url("Shopcash/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a>
+						 </if>
+                         
+                        <!-- <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Shopcash/del',array('id'=>$vo['id']))}">{:lang('DELETE')}</a> -->
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

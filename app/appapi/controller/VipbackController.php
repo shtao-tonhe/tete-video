@@ -1,0 +1,374 @@
+<?php
+// +----------------------------------------------------------------------
+// | ThinkCMF [ WE CAN DO IT MORE SIMPLE ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2013-2014 http://www.thinkcmf.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: Dean <zxxjjforever@163.com>
+// +----------------------------------------------------------------------
+
+namespace app\appapi\controller;
+use cmf\controller\HomeBaseController;
+use think\Db;
+use think\db\Query;
+/**
+ * 支付回调
+ */
+class VipbackController extends HomebaseController {
+	
+	private $wxDate = null;
+	//支付宝 回调
+	public function notify_ali() {
+
+		$configpri=getConfigPri();
+		require_once(CMF_ROOT."sdk/alipay/alipay_app/alipay.config.php");
+        $alipay_config['partner']	= $configpri['aliapp_partner'];
+		require_once(CMF_ROOT."sdk/alipay/alipay_app/lib/alipay_core.function.php");
+		require_once(CMF_ROOT."sdk/alipay/alipay_app/lib/alipay_rsa.function.php");
+		require_once(CMF_ROOT."sdk/alipay/alipay_app/lib/alipay_notify.class.php");
+
+		//计算得出通知验证结果
+		$alipayNotify = new \AlipayNotify($alipay_config);
+		$verify_result = $alipayNotify->verifyNotify();
+
+		$this->logali_vip("ali_data:".json_encode($_POST));
+		if($verify_result) {//验证成功
+			//商户订单号
+			$out_trade_no = $_POST['out_trade_no'];
+			//支付宝交易号
+			$trade_no = $_POST['trade_no'];
+			//交易状态
+			$trade_status = $_POST['trade_status'];
+			
+			//交易金额
+			$total_fee = $_POST['total_fee'];
+			
+			if($_POST['trade_status'] == 'TRADE_FINISHED') {
+				//判断该笔订单是否在商户网站中已经做过处理
+				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
+				//如果有做过处理，不执行商户的业务程序
+					
+				//注意：
+				//退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
+				//请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
+
+				//调试用，写文本函数记录程序运行情况是否正常
+				//logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
+		
+			}else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
+				//判断该笔订单是否在商户网站中已经做过处理
+				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
+				//如果有做过处理，不执行商户的业务程序
+					
+				//注意：
+				//付款完成后，支付宝系统发送该交易状态通知
+				//请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
+
+				//调试用，写文本函数记录程序运行情况是否正常
+				//logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
+	
+				$orderinfo=Db::name("user_vip_charge")->where("orderno='{$out_trade_no}' and money='{$total_fee}' and status='0' and type='1'")->find();	
+				$this->logali_vip("orderinfo:".json_encode($orderinfo));
+
+				if($orderinfo){
+
+					$now=time();
+					//更新用户vip信息
+
+					$vipinfo=getUserVipInfo($orderinfo['touid']);
+					$days=$orderinfo['days']*24*60*60;
+
+					if($vipinfo['isvip']==0){ //用户不是vip
+
+						$endtime=$now+$days;
+
+					}else{
+
+						$endtime=Db::name("user")->where("id='{$orderinfo['touid']}'")->value("vip_endtime");
+						$endtime=$endtime+$days;
+
+					}
+
+					//更新用户vip信息
+					Db::name("user")->where("id='{$orderinfo['touid']}'")->update(array("vip_endtime"=>$endtime));
+
+					// 更新订单状态
+					Db::name("user_vip_charge")->where("id='{$orderinfo['id']}'")->update(array("status"=>1,"trade_no"=>$trade_no));
+
+					$this->logali_vip("成功");
+					echo "success";		//请不要修改或删除
+					exit;
+				}else{
+					$this->logali_vip("orderno:".$out_trade_no.' 订单信息不存在');		
+				}											
+			}
+			//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
+
+			echo "fail";		//请不要修改或删除
+			
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		}else {
+			$this->logali_vip("验证失败");		
+			//验证失败
+			echo "fail";
+
+			//调试用，写文本函数记录程序运行情况是否正常
+			//logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
+		}			
+		
+	}
+	/* 支付宝支付 */
+	
+	/* 微信支付 */		
+	public function notify_wx(){
+		$config=getConfigPri();
+
+		//$xmlInfo = $GLOBALS['HTTP_RAW_POST_DATA'];
+
+		$xmlInfo=file_get_contents("php://input"); 
+
+		//解析xml
+		$arrayInfo = $this -> xmlToArray($xmlInfo);
+		$this -> wxDate = $arrayInfo;
+		//$this -> logawx_vip("wx_data:".json_encode($arrayInfo));//log打印保存
+		if($arrayInfo['return_code'] == "SUCCESS"){
+			// if($return_msg != null){
+			// 	echo $this -> returnInfo("FAIL","签名失败");
+			// 	$this -> logawx_vip("签名失败:".$sign);//log打印保存
+			// 	exit;
+			// }else{
+				$wxSign = $arrayInfo['sign'];
+				unset($arrayInfo['sign']);
+				$arrayInfo['appid']  =  $config['wx_appid'];
+				$arrayInfo['mch_id'] =  $config['wx_mchid'];
+				$key =  $config['wx_key'];
+				ksort($arrayInfo);//按照字典排序参数数组
+				$sign = $this -> sign($arrayInfo,$key);//生成签名
+				$this -> logawx_vip("数据打印测试签名signmy:".$sign.":::微信sign:".$wxSign);//log打印保存
+				if($this -> checkSign($wxSign,$sign)){
+					echo $this -> returnInfo("SUCCESS","OK");
+					$this -> logawx_vip("签名验证结果成功:".$sign);//log打印保存
+					$this -> orderServer();//订单处理业务逻辑
+					exit;
+				}else{
+					echo $this -> returnInfo("FAIL","签名失败");
+					$this -> logawx_vip("签名验证结果失败:本地加密：".$sign.'：：：：：三方加密'.$wxSign);//log打印保存
+					exit;
+				}
+			//}
+		}else{
+			echo $this -> returnInfo("FAIL","签名失败");
+			$this -> logawx_vip($arrayInfo['return_code']);//log打印保存
+			exit;
+		}			
+	}
+	
+	private function returnInfo($type,$msg){
+		if($type == "SUCCESS"){
+			return $returnXml = "<xml><return_code><![CDATA[{$type}]]></return_code></xml>";
+		}else{
+			return $returnXml = "<xml><return_code><![CDATA[{$type}]]></return_code><return_msg><![CDATA[{$msg}]]></return_msg></xml>";
+		}
+	}		
+	
+	//签名验证
+	private function checkSign($sign1,$sign2){
+		return trim($sign1) == trim($sign2);
+	}
+	/* 订单查询加值业务处理
+	 * @param orderNum 订单号	   
+	 */
+	private function orderServer(){
+		$info = $this -> wxDate;
+		$this->logawx_vip("info:".json_encode($info));
+		$orderinfo=Db::name("user_vip_charge")->where("orderno='{$info['out_trade_no']}' and status='0' and type='2'")->find();
+		//$this->logawx_vip("sql:".M()->getLastSql());
+		$this->logawx_vip("orderinfo:".json_encode($orderinfo));
+		if($orderinfo){
+			
+			$now=time();
+
+			//更新用户vip信息
+			$vipinfo=getUserVipInfo($orderinfo['touid']);
+
+			$days=$orderinfo['days']*24*60*60;
+
+			if($vipinfo['isvip']==0){ //用户不是vip
+
+				$endtime=$now+$days;
+
+			}else{
+
+				$endtime=Db::name("user")->where("id='{$orderinfo['touid']}'")->value("vip_endtime");
+				$endtime=$endtime+$days;
+
+			}
+
+			//更新用户vip信息
+			Db::name("user")->where("id='{$orderinfo['touid']}'")->update(array("vip_endtime"=>$endtime));
+
+
+			/* 更新 订单状态 */
+			Db::name("user_vip_charge")->where("id='{$orderinfo['id']}'")->update(array("status"=>1,"trade_no"=>$info['transaction_id']));
+
+
+
+
+		}else{
+			$this->logawx_vip("orderno:".$out_trade_no.' 订单信息不存在');		
+			return false;
+		}		
+
+	}		
+	/**
+	* sign拼装获取
+	*/
+	private function sign($param,$key){
+		
+		$sign = "";
+		foreach($param as $k => $v){
+			$sign .= $k."=".$v."&";
+		}
+	
+		$sign .= "key=".$key;
+		$sign = strtoupper(md5($sign));
+		return $sign;
+	
+	}
+	/**
+	* xml转为数组
+	*/
+	private function xmlToArray($xmlStr){
+		$msg = array(); 
+		$postStr = $xmlStr; 
+		$msg = (array)simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA); 
+		return $msg;
+	}
+	
+	/* 微信支付 */
+
+	/* 苹果支付 */
+	
+	public function notify_ios(){
+		$content=file_get_contents("php://input");  
+		$data = json_decode($content,true);    
+		$receipt = $data["receipt-data"];     
+		$version_ios = $data["version_ios"];
+		$out_trade_no = $data["out_trade_no"];
+		$info = $this->getReceiptData($receipt, $version_ios);   
+		
+		$this->logios_vip("info:".json_encode($info));
+		
+		$iforderinfo=Db::name("user_vip_charge")->where("trade_no='{$info['transaction_id']}' and type='3'")->find();
+
+		if($iforderinfo){
+			echo '{"status":"fail","info":"非法提交-001"}';exit;
+		}
+
+		//判断订单是否存在
+		$orderinfo=Db::name("user_vip_charge")->where("orderno='{$out_trade_no}' and status='0' and type='3'")->find();
+		if($orderinfo){
+			
+			$now=time();
+
+			//更新用户vip信息
+			$vipinfo=getUserVipInfo($orderinfo['touid']);
+
+			$days=$orderinfo['days']*24*60*60;
+
+			if($vipinfo['isvip']==0){ //用户不是vip
+
+				$endtime=$now+$days;
+
+			}else{
+
+				$endtime=Db::name("user")->where("id='{$orderinfo['touid']}'")->value("vip_endtime");
+				$endtime=$endtime+$days;
+
+			}
+
+
+			//更新用户vip信息
+			Db::name("user")->where("id='{$orderinfo['touid']}'")->update(array("vip_endtime"=>$endtime));
+
+
+			/* 更新 订单状态 */
+			Db::name("user_vip_charge")->where("id='{$orderinfo['id']}'")->update(array("status"=>1,"trade_no"=>$info['transaction_id']));
+
+		}else{
+			$this->logios_vip("orderno:".$out_trade_no.' 订单信息不存在');
+			echo '{"status":"fail","info":"订单信息不存在-003"}'; 		
+			exit();
+		}
+		echo '{"status":"success","info":"充值支付成功"}';
+		exit;
+	}		
+	public function getReceiptData($receipt, $version_ios){ 
+		$config=getConfigPub();
+		if ($version_ios == $config['ios_shelves']) {
+			//沙盒
+			$endpoint = 'https://sandbox.itunes.apple.com/verifyReceipt';
+		}else {  
+			//生产
+			$endpoint = 'https://buy.itunes.apple.com/verifyReceipt'; 
+		}   
+
+		$postData = json_encode(   
+				array('receipt-data' => $receipt)   
+		);   
+
+		$ch = curl_init($endpoint);
+
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);	//关闭安全验证
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);  	//关闭安全验证
+		curl_setopt($ch, CURLOPT_POST, true);   
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);   
+
+		$response = curl_exec($ch);   
+		$errno    = curl_errno($ch);   
+		$errmsg   = curl_error($ch);   
+		curl_close($ch);   
+
+		if($errno != 0) {   
+			echo '{"status":"fail","info":"服务器出错，请联系管理员"}';
+			exit;
+		}   
+		$data = json_decode($response,1);   
+
+		if (!is_array($data)) {   
+			
+			echo '{"status":"fail","info":"验证失败,如有疑问请联系管理"}';
+			exit;
+		}   
+
+		if (!isset($data['status']) || $data['status'] != 0) { 
+			echo '{"status":"fail","info":"验证失败,如有疑问请联系管理"}';
+			exit;
+		}   
+
+		return array(     
+			'product_id'     =>  $data['receipt']['in_app'][0]['product_id'],   
+			'transaction_id' =>  $data['receipt']['in_app'][0]['transaction_id'],   
+		);  
+	}   
+		
+	/* 苹果支付 */	
+			
+	/* 打印log */
+	public function logali_vip($msg){
+		file_put_contents(CMF_ROOT.'data/log/vipback/logali_vip'.date('Y-m-d').'.txt',date('y-m-d h:i:s').'  msg:'.$msg."\r\n",FILE_APPEND);
+	}		
+	/* 打印log */
+	public function logawx_vip($msg){
+		file_put_contents(CMF_ROOT.'data/log/vipback/logwx_vip'.date('Y-m-d').'.txt',date('y-m-d h:i:s').'  msg:'.$msg."\r\n",FILE_APPEND);
+	}			
+	/* 打印log */
+	public function logios_vip($msg){
+
+		file_put_contents(CMF_ROOT.'data/log/vipback/logios_vip'.date('Y-m-d').'.txt',date('y-m-d h:i:s').'  msg:'.$msg."\r\n",FILE_APPEND);
+	}				
+
+}
+
+

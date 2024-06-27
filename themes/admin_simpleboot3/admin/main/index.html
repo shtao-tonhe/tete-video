@@ -1,0 +1,303 @@
+<include file="public@header" />
+<link href="__STATIC__/simpleboot/css/index.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<style>
+		.stay{
+			margin-bottom: 10px;
+		}
+		.stay li{
+			border: 1px solid rgb(204 204 204 / 25%);
+			padding: 5px 15px;
+			border-radius: 28px;
+			height: 38px;
+			font-size: 14px;
+			margin-right: 30px;
+			margin-top: 5px;
+			float: left;
+			background-color: rgb(204 204 204 / 25%);
+			color: rgb(0 0 0 / 84%);
+			
+		}
+		.stay li span{
+			color: #FEC444;
+			font-size: 16px;
+		}
+		.data{
+			width: 110px;
+			font-sie: 14px;
+			line-height: 1.42857143;
+			color: #333333;
+			background-color: #fff;
+			background-image: none;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+			box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+			-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+			-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+			transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+		}
+				
+	
+	</style>
+    <div class="content">
+        <div class="statistics basic">		
+            <div class="title">{:lang('ADMIN_INDEX_BASIC_INDICATOR')}
+                <div class="tips">
+                    <img src="__STATIC__/simpleboot/images/wenti.png">
+                    <div class="tips_bd">
+                        {:lang('ADMIN_INDEX_WEBSITE_OVERVIEW_USER_NUM')}
+                    </div>
+                </div>
+                <div class="bd_title">
+                    <input type="hidden" class="action" value='1'>
+                    <div class="data_select">
+                        <input type="text" name="start_time" class="js-bootstrap-date data" value="" autocomplete="off" placeholder="{:lang('START_TIME')}">-
+                        <input type="text" class="js-bootstrap-date data" name="end_time" value=""  autocomplete="off" placeholder="{:lang('END_TIME')}">
+                    </div>
+                    <div class="search">
+                        {:lang('INQUIRE')}
+                    </div>
+                    <div class="export">
+                        {:lang('EXPORT')}
+                    </div>
+                </div>
+            </div>
+            <div class="bd">
+                <div class="basic_list clear">
+                    <ul>
+                        <li class="newusers">
+                            <div class="basic_list_n"><span>{$basic_today['newUsers']}</span></div>
+                            <div class="basic_list_t">{:lang('ADMIN_INDEX_NEW_USERS')}</div>
+                        </li>
+                        <li class="launches">
+                            <div class="basic_list_n"><span>{$basic_today['launches']}</span></div>
+                            <div class="basic_list_t">{:lang('ADMIN_INDEX_NUMBERS_OF_START')}</div>
+                        </li>
+                        <li class="durations no">
+                            <div class="basic_list_n"><span>0</span>{:lang('ADMIN_SETTING_CONFIGPRI_MINUTE')}</div>
+                            <div class="basic_list_t">{:lang('ADMIN_INDEX_USAGE_DURATION')}</div>
+                        </li>
+                        <li class="activityusers">
+                            <div class="basic_list_n"><span>{$basic_today['activityUsers']}</span></div>
+                            <div class="basic_list_t">{:lang('ADMIN_INDEX_ACTIVE_USER')}</div>
+                        </li>
+                        
+                        <li class="users_total">
+                            <div class="basic_list_n"><span>{$users_total}</span></div>
+                            <div class="basic_list_t">{:lang('ADMIN_INDEX_TOTAL_REGISTRATION')}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+		
+		<div class="statistics basic">
+			<div class="title" >{:lang('ADMIN_INDEX_TO_DO_LIST')}
+                <div class="tips">
+                    <img src="__STATIC__/simpleboot/images/wenti.png">
+                    <div class="tips_bd">
+                        {:lang('ADMIN_INDEX_WEBSITE_OVERVIEW_SHOP')}
+                    </div>
+                </div>
+                
+            </div>
+			
+			<div class="bd">
+				<ul class="stay clear">
+					<a href="{:url('Shopapply/index')}"><li>{:lang('ADMIN_INDEX_MUN_OF_SHOPS')}( <span>{$stayinfo['shopapply_count']}</span> )</li></a>
+						
+					<a href="{:url('video/index')}"><li>{:lang('ADMIN_INDEX_NUM_OF_VIEDOS')}( <span>{$stayinfo['video_count']}</span> )</li></a>
+					
+					<a href="{:url('video/reportlist')}"><li>{:lang('ADMIN_INDEX_OF_VIDEO_REPORT')}( <span>{$stayinfo['videorepot_count']}</span> )</li></a>
+					
+					<a href="{:url('livereport/index')}"><li>{:lang('ADMIN_INDEX_NUM_OF_REPORT')}( <span>{$stayinfo['livereport_count']}</span> )</li></a>
+
+					<a href="{:url('userauth/index')}"><li>{:lang('ADMIN_INDEX_NUM_OF_USERS_BEVIEWED')}( <span>{$stayinfo['auth_count']}</span> )</li></a>
+					<li class="hide"></li>
+				
+				</ul>
+			</div>
+		</div>
+		
+		
+        <div class="statistics w50 mr10 source">
+            <div class="title">{:lang('ADMIN_INDEX_TERMINAL_RATIO')}
+                <div class="tips">
+                    <img src="__STATIC__/simpleboot/images/wenti.png">
+                    <div class="tips_bd">
+                        {:lang('ADMIN_INDEX_WEBSITE_OVERVIEW_VISITORS')}
+                    </div>
+                </div>
+            </div>
+            <div class="bd">
+                <div id="echarts_source" style="width:100%;height:300px;"></div>
+            </div>
+        </div>
+        <div class="statistics w50 reg">
+            <div class="title">{:lang('ADMIN_INDEX_LOGIN_CHANNEL')}
+                <div class="tips">
+                    <img src="__STATIC__/simpleboot/images/wenti.png">
+                    <div class="tips_bd">
+                        {:lang('ADMIN_INDEX_WEBSITE_OVERVIEW_LOGIN_CHANNEL')}
+                    </div>
+                </div>
+            </div>
+            <div class="bd">
+                <div id="echarts_reg" style="width:100%;height:300px;"></div>
+            </div>
+        </div>
+        
+        <div class="statistics clear source">
+            <div class="title">{:lang('ADMIN_INDEX_DAYS')}
+                <div class="tips">
+                    <img src="__STATIC__/simpleboot/images/wenti.png">
+                    <div class="tips_bd">
+                        {:lang('ADMIN_INDEX_WEBSITE_DAYS')}
+                    </div>
+                </div>
+                <div class="bd_title">
+                    <input type="hidden" class="action" value='2'>
+                    <div class="export">
+                        {:lang('EXPORT')}
+                    </div>
+                </div>
+            </div>
+            <div class="bd">
+                <div id="echarts_week" style="width:100%;height:300px;"></div>
+            </div>
+        </div>
+        
+        <div class="statistics clear source">
+            <div class="title">{:lang('ADMIN_INDEX_ADVERTISEMENT')}
+                <div class="tips">
+                    <img src="__STATIC__/simpleboot/images/wenti.png">
+                    <div class="tips_bd">
+                        {:lang('ADMIN_INDEX_WEBSITE_DECREASE')}
+                    </div>
+                </div>
+                <div class="bd_title">
+                    <input type="hidden" class="action" value='3'>
+                    <div class="data_select">
+                        <input type="text" name="start_time" class="js-bootstrap-date data" value="" autocomplete="off" placeholder="{:lang('START_TIME')}">-
+                        <input type="text" class="js-bootstrap-date data" name="end_time" value="" autocomplete="off" placeholder="{:lang('END_TIME')}">
+                    </div>
+                    <div class="search">
+                        {:lang('INQUIRE')}
+                    </div>
+                    <div class="export">
+                        {:lang('EXPORT')}
+                    </div>
+                </div>
+            </div>
+            <div class="bd">
+                <div id="echarts_ad" style="width:100%;height:300px;"></div>
+            </div>
+        </div>
+
+
+        <div class="statistics clear plat">
+                <div class="title">{:lang('ADMIN_INDEX_PLATFORM_DATA')}
+                <div class="tips">
+                    <img src="__STATIC__/simpleboot/images/wenti.png">
+                    <div class="tips_bd">
+                        {:lang('ADMIN_INDEX_WEBSITE_PLATFORM_DATA')}
+                    </div>
+                </div>
+            </div>
+            <div class="bd">
+                <ul>
+                    <li class="plat_li1">
+                        <div class="plat_l">
+                        </div>
+                        <div class="plat_r">
+                            <p class="plat_t">{:lang('ADMIN_INDEX_FOLLOWERS')}</p>
+                            <p>{$data_plat['fans']}</p>
+                        </div>
+                    </li>
+                    <li class="plat_li2">
+                        <div class="plat_l">
+                        </div>
+                        <div class="plat_r">
+                            <p class="plat_t">{:lang('ADMIN_INDEX_ALL_COMMENTS')}</p>
+                            <p>{$data_plat['commnets']}</p>
+                        </div>
+                    </li>
+                    
+                    <li class="plat_li7">
+                        <div class="plat_l">
+                        </div>
+                        <div class="plat_r">
+                            <p class="plat_t">{:lang('ADMIN_INDEX_NUM_VIDEOS')}</p>
+                            <p>{$data_plat['video_total']}</p>
+                        </div>
+                    </li>
+                    <li class=" no" style="border:none;">
+                    </li>
+                    <li class="plat_li4">
+                        <div class="plat_l">
+                        </div>
+                        <div class="plat_r">
+                            <p class="plat_t">{:lang('ADMIN_INDEX_LIKE')}</p>
+                            <p>{$data_plat['likes']}</p>
+                        </div>
+                    </li>
+                    <!-- <li class="plat_li5">
+                        <div class="plat_l">
+                        </div>
+                        <div class="plat_r">
+                            <p class="plat_t">近30天分享数</p>
+                            <p>{$data_plat['shares']}</p>
+                        </div>
+                    </li> -->
+                    <li class="plat_li6">
+                        <div class="plat_l">
+                        </div>
+                        <div class="plat_r">
+                            <p class="plat_t">{:lang('ADMIN_INDEX_INCREMENTS')}</p>
+                            <p>{$data_plat['attents']}</p>
+                        </div>
+                    </li>
+                    <li class="plat_li3">
+                        <div class="plat_l">
+                        </div>
+                        <div class="plat_r">
+                            <p class="plat_t">{:lang('ADMIN_INDEX_POSING_VIDEOS')}</p>
+                            <p>{$data_plat['release']}</p>
+                        </div>
+                    </li>
+                    <!-- <li class="plat_li8 no">
+                        <div class="plat_l">
+                        </div>
+                        <div class="plat_r">
+                            <p class="plat_t">近30天视频增量</p>
+                            <p>{$data_plat['video_add']}</p>
+                        </div>
+                    </li> -->
+                    <li class="plat_li9 no">
+                        <div class="plat_l">
+                        </div>
+                        <div class="plat_r">
+                            <p class="plat_t">{:lang('ADMIN_INDEX_NUM_COMMENTS')}</p>
+                            <p>{$data_plat['commnets_30']}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script src="__STATIC__/echarts/echarts.common.min.js"></script>
+    <script type="text/javascript">
+        var users_total='{$users_total}';
+        var data_source={$data_sourcej};
+        var data_type={$data_typej};
+        var data_week={$data_weekj};
+        var data_ad={$data_adj};
+    </script>
+    <script src="__STATIC__/simpleboot/admin_index.js"></script>
+</body>
+</html>

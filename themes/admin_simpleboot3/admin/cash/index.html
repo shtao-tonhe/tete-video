@@ -1,0 +1,100 @@
+<include file="public@header"/>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_CASH_INDEX_RECORD')}</a></li>
+
+		</ul>
+		<form class="well form-inline margin-top-20" name="form1" method="post" action="">
+			{:lang('ADMIN_CASH_INDEX_ORDERCONDITION')}
+			<select class="form-control" name="status" style="width: 200px;">
+				<option value="">{:lang('ALL')}	</option>
+				<option value="0" <if condition="input('request.status') eq '0'">selected</if> >{:lang('UNHANDLE')}	</option>
+				<option value="1" <if condition="input('request.status') eq '1'">selected</if>>{:lang('ADMIN_CASH_INDEX_WITHDRAWAL_SUCCEED')}	</option>
+				<option value="2" <if condition="input('request.status') eq '2'">selected</if>>{:lang('ADMIN_CASH_INDEX_REFUSE_WITHDRAWAL')}	</option>
+				
+			</select>&nbsp; &nbsp;
+
+			{:lang('SUBMIT_TIME')}:
+			<input type="text" name="start_time" class="js-bootstrap-date form-control" value="{:input('request.start_time')}" autocomplete="off" placeholder="{:lang('START_TIME')}">-
+			<input type="text" name="end_time" class="js-bootstrap-date form-control" value="{:input('request.end_time')}" autocomplete="off" placeholder="{:lang('END_TIME')}">&nbsp; &nbsp;
+
+
+			{:lang('KEYWORD')}：
+			<input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="{:lang('ADMIN_CASH_INDEX_VIPID')}">
+			
+			<input type="button" class="btn btn-primary" value="{:lang('SEARCH')}" onclick="form1.action='{:url('Cash/index')}';form1.submit();"/>
+			<a class="btn btn-danger" href="{:url('Admin/Cash/index')}">{:lang('CLEAN')}</a>
+			<input type="button" class="btn btn-success" value="{:lang('EXPORT')}" onclick="form1.action='{:url('Cash/export')}';form1.submit();"/>
+			<div class="admin_main">
+				<p>{:lang('ADMIN_CASH_INDEX_CURRENT_COST')}{$cash['total']}</p>
+				<if condition="$cash['type'] eq '0'" >
+					<p> {:lang('ADMIN_CASH_INDEX_WAIT_COST')}{$cash['wait']}</p>
+					<p> {:lang('ADMIN_CASH_INDEX_SUCCEED_COST')}{$cash['success']}</p>
+					<p> {:lang('ADMIN_CASH_INDEX_REFUSE_COST')}{$cash['fail']}</p>
+				</if>
+			</div>
+		</form>	
+		
+		<form method="post" class="js-ajax-form" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">{:lang('ID')}</th>
+						<th>{:lang('ADMIN_CASH_INDEX_ANCHOR_NAME')}</th>
+						<th>{:lang('ADMIN_CASH_INDEX_COIN')}</th>
+						<th>{:lang('ADMIN_CASH_INDEX_ACTUAL_AMOUNT')}</th>
+						<th>{:lang('ADMIN_CASH_INDEX_AMOUNT_NUMBER')}</th>
+						<th>{:lang('ADMIN_CASH_INDEX_USER_AMOUNT')}</th>
+						<th>{:lang('ADMIN_CASH_INDEX_PLATFORM_PUMPING')}</th>
+					<!-- 	<th>商户订单号</th> -->
+						<th>{:lang('ADMIN_CASH_INDEX_PAYMENT_ORDER')}</th>
+						<th>{:lang('STATUS')} </th>
+						<th>{:lang('SUBMIT_TIME')} </th>
+						<th>{:lang('HANDLE_TIME')}</th>
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<php>$status=array("0"=>"{:lang('UNHANDLE')}","1"=>"{:lang('ADMIN_CASH_INDEX_WITHDRAWAL_SUCCEED')}", "2"=>"{:lang('ADMIN_CASH_INDEX_REFUSE_COST')}");</php>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo['userinfo']['user_nicename']} ( {$vo['uid']} )</td>	
+						<td>{$vo['votes']}</td>
+						<td>{$vo['money']}</td>				
+						<td>
+                            {$type[$vo['type']]}<br>{$vo['name']}<br>{$vo['account']}<br>{$vo['account_bank']}
+                        </td>
+                        <td>{$vo['cash_money']}</td>
+                        <td>{$vo['cash_take']}</td>
+						<!-- <td>{$vo['orderno']}</td> -->
+						<td>{$vo['trade_no']}</td>
+						<td>{$status[$vo['status']]}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>						
+						<td>
+						 <if condition="$vo['status'] eq '0'" >
+							 {:lang('UNHANDLE')}
+						 <else/>
+						     {:date('Y-m-d H:i:s',$vo['uptime'])}
+						 </if>						
+						 </td>
+						<td align="center">	
+						<if condition="$vo['status'] eq '0'" >
+						    <a href="{:url('Cash/edit',array('id'=>$vo['id']))}" >{:lang('EDIT')}</a>
+						 </if>	
+							<!-- <a href="{:url('Cash/del',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="您确定要删除吗？">删除</a>  -->
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

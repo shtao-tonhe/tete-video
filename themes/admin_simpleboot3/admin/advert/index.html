@@ -1,0 +1,234 @@
+<include file="public@header"/>
+<style>
+.table img{
+	max-width:100px;
+	max-height:100px;
+}
+.textArea textarea{
+	width:90%;padding:3%;height:80%;margin:0 auto;margin-top:30px;
+	margin-left: 2%;
+}
+.textArea_btn{
+	text-align: right;
+	margin-top: 30px;
+}
+.textArea_btn input{
+	margin-right: 30px;
+}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_ADVERT_INDEX')}</a></li>
+		</ul>
+		
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Advert/index')}">
+			{:lang('KEYWORD')}：
+			<input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}" placeholder="{:lang('ADMIN_ADVERT_INDEX_HIUYUANID_GUANGGAOID')}">
+			<input class="form-control" type="text" name="keyword1" style="width: 200px;" value="{:input('request.keyword1')}" placeholder="{:lang('ADMIN_ADVERT_ADD_AD_TITLE')}">
+			<input class="form-control" type="text" name="keyword2" style="width: 200px;" value="{:input('request.keyword2')}" placeholder="{:lang('ADMIN_ADVERT_INDEX_YONGHUMINGCHENG')}">
+	
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}"/>
+			<a class="btn btn-danger" href="{:url('Admin/advert/index')}">{:lang('CLEAN')}</a>
+		</form>		
+		
+		<form method="post" class="js-ajax-form" action="{:url('Advert/listsorders')}">
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit">{:lang('SORT')}</button>
+			</div>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ADMIN_ADVERT_INDEX_QUANZHONG')}</th>
+						<th align="center">ID</th>
+						<th>{:lang('ADMIN_ADVERT_INDEX_VIP_NAME')}</th>
+						<th style="max-width: 300px;">{:lang('TITLE')}</th>
+						<th>{:lang('PIC')}</th>
+						<th>{:lang('ADMIN_ADVERT_INDEX_DIANZAN_NUMBER')}</th>
+						<th>{:lang('ADMIN_ADVERT_INDEX_PINGLUNSHU')}</th>
+						<th>{:lang('ADMIN_ADVERT_INDEX_FENXIANGSHU')}</th>
+						<th style="max-width: 200px;">{:lang('ADMIN_ADVERT_INDEX_WENZI_SHUOMING')}</th>
+						<th>{:lang('ADMIN_ADVERT_INDEX_GUANGGAO_LIANJIE')}</th>
+						<th>{:lang('ADMIN_ADVERT_ADD_DAOQI_TIME')}</th>
+						<!-- <th style="max-width: 250px;">视频地址</th> -->
+						<th>{:lang('PUBLISH_TIME')}</th>
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<foreach name="lists" item="vo">
+					<tr>
+						<td><input name="listorders[{$vo['id']}]" type="text" size="3" value="{$vo['orderno']}" class="input input-order"></td>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo['userinfo']['user_nicename']} ({$vo['uid']})</td>
+						<td style="max-width: 300px;">{$vo['title']}</td>
+						<td><img class="imgtip" src="{:get_upload_path($vo['thumb'])}" /></td>
+						<td>{$vo['likes']}</td>
+						<td>{$vo['comments']}</td>
+						<td>{$vo['shares']}</td>
+						<td>{$vo['ad_desc']}</td>
+						<td>{$vo['ad_url']}</td>
+						<td>{$vo['ad_endtime']}</td>
+						<!-- <td style="max-width: 250px;">{$vo['href']}</td> -->
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td align="center">
+							<a class="btn btn-xs btn-primary" href="javascript:void(0)" onclick="videoListen({$vo['id']})" >{:lang('ADMIN_ADVERT_INDEX_GUANGKAN')}</a>
+							<a class="btn btn-xs btn-primary" href="{:url('Advert/edit',array('id'=>$vo['id'],'from'=>'index'))}" >{:lang('EDIT')}</a>
+							<if condition="$vo['isdel'] eq '0'">
+							<a class="btn btn-xs btn-danger"  href="javascript:void (0)" onclick="xiajia({$vo['id']})" >{:lang('LOWER')}</a>
+							</if>
+							
+							<a class="btn btn-xs btn-primary" href="javascript:void (0)" onclick="commentlists({$vo['id']})" >{:lang('ADMIN_ADVERT_INDEX_PINGLNLIEBIAO')}</a>
+
+							<a class="btn btn-xs btn-danger" href="javascript:void (0)" onclick="del({$vo['id']})" >{:lang('DELETE')}</a>
+							
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script src="__STATIC__/layer/layer.js"></script>
+	<script type="text/javascript">
+
+		var xiajia_status=0;
+		var del_status=0;
+
+		function xiajia(id){
+			var p={$p};
+
+			layer.open({
+			  type: 1,
+			  title:"{:lang('ADMIN_ADVERT_INDEX_SURE_XIAJIAGUANGGAO')}",
+			  skin: 'layui-layer-rim', //加上边框
+			  area: ['30%', '30%'], //宽高
+			  content: '<div class="textArea"><textarea id="xiajia_reason" maxlength="50" placeholder="{:lang(\'ADMIN_ADVERT_INDEX_SHURUXIAJIAYUANY\')}" /> </div><div class="textArea_btn" ><input type="button" id="xiajia" value="{:lang(\'LOWER\')}" onclick="xiajia_submit('+id+','+p+')" /><input type="button" id="cancel" onclick="layer.closeAll();" value="{:lang(\'CANCEL\')}" /></div>'
+			});
+		}
+
+
+		function xiajia_submit(id,p){
+
+			var reason=$("#xiajia_reason").val();
+			if(xiajia_status==1){
+				return;
+			}
+			xiajia_status=1;
+			$.ajax({
+				url: '/admin/advert/setXiajia.html',
+				type: 'POST',
+				dataType: 'json',
+				data: {id:id,reason: reason},
+				success:function(data){
+					var code=data.code;
+					if(code!=0){
+						layer.msg(data.msg);
+						return;
+					}
+					xiajia_status=0;
+					//设置按钮不可用
+					$("#xiajia").attr("disabled",true);
+					$("#cancel").attr("disabled",true);
+					layer.msg($Think.lang('ADMIN_VIDEO_REPORTLIST_LOWER_SUCCEED'),{icon: 1,time:1000},function(){
+						layer.closeAll();
+						location.href='/admin/advert/index.html&p='+p;
+					});
+				},
+				error:function(e){
+					$("#xiajia").attr("disabled",false);
+					$("#cancel").attr("disabled",false);
+					console.log(e);
+				}
+			});
+			
+			
+		}
+
+		function del(id){
+			var p={$p};
+
+			layer.open({
+			  type: 1,
+			  title:"{:lang('ADMIN_ADVERT_INDEX_SURE_DELETE')}",
+			  skin: 'layui-layer-rim', //加上边框
+			  area: ['30%', '30%'], //宽高
+			  content: '<div class="textArea"><textarea id="del_reason" maxlength="50" placeholder="{:lang(\'ADMIN_ADVERT_INDEX_SHURUSHANCHUYUANYING\')}" /> </div><div class="textArea_btn" ><input type="button" id="delete" value="{:lang(\'DELETE\')}" onclick="del_submit('+id+','+p+')" /><input type="button" id="cancel" onclick="layer.closeAll();" value="{:lang(\'CANCEL\')}" /></div>'
+			});
+		}
+
+		function del_submit(id,p){
+
+			var reason=$("#del_reason").val();
+
+			if(del_status==1){
+				return;
+			}
+
+			del_status=1;
+
+			$.ajax({
+				url: '/admin/advert/del.html',
+				type: 'POST',
+				dataType: 'json',
+				data: {id:id,reason: reason},
+				success:function(data){
+					var code=data.code;
+					if(code!=0){
+						layer.msg(data.msg);
+						return;
+					}
+
+					del_status=0;
+					//设置按钮不可用
+					$("#delete").attr("disabled",true);
+					$("#cancel").attr("disabled",true);
+
+					layer.msg("{:lang('DELETE_SUCCESS')}",{icon: 1,time:1000},function(){
+						layer.closeAll();
+						location.href='/admin/advert/index.html&p='+p;
+					});
+				},
+				error:function(e){
+					$("#delete").attr("disabled",false);
+					$("#cancel").attr("disabled",false);
+
+					console.log(e);
+				}
+			});
+			
+			
+		}
+
+		/*获取视频评论列表*/
+		function commentlists(videoid){
+			layer.open({
+				type: 2,
+				title: '{:lang(\'ADMIN_ADVERT_INDEX_SHIPINGPINGLUNLIEBIAO\')}',
+				shadeClose: true,
+				shade: 0.8,
+				area: ['60%', '90%'],
+				content: '/admin/advert/commentlists.html&videoid='+videoid 
+			}); 
+		}
+	</script>
+
+	<script type="text/javascript">
+		function videoListen(id){
+			layer.open({
+			  type: 2,
+			  title: '{:lang(\'ADMIN_ADVERT_INDEX_GUANKANSHIPING\')}',
+			  shadeClose: true,
+			  shade: 0.8,
+			  area: ['500px', '750px'],
+			  content: '/admin/advert/video_listen.html&id='+id
+			}); 
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_BUYERADDRESS_INDEX_SHOUHUOLIST')}</a></li>
+
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Buyeraddress/index')}">
+
+			{:lang('SUBMIT_TIME')}:
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" autocomplete="off" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;"> -
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" autocomplete="off" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;">
+			{:lang('ADMIN_SHOPGOODS_INDEX_USER')}
+            <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                   placeholder="{:lang('ADMIN_SHOPAPPLY_INDEX_SHURUMEMBERID')}">
+			{:lang('ADMIN_SHOPGOODS_INDEX_NAME')}
+            <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+                   placeholder="{:lang('ADMIN_BUYERADDRESS_INDEX_SHURUNAME')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Buyeraddress/index')}">{:lang('CLEAN')}</a>
+		</form>
+		<form method="post" class="js-ajax-form" >
+
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ID')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_VIP')}</th>
+						<th> {:lang('ADMIN_SHOPAPPLY_INDEX_NAME')}</th>
+						<th>{:lang('ADMIN_BUYERADDRESS_INDEX_GUOJI')}</th>
+						<th>{:lang('ADMIN_BUYERADDRESS_INDEX_SHENG')}</th>
+						<th>{:lang('ADMIN_BUYERADDRESS_INDEX_SHI')}</th>
+						<th>{:lang('ADMIN_BUYERADDRESS_INDEX_QU')}</th>
+						<th> {:lang('ADMIN_SHOPAPPLY_INDEX_DIZHI')}</th>
+						<th width="20%">{:lang('ADMIN_BUYERADDRESS_INDEX_LIANXIDINAHUA')}</th>
+						<th>{:lang('ADMIN_BUYERADDRESS_INDEX_ORMOREN')}</th>
+						<th>{:lang('ADD_TIME')}</th>
+						<th> {:lang('EDIT_TIME')}</th>
+						<th>{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<php>$isdefault=array('0'=>'否','1'=>'是');</php>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo['userinfo']['user_nicename']} ({$vo.uid}) </td>
+						<td>{$vo['name']}</td>
+						<td>{$vo['country']}</td>
+						<td>{$vo['province']}</td>
+						<td>{$vo['city']}</td>
+						<td>{$vo['area']}</td>
+						<td>{$vo['address']}</td>
+						<td>{$vo['country_code']}{$vo['phone']}</td>
+                        <td>{$isdefault[$vo['is_default']]}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td><if condition="$vo['edittime'] gt 0">{:date('Y-m-d H:i:s',$vo['edittime'])}<else />--</if></td>
+						<td>	
+                            
+                            <!-- <a class="btn btn-xs btn-primary" href='{:url("Buyeraddress/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a> -->
+                            
+                            <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Buyeraddress/del',array('id'=>$vo['id']))}" data-msg="{:lang('ADMIN_GIFT_INDEX_SURE_DELETE')}">{:lang('DELETE')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

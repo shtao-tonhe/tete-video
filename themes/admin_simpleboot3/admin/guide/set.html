@@ -1,0 +1,103 @@
+<include file="public@header"/>
+</head>
+<body>
+<style>
+input{
+  width:500px;
+}
+.form-horizontal textarea{
+ width:500px;
+}
+.nav-tabs>.current>a{
+    color: #95a5a6;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+.nav li
+{
+	cursor:pointer
+}
+.nav li:hover
+{
+	cursor:pointer
+}
+.hide{
+	display:none;
+}
+</style>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_GUIDE_INDEX_SETTING')}</a></li>
+			<li><a href="{:url('Guide/index')}">{:lang('ADMIN_GUIDE_SET_CONTROLLER')}</a></li>
+		</ul>
+		
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Guide/set_post')}">
+			<div class="js-tabs-content">
+				<!-- 网站信息 -->
+				<div>
+					<fieldset>
+					
+						
+						
+						<div class="form-group">
+                            <label for="input-banned_usernames" class="col-sm-2 control-label">{:lang('ADMIN_GUIDE_SET_PAGE_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="post[switch]">
+                                    <option value="0">{:lang('NO')}</option>
+                                    <php>
+                                        $open_switch_selected = empty($config['switch'])?'':'selected';
+                                    </php>
+                                    <option value="1" {$open_switch_selected}>{:lang('YES')}</option>
+                                </select>
+                            </div>
+                        </div>
+
+						<div class="form-group">
+                            <label for="input-banned_usernames" class="col-sm-2 control-label">{:lang('ADMIN_GUIDE_SET_PAGE_TYPE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="post[type]">
+                                    <option value="0">{:lang('PIC')}</option>
+                                    <php>
+                                        $open_type_selected = empty($config['type'])?'':'selected';
+                                    </php>
+                                    <option value="1" {$open_type_selected}>{:lang('ADMIN_GUIDE_ADD_VEDIO')}</option>
+                                </select>
+                            </div>
+                        </div>
+						
+						
+						<php>
+							$open_type_none = empty($config['type'])?'':"style='display:none'";
+						</php>	
+						<div class="form-group" {$open_type_none}>
+						 
+						
+                            <label for="input-time" class="col-sm-2 control-label">{:lang('ADMIN_GUIDE_SET_SHOW_TIME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-time" name="post[time]"
+                                       value="{$config.time|default=''}">
+                            </div>
+                        </div>
+                        
+
+						
+					</fieldset>
+				</div>
+
+			</div>
+		
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+					<a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+
+</body>
+</html>

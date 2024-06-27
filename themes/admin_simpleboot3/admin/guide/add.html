@@ -1,0 +1,88 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Guide/index')}">{:lang('LIST')}</a></li>
+			<li class="active"><a >{:lang('ADD')}</a></li>
+		</ul>
+
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Guide/add_post')}">
+			<fieldset>
+                <input type="hidden" name="type" value="{$type}">
+				
+				
+				<div class="form-group" >
+					<label for="input-orderno" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('NUMBER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-orderno"  name="orderno" value="0">
+					</div>
+				</div>
+				
+				
+                <if condition="$type eq 0">
+				<div class="form-group">
+					<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('PIC')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="hidden" name="thumb" id="thumbewm" value="">
+						<a href="javascript:uploadOneImage('{:lang('PIC_UPLOAD')}','#thumbewm');">
+							<img src="__TMPL__/public/assets/images/default-thumbnail.png" id="thumbewm-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+						</a>
+						<input type="button" class="btn btn-sm btn-cancel-thumbewm" value={:lang('ADMIN_SETTING_SITE_CANCEL_IMAGE')}>
+					</div>
+				</div>
+
+                </if>
+
+                <if condition="$type eq 1">
+                <div class="form-group">
+					<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_GUIDE_ADD_VEDIO')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" id="thumb3" value="" style="width:500px;display: inline-block;" class="form-control" />
+						<input type="file" name="file" style="display: inline-block;" />
+                        <input type="button" class="btn btn-small" onclick="$('#thumb3').val('');return false;" value="{:lang('CANCEL')}"> {:lang('ADMIN_GUIDE_ADD_MP4_HINT')}
+						<span class="form-required"></span>
+					</div>
+				</div>
+				
+                </if>
+
+               
+				
+				<div class="form-group" >
+					<label for="input-href" class="col-sm-2 control-label">{:lang('ADMIN_GUIDE_ADD_URL')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-href"  name="href" value="">{:lang('ADMIN_GUIDE_EDIT_URL_HINT')}
+					</div>
+				</div>
+			</fieldset>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+					<a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+		(function(){
+			$("#swftype label.radio").on('click',function(){
+				var v=$("input",this).val();
+				var b=$("#swftype_bd_"+v);
+				b.siblings().hide();
+				b.show();
+			});
+			
+
+			
+			$('.btn-cancel-thumbewm').click(function () {
+				$('#thumbewm-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+				$('#thumbewm').val('');
+			});
+			
+		})()
+
+	</script>
+</body>
+</html>

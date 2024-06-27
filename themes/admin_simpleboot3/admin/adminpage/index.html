@@ -1,0 +1,66 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('Adminpage/index')}">{:lang('ADMIN_ADMINPAGE_EDIT_GUANLI')}</a></li>
+			 <!-- <li><a href="{:url('Adminpage/add')}">添加页面</a></li>  -->
+		</ul>
+        <form class="well form-inline margin-top-20" method="post" action="{:url('Adminpage/index')}">
+
+			{:lang('ADMIN_ADMINPAGE_INDEX_YEMIANID')}
+            <input type="text" class="form-control" name="id" style="width: 200px;" value="{$_GET['id']}" placeholder="{:lang('ADMIN_ADMINPOST_INDEX_SHURUWENZID')}..." oninput = "value=value.replace(/[^\d]/g,'')">&nbsp;&nbsp;
+			{:lang('KEYWORD')}
+            <input type="text" class="form-control" name="keyword" style="width: 200px;" value="{$_GET['keyword']}" placeholder="{:lang('ADMIN_ADMINPOST_INDEX_BIAOTIGUANJIANZI')}...">
+            <input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}" />
+            <a class="btn btn-danger" href="{:url('Adminpage/index')}">{:lang('CLEAN')}</a>
+        </form>
+		<form class="js-ajax-form" action="" method="post">
+			<div class="table-actions">
+				<!-- <button class="btn btn-primary btn-small js-ajax-submit" data-action="{:url('Adminpage/listordersset')}" type="submit">{:lang('SORT')}</button> -->
+				
+
+				<!-- <button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:url('Adminpage/deletes')}" data-subcheck="true" data-msg="您确定删除吗？">{:lang('DELETE')}</button> -->
+				
+				
+		
+			</div>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<!-- <th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th> -->
+						<!-- <th width="50">ID</th> -->
+						<th>{:lang('NUMBER')}</th>
+						<th>{:lang('TITLE')}</th>
+						<th> {:lang('ADMIN_ADMINPOST_INDEX_DIZHI')}</th>
+						<th>{:lang('ADMIN_ADMINPAGE_INDEX_ANTHOR')}</th>
+
+						<th>{:lang('PUBLISH_TIME')}</th>
+
+						<th width="140">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="posts" item="vo">
+					<tr>
+						<!-- <td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}" title="ID:{$vo.id}"></td> -->
+						<!-- <td><input name="listordersset[{$vo['id']}]" type="text" size="3" value="{$vo['orderno']}" class="input input-order"></td> -->
+						<td><b>{$vo.id}</b></td>
+						<td>{$vo.post_title}</td>
+						<td><a href="{$site}/Portal/page/index?id={$vo.id}" target="_blank">{$site}/Appapi/page/news?id={$vo.id}</a></td>
+						<td>{$vo['userinfo']['user_nicename']}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['post_date'])}</td>
+						<td>
+							<a class="btn btn-xs btn-primary" href="{:url('Adminpage/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+							<!-- <a class="btn btn-xs btn-danger js-ajax-delete" class="" href="{:url('Adminpage/del',array('id'=>$vo['id']))}">{:lang('DELETE')}</a> -->
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

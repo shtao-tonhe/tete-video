@@ -1,0 +1,179 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Music/index')}">{:lang('ADMIN_MUSIC_BACKGROUND_LIST')}</a></li>
+			<li class="active"><a >{:lang('ADD')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Music/music_add_post')}">
+			<fieldset>
+				
+				<div class="form-group" >
+					<label for="input-classify_id" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_MUSIC_CLASSIFY')}</label>
+					<div class="col-md-6 col-sm-10">
+						<select class="form-control" name="classify_id">
+						    <option value="0">{:lang('ADMIN_MUSIC_BACKGROUND_ADD_DEFAULT_CLASSIFY')}</option>
+						   <volist name="classify" id="vo">
+							     <option value="{$vo['id']}">{$vo['title']}</option>
+							 </volist>			
+							 
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-title" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_MUSIC_BACKGROUND_NAME')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-title"  name="title">
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-author" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_MUSIC_BACKGROUND_SINGER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-author"  name="author">
+					</div>
+				</div>
+				
+			
+
+				<div class="form-group">
+					<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_MUSIC_BACKGROUND_ADD_COVER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="hidden" name="img_url" id="thumbewm" value="">
+						<a href="javascript:uploadOneImage('{:lang(\'PIC_UPLOAD\')}','#thumbewm');">
+							<img src="__TMPL__/public/assets/images/default-thumbnail.png" id="thumbewm-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+						</a>
+						<input type="button" class="btn btn-sm btn-cancel-thumbewm" value="{:lang('ADMIN_MUSIC_BACKGROUND_ADD_UPDATE_CANCEL_PIC')}">
+						<p class="help-block">{:lang('ADMIN_MUSIC_BACKGROUND_EDIT_UPDATE_SIZE')}</p>
+					</div>
+				</div>
+				
+				
+				<div class="form-group" >
+					<label for="input-length" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_MUSIC_BACKGROUND_MUSIC_LENGTH')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="length"  name="length" readonly="readonly"><p class="help-block">{:lang('ADMIN_MUSIC_BACKGROUND_ADD_AUTO_GET')}</p>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-use_nums" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_MUSIC_BACKGROUND_EDIT_USE_TIMES')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-use_nums"  name="use_nums"><p class="help-block">{:lang('ADMIN_MUSIC_BACKGROUND_EDIT_ADD_FILL_POSITIVE')}</p>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-file" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_MUSIC_BACKGROUND_EDIT_UPLOAD')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="file" name="file" id="upfile" /><p class="help-block">{:lang('ADMIN_MUSIC_BACKGROUND_ADD_FORMAT')}</p>
+					</div>
+				</div>
+				
+				
+				<div class="form-group upload_video_area" >
+					<label for="input-file" class="col-sm-2 control-label"></label>
+					<div class="col-md-6 col-sm-10">
+						<audio id="audio" controls="" style="display: none;"></audio>
+					</div>
+				</div>
+
+			</fieldset>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit" id="submit">{:lang('ADD')}</button>
+					<a class="btn btn-default" href="{:url('Music/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+	<script type="text/javascript">
+		
+		 $(function () {  
+            $("#upfile").change(function () {
+
+            	$('#submit').removeAttr("disabled"); 
+
+            	//获取文件类型
+            	var a=$("#upfile").val();
+            	var arr=a.split('.');
+            	var type=arr[arr.length-1];
+            	if(type.toLowerCase()!="mp3"){
+            		layer.msg("{:lang('ADMIN_MUSIC_BACKGROUND_EDIT_FORMAT_TWO')}");
+            		$("#submit").attr("disabled","true");
+            		return;
+            	}
+
+
+                var objUrl = getObjectURL(this.files[0]);  
+                $("#audio").attr("src", objUrl);  
+                $("#audio")[0].play();  
+                $("#audio").show();  
+                getTime();  
+            });  
+        }); 
+
+
+        //获取mp3文件的时间 兼容浏览器  
+        function getTime() {  
+            setTimeout(function () {  
+                var duration = $("#audio")[0].duration;  
+                if(isNaN(duration)){  
+                    getTime();  
+                }  
+                else{
+
+                	//console.log($("#audio")[0]); 
+                   // console.info("该歌曲的总时间为："+$("#audio")[0].duration+"秒");
+                    var length=Math.floor($("#audio")[0].duration); //获取音乐长度
+
+                    if(length<15){ //长度小于15秒
+                    	layer.msg('{:lang(\'ADMIN_MUSIC_BACKGROUND_ADD_MUSIC_LENGTH_FORMAT\')}');
+                    	$("#submit").attr("disabled","true");	
+                    }
+
+                    var len_str="00:00";
+                    if(length>60){
+                    	var minute=Math.floor(length/60);
+                    	var second=length%60;
+                    	if(minute<10){
+                    		minute="0"+minute;
+                    	}
+                    	if(second<10){
+                    		second="0"+second;
+                    	}
+                    	len_str=minute+":"+second;
+
+                    }else{
+                    	len_str="00:"+length;
+                    }
+
+                    //console.log(len_str);
+                    $("#length").val(len_str);
+
+                }  
+            }, 50);  
+        }  
+        //把文件转换成可读URL 
+        function getObjectURL(file) {
+
+            var url = null;  
+            if (window.createObjectURL != undefined) { // basic  
+                url = window.createObjectURL(file);  
+            } else if (window.URL != undefined) { // mozilla(firefox)  
+                url = window.URL.createObjectURL(file);  
+            } else if (window.webkitURL != undefined) { // webkit or chrome  
+                url = window.webkitURL.createObjectURL(file);  
+            }  
+            return url;  
+        }
+
+
+	</script>
+</body>
+</html>

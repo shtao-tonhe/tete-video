@@ -1,0 +1,142 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('user/adminIndex/index')}">{:lang('LIST')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('user/adminIndex/editPost')}">
+
+			<div class="form-group">
+                <label for="input-maintain_switch" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_CHOICE_NATION_AREA')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <select class="form-control" name="country_code">
+                        <option value="">--{:lang('USER_ADMIN_EDIT_CHOICE_NATION_AREA')}--</option>
+                        <foreach name="country_list" item="vo">
+                            <option value="{$vo['tel']}" <if condition="$data.country_code eq $vo.tel">selected</if>>{$vo['name']}</option>
+                        </foreach>
+                    </select>
+                </div>
+            </div>
+        
+            <div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_TEL')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-user_login" name="user_login" value="{$data['user_login']}" readonly="readonly">
+				</div>
+			</div>
+            
+            
+            
+            <div class="form-group">
+				<label for="input-user_nicename" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_NAME')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-user_nicename" name="user_nicename" maxlength="8" value="{$data['user_nicename']}"> {:lang('USER_ADMIN_EDIT_MAX_WORD')}
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="input-avatar" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_AVATAR_COVER')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="hidden" name="avatar" id="thumbewm" value="{$data['avatar']}">
+					<a href="javascript:uploadOneImage('{:lang(\'PIC_UPLOAD\')}','#thumbewm');">
+					<if condition="$data['avatar'] neq ''">
+						<img src="{:get_upload_path($data['avatar'])}"
+									id="thumbewm-preview"
+									style="cursor: pointer;max-width:150px;max-height:150px;"/>
+					<else/>
+						<img src="__TMPL__/public/assets/images/default-thumbnail.png" id="thumbewm-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+					</if>
+					</a>
+					<input type="button" class="btn btn-sm btn-cancel-thumbewm" value="{:lang('USER_ADMIN_EDIT_CANCEL_PIC')}">{:lang('ADMIN_MUSIC_CLASSIFY_UPDATE_SIZ')}
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-avatar_thumb" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_AVATAR_THUMBNAIL')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="hidden" name="avatar_thumb" id="avatar_thumb" value="{$data['avatar_thumb']}">
+					<a href="javascript:uploadOneImage('{:lang(\'PIC_UPLOAD\')}','#avatar_thumb');">
+					<if condition="$data['avatar_thumb'] neq ''">
+						<img src="{:get_upload_path($data['avatar_thumb'])}"
+									id="avatar_thumb-preview"
+									style="cursor: pointer;max-width:150px;max-height:150px;"/>
+					<else/>
+						<img src="__TMPL__/public/assets/images/default-thumbnail.png" id="avatar_thumb-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+					</if>
+					</a>
+					<input type="button" class="btn btn-sm btn-cancel-avatar_thumb" value="{:lang('USER_ADMIN_EDIT_CANCEL_PIC')}"> {:lang('USER_ADMIN_EDIT_SIZE_TWO')}
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-type" class="col-sm-2 control-label"></label>
+				<div class="col-md-6 col-sm-10">
+					<p class="help-block">{:lang('USER_ADMIN_EDIT_ATTENTION')}</p>
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-type" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_SEX')}</label>
+				<div class="col-md-6 col-sm-10">
+					<label class="radio-inline"><input type="radio" name="sex" value="1" <if condition="1 eq $data['sex']">checked</if>>{:lang('USER_ADMIN_EDIT_MAN')}</label>
+					<label class="radio-inline"><input type="radio" name="sex" value="2" <if condition="2 eq $data['sex']">checked</if>>{:lang('USER_ADMIN_EDIT_GIRL')}</label>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="input-signature" class="col-sm-2 control-label">{:lang('USER_ADMIN_EDIT_PERSONAL_SIGN')}</label>
+				<div class="col-md-6 col-sm-10">
+					<textarea class="form-control"  rows="2" cols="20" id="input-signature" name="signature" style="height: 100px; width: 500px;" >{$data['signature']}</textarea> 
+				</div>
+			</div>								
+				
+			<div class="form-group">
+					<label for="input-user_status" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('STATUS')}</label>
+
+					<div class="col-md-6 col-sm-10">
+						<label class="radio-inline"><input type="radio" name="user_status" value="1" <if condition="$data['user_status'] eq 1">checked</if> >{:lang('ENABLED')}</label>
+						<label class="radio-inline"><input type="radio" name="user_status" value="0"<if condition="$data['user_status'] eq 0">checked</if> />{:lang('DISABLED')}</label>
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<label for="input-is_ad" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_IS_ADVERTISEMENT_VIDEO_PUB')}</label>
+					<div class="col-md-6 col-sm-10">
+						<label class="radio-inline"><input type="radio" name="is_ad" value="0" <if condition="$data['is_ad'] eq 0">checked</if> >{:lang('NO')}</label>
+						<label class="radio-inline"><input type="radio" name="is_ad" value="1" <if condition="$data['is_ad'] eq 1">checked</if>/>{:lang('YES')}</label>
+					</div>
+				</div>
+            
+
+            <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="hidden" name="id" value="{$data.id}" />
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+					<a class="btn btn-default" href="{:url('user/adminIndex/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+		(function(){
+
+			$('.btn-cancel-thumbewm').click(function () {
+				$('#thumbewm-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+				$('#thumbewm').val('');
+			});
+
+			$('.btn-cancel-avatar_thumb').click(function () {
+				$('#avatar_thumb-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+				$('#avatar_thumb').val('');
+			});
+			
+		})()
+
+	</script>
+</body>
+</html>

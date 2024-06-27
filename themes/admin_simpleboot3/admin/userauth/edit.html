@@ -1,0 +1,102 @@
+<include file="public@header"/>
+
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('userauth/index')}">{:lang('ADMIN_USERAUTH_CERTIFICATION')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('userauth/edit_post')}">
+		   <input type="hidden" name="uid" value="{$auth['uid']}">
+			<fieldset>
+
+				<div class="form-group" >
+					<label for="input-user_nicename" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_USERAUTH_NUMBER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-user_nicename" value="{$auth['userinfo']['user_nicename']} ( {$auth['uid']} )" readonly>
+					</div>
+				</div>
+				
+				
+				
+				<div class="form-group" >
+					<label for="input-real_name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_USERAUTH_REAL_NAME')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-real_name"  name="" value="{$auth['real_name']}" readonly>
+					</div>
+				</div>
+				
+				
+				<div class="form-group" >
+					<label for="input-mobile" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_USERAUTH_TEL')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-mobile"  name=""  value="{$auth['mobile']}" readonly>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-cer_no" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_USERAUTH_CERTIFICATE_NUM')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-cer_no"  name=""  value="{$auth['cer_no']}" readonly>
+					</div>
+				</div>
+				
+				
+				<div class="form-group" >
+					<label for="input-front_view" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_USERAUTH_CERTIFICATE_FRONT')}</label>
+					<div class="col-md-6 col-sm-10">
+						<!-- <input type="hidden" class="form-control" id="input-front_view"  name="front_view"  value="{$auth['front_view']}" readonly> -->
+	
+						<img src="{:get_upload_path($auth['front_view'])}" class="imgtip" width="135" style="cursor: hand">
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-back_view" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_USERAUTH_CERTIFICATE_BACK')}</label>
+					<div class="col-md-6 col-sm-10">
+						<!-- <input type="hidden" class="form-control" id="input-back_view"  name="back_view"  value="{$auth['back_view']}" readonly> -->
+						<img src="{:get_upload_path($auth['back_view'])}" class="imgtip" width="135" style="cursor: hand">
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-handset_view" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_USERAUTH_CERTIFICATE_HAND_HELD_CET')}</label>
+					<div class="col-md-6 col-sm-10">
+						<!-- <input type="hidden" class="form-control" id="input-handset_view"  name="handset_view"  value="{$auth['handset_view']}" readonly> -->
+						<img src="{:get_upload_path($auth['handset_view'])}" class="imgtip" width="135" style="cursor: hand">
+					</div>
+				</div>
+
+				
+				<div class="form-group">
+					<label for="input-status" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('CHECK_STATUS')}</label>
+					<div class="col-md-6 col-sm-10">
+						<label class="radio-inline"><input type="radio" name="status" value="2" <if condition="$auth['status'] eq '2'">checked</if>>{:lang('ADMIN_USERAUTH_CERTIFICATE_LOSE')}</label>
+						<label class="radio-inline"><input type="radio" name="status" value="0" <if condition="$auth['status'] eq '0'">checked</if>>{:lang('ADMIN_USERAUTH_CERTIFICATE_PROCESSING')}</label>
+						<label class="radio-inline"><input type="radio" name="status" value="1" <if condition="$auth['status'] eq '1'">checked</if>>{:lang('ADMIN_USERAUTH_CERTIFICATE_SUCCESS')}</label>
+					</div>
+				</div>
+				
+				
+				<div class="form-group" style="display:none">
+					<label for="input-reason" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_USERAUTH_CERTIFICATE_LOSE_REASON')}</label>
+					<div class="col-md-6 col-sm-10">
+						<textarea class="form-control"  rows="2" cols="20" id="input-reason" name="reason" style="height: 100px; width: 500px;" >{$auth['reason']}</textarea> 
+					</div>
+				</div>	
+				
+				
+
+			</fieldset>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+				<a class="btn btn-default" href="{:url('Userauth/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

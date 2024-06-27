@@ -1,0 +1,41 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Video/reportset')}">{:lang('ADMIN_VIDEO_REPORTSET_LIST')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Video/edit_reportpost')}">
+		   <input type="hidden" name="id" value="{$reportinfo['id']}">
+			<fieldset>				
+				
+				<div class="form-group" >
+					<label for="input-orderno" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('NUMBER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-orderno"  name="orderno" value="{$reportinfo['orderno']}" />
+					</div>
+				</div>
+			
+				<div class="form-group" >
+					<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_VIDEO_EDIT_REPORT_TYPENAME')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-name"  name="name" value="{$reportinfo['name']}" />
+					</div>
+				</div>
+				
+			</fieldset>
+	
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+					<a class="btn btn-default" href="{:url('Video/reportset')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

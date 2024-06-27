@@ -1,0 +1,74 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Shopcash/index')}">{:lang('ADMIN_SHOPCASH_INDEX_LIST')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Shopcash/editPost')}">
+            <div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_INDEX_VIP')}</label>
+				<div class="col-md-6 col-sm-10" style="padding-top:7px;">
+					{$data['userinfo']['user_nicename']} ({$data['uid']})
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-money" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPCASH_INDEX_TIXIANJINGE')}</label>
+				<div class="col-md-6 col-sm-10" style="padding-top:7px;">
+					{$data['money']}
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPCASH_INDEX_TIXIANZHANGHAO')}</label>
+				<div class="col-md-6 col-sm-10" style="padding-top:7px;">
+					{$type[$data['type']]}  <br>
+                    {$data['name']}  <br>
+                    {$data['account']}
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-trade_no" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPCASH_INDEX_THREEDINGDANH')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-trade_no" name="trade_no" value="{$data['trade_no']}">
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-trade_no" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('STATUS')}</label>
+				<div class="col-md-6 col-sm-10">
+					<select class="form-control" name="status">
+						<option value="0" <if condition="input('request.status') eq '0'">selected</if> >{:lang('UNHANDLE')}	</option>
+						<option value="1" <if condition="input('request.status') eq '1'">selected</if>>{:lang('ADMIN_CASH_INDEX_WITHDRAWAL_SUCCEED')}	</option>
+						<option value="2" <if condition="input('request.status') eq '2'">selected</if>>{:lang('ADMIN_CASH_INDEX_REFUSE_WITHDRAWAL')}
+                    </select>
+				</div>
+			</div>
+            
+            <if condition="$data['status'] eq 0">
+	            <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<input type="hidden" name="id" value="{$data.id}" />
+						<input type="hidden" name="uid" value="{$data.uid}" />
+						<input type="hidden" name="money" value="{$data.money}" />
+						<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+						<a class="btn btn-default" href="{:url('Shopcash/index')}">{:lang('BACK')}</a>
+					</div>
+				</div>
+			<else />
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						
+						<a class="btn btn-default" href="{:url('Shopcash/index')}">{:lang('BACK')}</a>
+					</div>
+				</div>
+            </if>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

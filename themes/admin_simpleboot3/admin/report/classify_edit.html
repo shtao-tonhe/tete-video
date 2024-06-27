@@ -1,0 +1,45 @@
+<include file="public@header"/>
+
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Report/classify')}">{:lang('ADMIN_REPORT_CLASSIFY_YONGHUJUBAOFENLEI')}</a></li>
+			<li class="active"><a >{:lang('ADMIN_REPORT_CLASSIFY_EDIT_FENLEIXIUGAI')}</a></li>
+		</ul>
+
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Report/classify_edit_post')}">
+			<fieldset>
+				
+				<input type="hidden" name="id" value="{$classify_info['id']}">
+				<div class="form-group" >
+					<label for="input-orderno" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('NUMBER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-orderno"  name="orderno" value="{$classify_info['orderno']}"><p class="help-block">{:lang('ADMIN_REPORT_CLASSIFY_ADD_TIAXIE_ZHENGSHU')}</p>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-title" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REPORT_CLASSIFY_ADD_CLASSIFY_TITLE')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-title"  name="title" value="{$classify_info['title']}"> <p class="help-block">{:lang('ADMIN_REPORT_CLASSIFY_ADD_JIANJIE_MINGLIAO')}</p>
+					</div>
+				</div>
+
+			</fieldset>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+					<a class="btn btn-default" href="{:url('Report/classify')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+			
+		</form>
+		
+		
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+
+</body>
+</html>

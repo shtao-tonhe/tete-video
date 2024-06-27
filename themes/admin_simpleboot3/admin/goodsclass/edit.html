@@ -1,0 +1,103 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Goodsclass/index')}">{:lang('ADMIN_GOODSCLASS_ADD_CLASSLIST')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Goodsclass/editPost')}">
+            
+            <div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_GOODSCLASS_EDIT_UPCLASS')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="hidden" name="gc_id" value="{$info['gc_id']}">
+					<select class="form-control" name="gc_parentid">
+						<option value="0">{:lang('ADMIN_GOODSCLASS_EDIT_ONECLASS')}</option>
+                        <volist name="lists" id="v" key="k">
+                        	<option value="{$v['gc_id']}" <if condition="$v['gc_id'] eq $info['gc_parentid']"> selected </if>>
+                        		<if condition="$k lt $one_nums">
+                        		├─
+                        		<else />
+                        		└─
+                        		</if>
+                        		{$v['gc_name']}
+                        	</option>
+                        	<volist name="v['two_list']" id="vo" key="k1">
+
+                        		
+                        			<option value="{$vo['gc_id']}" <if condition="$vo['gc_id'] eq $info['gc_parentid']"> selected </if>>
+	                        			&nbsp;&nbsp;&nbsp;&nbsp;
+		                        		
+		                        		├─
+		                        		
+	                        			{$vo['gc_name']}
+	                        		</option>
+                        		
+                        		
+                        	</volist>
+                        </volist>
+                    </select>
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-gc_name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_GOODSCLASS_INDEX_CLASSNAME')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-gc_name" name="gc_name" maxlength="30" value="{$info['gc_name']}">
+					<p class="help-block">{:lang('ADMIN_GOODSCLASS_EDIT_DOUHAO')}</p>
+				</div>
+			</div>
+			
+			<!-- <div class="form-group <if condition="$info.gc_grade neq '2'">hide</if>"> -->
+			<div class="form-group hide">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_GOODSCLASS_ADD_TUBIAO')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="hidden" name="gc_icon" id="thumbnail" value="{$info['gc_icon']}">
+                    <a href="javascript:uploadOneImage('图片上传','#thumbnail');">
+                        <if condition="empty($info.gc_icon)">
+                        <img src="__TMPL__/public/assets/images/default-thumbnail.png"
+                                 id="thumbnail-preview"
+                                 style="cursor: pointer;max-width:100px;max-height:100px;"/>
+                        <else/>
+                        <img src="{:get_upload_path($info.gc_icon)}"
+                             id="thumbnail-preview"
+                             style="cursor: pointer;max-width:100px;max-height:100px;"/>
+                        </if>
+                    </a>
+                    <input type="button" class="btn btn-sm btn-cancel-thumbnail" value="{:lang('ADMIN_GOODSCLASS_ADD_QUXIAOTUP')}">
+                    <p class="help-block">{:lang('ADMIN_GOODSCLASS_ADD_JIANICICUN')}</p>
+				</div>
+			</div>
+            
+            <div class="form-group">
+                <label for="input-gc_isshow" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('DISPLAY_FLAG')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <label class="radio-inline"><input type="radio" name="gc_isshow" value="0" <if condition="$info['gc_isshow'] eq 0"> checked="checked" </if>>{:lang('NO')}</label>
+                    <label class="radio-inline"><input type="radio" name="gc_isshow" value="1" <if condition="$info['gc_isshow'] eq 1"> checked="checked" </if> >{:lang('YES')}</label>
+                    
+                </div>
+
+            </div>
+            
+            <div class="form-group">
+				<label for="input-gc_sort" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('NUMBER')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-gc_sort" name="gc_sort" placeholder="{:lang('ADMIN_GOODSCLASS_ADD_ZHENGSHU')}" value="{$info['gc_sort']}" onkeyup="value=value.replace(/[^\d]/g,'')">
+					<p class="help-block">{:lang('ADMIN_GOODSCLASS_EDIT_NUMBER')}</p>
+				</div>
+			</div>
+            
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+					<a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+            
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+    
+</body>
+</html>

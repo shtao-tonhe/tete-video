@@ -1,0 +1,57 @@
+<include file="public@header"/>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_AGENT_FXGX_LIST')}</a></li>
+		</ul>
+		
+		<form class="well form-inline margin-top-20" method="post" action="{:url('agent/index')}">
+			{:lang('ADMIN_AGENT_FXGX_MEMBER')}
+			<input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+               placeholder="{:lang('ADMIN_AGENT_FXGX_INPUT_MEMBERID')}">
+			{:lang('ADMIN_AGENT_FXGX_UPPER_LEVEL')}
+			<input class="form-control" type="text" name="one" style="width: 200px;" value="{:input('request.one')}"
+               placeholder="{:lang('ADMIN_AGENT_FXGX_UPPER_USERID')}">
+
+		
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Admin/Agent/index')}">{:lang('CLEAN')}</a>
+            
+		</form>		
+		<form method="post" class="js-ajax-form" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ADMIN_AGENT_FXGX_MEMBERID')}</th>
+						<th>{:lang('ADMIN_AGENT_FXGX_UPPER_LEVEL_ID')}</th>
+						<!-- <th>上二级（ID）</th> -->
+						<!-- <th>上三级（ID）</th> -->
+						<th>{:lang('ADD_TIME')}</th>
+					<!-- 	<th align="center">{:lang('ACTIONS')}</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>			
+						<td>{$vo['userinfo']['user_nicename']} ( {$vo['uid']} ) </td>
+						<td>{$vo['oneuserinfo']['user_nicename']} ( {$vo['one']} ) </td>
+						<!-- <td>{$vo['twouserinfo']['user_nicename']} ( {$vo['two_uid']} ) </td> -->
+						<!-- <td>{$vo['threeuserinfo']['user_nicename']} ( {$vo['three_uid']} ) </td> -->
+
+						<td>{:date('Y-m-d H:i:s',$vo.addtime)}</td>
+						<!-- <td align="center">	
+						 <a href="{:url('Agent/edit',array('id'=>$vo['id']))}" >编辑</a> | 
+							<a href="{:url('Agent/del',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="您确定要删除吗？">删除</a>
+						</td> -->
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

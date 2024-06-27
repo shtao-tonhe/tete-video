@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <include file="Public/head"/> <!--公共css-->
+    <link type="text/css" rel="stylesheet" href="__STATIC__/appapi/css/agentshare.css?t=1563505719"/> 
+    <title>{$config['sitename']}</title>
+</head>
+<body>
+    <div class="agentshare">
+        <div class="agentshare_img">
+            <img src="__STATIC__/appapi/images/agentshare/bg.png">
+        </div>
+
+        
+        <div class="tips">
+            <div class="tips_mark"></div>
+            <p>请点击右上角</p>
+            <p>选择“浏览器中打开”</p>
+        </div>
+    </div>
+    <div class="logo">
+        <p><img src="/logo.png"></p>
+        <p class="app_name">{$config['app_name']}</p>
+    </div>
+
+    <div class="code_area">
+        <div class="code_area_con">
+            <div class="code_area_user">
+                <div class="userinfo_area">
+                    <div class="avatar">
+                        <img src="{$userinfo['avatar']}">
+                    </div>
+                    <div class="info">
+                        <p class="nicename">{$userinfo['user_nicename']}</p>
+                        <p>ID:{$uid}</p>
+                    </div>
+                </div>
+                <div class="agentcode_area">
+                    <p>邀请码</p>
+                    <p class="code">{$userinfo['code']}</p>
+                </div>
+            </div>
+
+            <div class="code_area_down">
+                <input type="button" value="立即下载">
+            </div>
+        </div>
+    </div>
+    <script>
+        var isiPad = /iPad/i.test(navigator.userAgent);
+        var isiPhone = /iPhone|iPod/i.test(navigator.userAgent);
+        var isAndroid = /Android/i.test(navigator.userAgent);
+        var isWeixin = /MicroMessenger/i.test(navigator.userAgent);
+        var isQQ = /QQ/i.test(navigator.userAgent);
+        var isIOS = (isiPad || isiPhone);
+        var isWeibo = /Weibo/i.test(navigator.userAgent);
+        var isApp = (isAndroid || isIOS);
+        
+        var uid='{$uid}';
+        var token='{$token}';
+        var apk_url="{$site_info.apk_url|default=''}";
+        var baseSize = 100;
+        function setRem () {
+          var scale = document.documentElement.clientWidth / 750;
+          document.documentElement.style.fontSize = (baseSize * Math.min(scale, 3)) + 'px';
+        }
+        setRem();
+        window.onresize = function () {
+          setRem();
+        }
+    </script>
+    <include file="Public/footer"/> <!--公共css-->
+    
+    <script>
+ 
+        (function(){
+            var code="{$userinfo['code']}";
+            var openinstall_switch={$openinstall_switch};
+
+            if(openinstall_switch){
+                location.href='/Appapi/Agentshare/downapp?code='+code;
+            }else{
+                $('.code_area_down input').click(function(){
+
+                    if(isQQ || isWeixin){
+                        $('.tips').show();
+                        return !1;
+                    }
+                    if(isIOS){
+                        location.href='{$site_info['ipa_url']}';
+                    }else{
+                        //layer.msg('Android');
+                        if(apk_url!=''){
+                            location.href='{$site_info['apk_url']}';
+                        }
+                        
+                    }
+                    
+                }) 
+            }
+        
+            
+        
+        
+        })()
+
+       
+    </script>
+</body>
+</html>

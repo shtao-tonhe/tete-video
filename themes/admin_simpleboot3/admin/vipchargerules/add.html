@@ -1,0 +1,69 @@
+<include file="public@header"/>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Vipchargerules/index')}">{:lang('ADMIN_VIPCHARGERULES_INDEX_LIST')}</a></li>
+			<li class="active"><a >{:lang('ADD')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Vipchargerules/add_post')}">
+			<fieldset>
+
+				<div class="form-group" >
+					<label for="input-orderno" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_VIPCHARGERULES_INDEX_NUM')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-orderno"  name="orderno" value=""><p class="help-block">{:lang('ADMIN_REPORT_CLASSIFY_ADD_TIAXIE_ZHENGSHU')}</p>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('NAME')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-name"  name="name" value="" >
+
+					</div>
+				</div>
+
+				<div class="form-group" >
+					<label for="input-money" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('PRICE')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-money"  name="money" value="" >
+						
+					</div>
+				</div>
+
+
+				<div class="form-group" >
+					<label for="input-days" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_VIPCHARGERULES_INDEX_PAYMENT_DAY')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-days"  name="days" value="" >
+						<p class="help_block">{:lang('ADMIN_VIPCHARGERULES_INDEX_INTEGER')}</p>
+						
+					</div>
+				</div>
+
+				<div class="form-group" >
+					<label for="input-coin" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_VIPCHARGERULES_INDEX_PAYMENT_PRICE')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-coin"  name="coin" value="0" >
+						<p class="help_block">{:lang('ADMIN_VIPCHARGERULES_INDEX_INTEGER')}</p>
+						
+					</div>
+				</div>
+				
+			</fieldset>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+					<a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	
+	
+</body>
+</html>

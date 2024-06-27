@@ -1,0 +1,129 @@
+﻿<include file="public@header"/>
+
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+
+		<ul class="nav nav-tabs">
+			<li><a  href="{:url('user/adminIndex/index')}">{:lang('USER_INDEXADMIN_INDEX')}</a></li>
+			<li class="active"><a>{:lang('USER_ADMIN_INDEX_NEW_NUMBER')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('user/adminIndex/add_post')}">
+			<fieldset>
+
+				<div class="form-group">
+	                <label for="input-maintain_switch" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_CHOICE_NATION_AREA')}</label>
+	                <div class="col-md-6 col-sm-10">
+	                    <select class="form-control" name="country_code">
+	                    	<option value="">--{:lang('USER_ADMIN_EDIT_CHOICE_NATION_AREA')}--</option>
+	                    	<foreach name="country_list" item="vo">
+	                    		<option value="{$vo['tel']}">{$vo['name']}</option>
+	                    	</foreach>
+	                    </select>
+	                </div>
+	            </div>
+
+				<div class="form-group" >
+					<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_TEL')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-user_login"  name="user_login" value="">
+					</div>
+				</div>
+				
+				
+				<div class="form-group" style="display: none;">
+					<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_ADD_PASSWORD')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="password" class="form-control" id="input-user_pass"  name="user_pass" value="qwe123" autocomplete = 'new-password' />
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-user_nicename" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_NAME')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-user_nicename"  name="user_nicename" value="" maxlength="8"> <p class="help-block">{:lang('USER_ADMIN_EDIT_MAX_WORD')}</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="input-avatar" class="col-sm-2 control-label">{:lang('USER_ADMIN_EDIT_AVATAR_COVER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="hidden" name="avatar" id="thumbewm" value="{$userinfo['avatar']}">
+						<a href="javascript:uploadOneImage('{:lang(\'PIC_UPLOAD\')}','#thumbewm');">
+						<if condition="$userinfo['avatar'] neq ''">
+							<img src="{:cmf_get_image_preview_url($userinfo['avatar'])}"
+										id="thumbewm-preview"
+										style="cursor: pointer;max-width:150px;max-height:150px;"/>
+						<else/>
+							<img src="__TMPL__/public/assets/images/default-thumbnail.png" id="thumbewm-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+						</if>
+						</a>
+						<input type="button" class="btn btn-sm btn-cancel-thumbewm" value="{:lang('USER_ADMIN_EDIT_CANCEL_PIC')}">
+					</div>
+				</div>
+
+
+
+				<div class="form-group">
+					<label for="input-sex" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_SEX')}</label>
+					<div class="col-md-6 col-sm-10">
+						<label class="radio-inline"><input type="radio" name="sex" value="1" checked>{:lang('USER_ADMIN_EDIT_MAN')}</label>
+						<label class="radio-inline"><input type="radio" name="sex" value="2" >{:lang('USER_ADMIN_EDIT_GIRL')}</label>
+					</div>
+				</div>
+		
+
+				<div class="form-group">
+					<label for="input-signature" class="col-sm-2 control-label">{:lang('USER_ADMIN_EDIT_PERSONAL_SIGN')}</label>
+					<div class="col-md-6 col-sm-10">
+						<textarea class="form-control"  rows="2" cols="20" id="input-signature" name="signature" style="height: 100px; width: 500px;" ></textarea> 
+					</div>
+				</div>								
+				
+				
+				<div class="form-group">
+					<label for="input-user_status" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('STATUS')}</label>
+
+					<div class="col-md-6 col-sm-10">
+						<label class="radio-inline"><input type="radio" name="user_status" value="1" checked="checked" >{:lang('ENABLED')}</label>
+						<label class="radio-inline"><input type="radio" name="user_status" value="0" />{:lang('DISABLED')}</label>
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<label for="input-is_ad" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('USER_ADMIN_EDIT_IS_ADVERTISEMENT_VIDEO_PUB')}</label>
+					<div class="col-md-6 col-sm-10">
+						<label class="radio-inline"><input type="radio" name="is_ad" value="0" checked="checked" >{:lang('NO')}</label>
+						<label class="radio-inline"><input type="radio" name="is_ad" value="1" />{:lang('YES')}</label>
+					</div>
+				</div>
+				
+				
+			</fieldset>
+			
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+					<a class="btn btn-default" href="{:url('user/adminIndex/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+		
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+		(function(){
+
+			$('.btn-cancel-thumbewm').click(function () {
+				$('#thumbewm-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+				$('#thumbewm').val('');
+			});
+			
+		})()
+
+
+	</script>
+</body>
+</html>

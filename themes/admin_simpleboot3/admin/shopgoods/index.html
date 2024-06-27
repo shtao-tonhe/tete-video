@@ -1,0 +1,180 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_SHOPGOODS_INDEX_LIST')}</a></li>
+			<li ><a href="{:url('Shopgoods/add')}">{:lang('ADMIN_SHOPGOODS_INDEX_ADDSHANGPC')}</a></li>
+
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Shopgoods/index')}">
+		
+			<!-- 推荐：
+			<select class="form-control" name="isrecom" >
+				<option value="">全部</option>
+					<option value="1" <if condition="input('request.isrecom') neq '' && input('request.isrecom') eq 1">selected</if>>是</option>
+					<option value="0" <if condition="input('request.isrecom') neq '' && input('request.isrecom') eq 0">selected</if>>否</option>
+			</select> -->
+
+			{:lang('ADMIN_SHOPGOODS_INDEX_GOODSTYPE')}
+			<select class="form-control" name="goods_type" >
+				<option value="">{:lang('ALL')}</option>
+				<volist name="type" id="vo">
+					<option value="{$key}" <if condition="input('request.goods_type') neq '' && input('request.goods_type') eq $key">selected</if>>{$vo}</option>
+				</volist>
+					
+			</select>
+
+			{:lang('SUBMIT_TIME')}:
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" autocomplete="off" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;"> - 
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" autocomplete="off" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;">
+			{:lang('ADMIN_SHOPGOODS_INDEX_USER')}
+            <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                   placeholder=" {:lang('ADMIN_SHOPAPPLY_INDEX_SHURUMEMBERID')}">
+			{:lang('ADMIN_SHOPGOODS_INDEX_NAME')}
+            <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+                   placeholder=" {:lang('ADMIN_SHOPGOODS_INDEX_GOODSNAME')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Shopgoods/index')}"> {:lang('CLEAN')}</a>
+		</form>				
+		<form method="post" class="js-ajax-form" >
+			<div class="table-actions">
+                <!-- <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('Shopgoods/del')}"
+                        data-subcheck="true">批量删除
+                </button> -->
+
+                <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('Shopgoods/setStatus',array('status'=>'-2'))}"
+                        data-subcheck="true">{:lang('ADMIN_SHOPGOODS_INDEX_BATCHGOODSDOWD')}
+                </button>
+
+                <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('Shopgoods/setStatus',array('status'=>'1'))}"
+                        data-subcheck="true">{:lang('ADMIN_SHOPGOODS_INDEX_CANALGOODSDOWN')}
+                </button>
+
+                <p class="help-block" style="font-weight: bold;">{:lang('ADMIN_SHOPGOODS_INDEX_PILIANGCOUTIOUS')}</p>
+            </div>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th width="16">
+							
+                            <label>
+                                <input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x">
+                            </label>
+                        	
+                        </th>
+						<th>{:lang('ID')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_VIP')}</th>
+						<th width="10%">{:lang('ADMIN_SHOPGOODS_INDEX_SHANGPINGNAME')}</th>
+						<th width="10%"> {:lang('ADMIN_SHOPGOODS_INDEX_SHANGPINGTYPE')}</th>
+						<th> {:lang('ADMIN_SHOPGOODS_INDEX_ONECLASS')}</th>
+						<th>{:lang('ADMIN_SHOPGOODS_INDEX_TWOCLASS')}</th>
+						<th>{:lang('ADMIN_SHOPGOODS_INDEX_THREECLASS')}</th>
+						<th>{:lang('ADMIN_SHOPGOODS_INDEX_WAILIANSHANGPMING')}</th>
+						<th>{:lang('ADMIN_SHOPGOODS_INDEX_WAILIANSHANGPYUANJIA')}</th>
+						<th>{:lang('ADMIN_SHOPGOODS_INDEX_WAILIANSHANGPXIANJIA')}</th>
+						<th>{:lang('ADMIN_SHOPGOODS_INDEX_FACE')}</th>
+						<th>{:lang('ADMIN_SHOPGOODS_INDEX_YOUFEI')}</th>
+						<th>{:lang('ADMIN_SHOPGOODS_INDEX_YONGJIN')}</th>
+						<th>{:lang('ADMIN_SHOPGOODS_INDEX_SALES')}</th>
+						<th>{:lang('STATUS')}</th>
+						<th>{:lang('SUBMIT_TIME')}</th>
+						<th>{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td>
+							<if condition="$vo['status'] eq '1' or $vo['status'] eq '-2'">
+                            	<input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}">
+                            </if>
+                        </td>
+						<td>{$vo.id}</td>
+						<td>
+							<if condition="$vo['uid'] eq '1'">
+								平台自营
+							<else />
+								{$vo['userinfo']['user_nicename']} ({$vo.uid})
+							</if>
+						</td>
+						<td>{$vo['name']}</td>
+						<td>{$type[$vo['type']]}</td>
+						<td>{$vo['oneclass_name']}</td>
+						<td>{$vo['twoclass_name']}</td>
+						<td>{$vo['threeclass_name']}</td>
+						<td style="max-width: 200px;word-wrap:break-word;">{$vo['href']}</td>
+						<td>{$vo['original_price']}</td>
+						<td>{$vo['present_price']}</td>
+						<td><img src="{$vo['thumb']}" class="imgtip" width="60"></td>
+						<td>{$vo['postage']}</td>
+						<td>{$vo['share_income']}</td>
+						<td>{$vo['sale_nums']}</td>
+                        <td>{$status[$vo['status']]}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td>
+							<if condition="$vo['status'] eq 0 && $vo['uid'] gt 1">
+                            	<a class="btn btn-xs btn-primary" href='{:url("Shopgoods/edit",array("id"=>$vo["id"]))}'>{:lang('ADMIN_SHOPING_CHECK')}</a>
+                            <elseif condition="$vo['status'] eq -2">
+                            	<a class="btn btn-xs btn-info js-ajax-dialog-btn" href="{:url('Shopgoods/setstatus',array('id'=>$vo['id'],'status'=>'1'))}" >{:lang('ADMIN_GOODSCLASS_OFF_THE_SHELF')}</a>
+                            <else />
+                            	<if condition="$vo['type'] neq 2">
+                            		<a class="btn btn-xs btn-primary" href='{:url("Shopgoods/edit",array("id"=>$vo["id"]))}'>{:lang('ADMIN_SHOPGOODS_INDEX_DETAIL')}</a>
+                            	<else />
+                            		<a class="btn btn-xs btn-primary" href='{:url("Shopgoods/platformedit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a>
+                            	</if>
+                            	<if condition="$vo['status'] eq 1">
+                            		<a class="btn btn-xs btn-info js-ajax-dialog-btn" href="{:url('Shopgoods/setstatus',array('id'=>$vo['id'],'status'=>'-2'))}" >{:lang('LOWER')}</a>
+                            	</if>
+                            </if>
+                            <!-- <if condition="$vo['isrecom'] eq 1">
+                            <a class="btn btn-xs btn-info js-ajax-dialog-btn" href="{:url('Shopgoods/setRecom',array('id'=>$vo['id'],'isrecom'=>'0'))}" >取消推荐</a>
+                            <else/>
+                            <a class="btn btn-xs btn-info js-ajax-dialog-btn" href="{:url('Shopgoods/setRecom',array('id'=>$vo['id'],'isrecom'=>'1'))}" >推荐</a>
+                            </if> -->
+                            <if condition="$vo['type'] eq '0' or $vo['type'] eq '2'">
+                            	<a class="btn btn-xs btn-primary"  onclick="commentlist({$vo['id']})">{:lang('ADMIN_SHOPGOODS_INDEX_COMMTARY_LIST')}</a>
+                        	</if>
+                            <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Shopgoods/del',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="table-actions">
+                <!-- <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('Shopgoods/del')}"
+                        data-subcheck="true">批量删除
+                </button> -->
+
+                <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('Shopgoods/setStatus',array('status'=>'-2'))}"
+                        data-subcheck="true">{:lang('ADMIN_SHOPGOODS_INDEX_BATCHGOODSDOWD')}
+                </button>
+
+                <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('Shopgoods/setStatus',array('status'=>'1'))}"
+                        data-subcheck="true">{:lang('ADMIN_SHOPGOODS_INDEX_CANALGOODSDOWN')}
+                </button>
+
+                <p class="help-block" style="font-weight: bold;">{:lang('ADMIN_SHOPGOODS_INDEX_PILIANGCOUTIOUS')}</p>
+            </div>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			Wind.use('layer');
+		});
+
+		function commentlist(goodsid){
+			layer.open({
+			  type: 2,
+			  title: '{:lang(\'ADMIN_SHOPGOODS_INDEX_PLLIST\')}',
+			  shadeClose: true,
+			  shade: 0.8,
+			  area: ['90%', '90%'],
+			  content: '/Admin/Shopgoods/commentlist?goods_id='+goodsid //iframe的url
+			});
+		}
+	</script>
+</body>
+</html>

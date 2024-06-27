@@ -1,0 +1,51 @@
+<include file="public@header"/>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_MANUAL_INDEX_LIST')}</a></li>
+			<li><a href="{:url('Manual/add')}">{:lang('ADMIN_MANUAL_INDEX_RECHARGE')}</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20"   name="form1" method="post" action="">
+			{:lang('SUBMIT_TIME')}:
+			<input type="text" name="start_time" class="js-bootstrap-date form-control" value="{:input('request.start_time')}" autocomplete="off" placeholder="{:lang('START_TIME')}" autocomplete="off">-
+			<input type="text" name="end_time" class="js-bootstrap-date form-control" value="{:input('request.end_time')}" autocomplete="off" placeholder="{:lang('END_TIME')}" autocomplete="off">&nbsp; &nbsp;
+			{:lang('KEYWORD')}：
+			<input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="{:lang('ADMIN_VIDEO_REPORTLIST_VIPID')}">
+			<input type="button" class="btn btn-primary" value="{:lang('SEARCH')}" onclick="form1.action='{:url('Manual/index')}';form1.submit();"/>
+			<a class="btn btn-danger" href="{:url('Admin/Manual/index')}">{:lang('CLEAN')}</a>
+			<a class="admin_zongshu">{:lang('ADMIN_MANUAL_INDEX_ALL_NUMBER')}:{$coin}</a>
+		</form>		
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">{:lang('ID')}</th>
+						<th>{:lang('ADMIN_MANUAL_INDEX_ADMINISTRATOR')}</th>
+						<th>{:lang('ADMIN_MANUAL_INDEX_VIP_AMOUNT')}</th>
+						<th>{:lang('ADMIN_MANUAL_INDEX_RECHARGE_NUMBER')}</th>
+						<th>{:lang('ADMIN_MANUAL_INDEX_IP')}</th>
+						<th>{:lang('ADMIN_MANUAL_INDEX_TIME')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo['admin']}</td>
+						<td>{$vo['user_nicename']} （{$vo['user_login']}）（{$vo['touid']}）</td>
+						<td>{$vo['coin']}</td>
+						<td>{$vo['ip']}</td>
+				
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<include file="public@header"/>
+
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_USERAUTH_CERTIFICATION')}</a></li>
+
+		</ul>
+
+		<form class="well form-inline margin-top-20" method="post" action="{:url('userauth/index')}">
+			{:lang('CHECK_STATUS')}：
+			<select class="form-control" name="status" style="width: 200px;">
+				<option value="">{:lang('ALL')}</option>
+				<option value="0" <if condition="input('request.status') eq '0'">selected</if> >{:lang('ADMIN_USERAUTH_CERTIFICATE_PROCESSING')}</option>
+				<option value="1" <if condition="input('request.status') eq '1'">selected</if>>{:lang('ADMIN_USERAUTH_AUDIT_STATUS_SUCCESS')}</option>
+				<option value="2" <if condition="input('request.status') eq '2'">selected</if>>{:lang('ADMIN_USERAUTH_AUDIT_STATUS_LOSE')}</option>
+				
+			</select>&nbsp; &nbsp;
+
+			{:lang('SUBMIT_TIME')}：
+			<input type="text" name="start_time" class="js-bootstrap-date form-control" value="{:input('request.start_time')}" autocomplete="off" placeholder="{:lang('START_TIME')}">-
+			<input type="text" name="end_time" class="js-bootstrap-date form-control" value="{:input('request.end_time')}" autocomplete="off" placeholder="{:lang('END_TIME')}">&nbsp; &nbsp;
+
+
+			{:lang('KEYWORD')}：
+			<input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="{:lang('ADMIN_USERAUTH_CERTIFICATE_ID_NAME_TEL')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}"/>
+			<a class="btn btn-danger" href="{:url('Admin/userauth/index')}">{:lang('CLEAN')}</a>
+		</form>				
+		<form method="post" class="js-ajax-form">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">{:lang('ADMIN_USERAUTH_NUMBER_ID')}</th>
+						<th>{:lang('ADMIN_USERAUTH_NUMBER')}</th>
+						<th>{:lang('ADMIN_USERAUTH_REAL_NAME')}</th>
+						<th>{:lang('ADMIN_USERAUTH_TEL')}</th>
+						<th>{:lang('CHECK_STATUS')}</th>
+						<th>{:lang('SUBMIT_TIME')}</th>
+						<th>{:lang('HANDLE_TIME')}</th>
+						<th>{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<php>$status=array("0"=>"{:lang('ADMIN_USERAUTH_CERTIFICATE_PROCESSING')}","1"=>"{:lang('ADMIN_USERAUTH_AUDIT_STATUS_SUCCESS')}", "2"=>"{:lang('ADMIN_USERAUTH_AUDIT_STATUS_LOSE')}");</php>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td align="center">{$vo.uid}</td>
+						<td>{$vo['userinfo']['user_nicename']} </td>
+						<td>{$vo['real_name']}</td>
+						<td>{$vo['mobile']}</td>
+						<td>{$status[$vo['status']]}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>						
+						<td>
+							<if condition="$vo['status'] eq '0'" >
+								{:lang('ADMIN_USERAUTH_CERTIFICATE_PROCESSING')}
+							<else/>
+								<if condition="$vo['uptime'] neq '0'">
+								{:date('Y-m-d H:i:s',$vo['uptime'])}
+								<else />
+								--
+								</if>
+							</if>
+						</td>
+
+						<td align="center">							
+							<a class="btn btn-xs btn-primary" href="{:url('userauth/edit',array('id'=>$vo['uid']))}">{:lang('EDIT')}</a>
+							<a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('userauth/del',array('id'=>$vo['uid']))}" data-msg="{:lang('ADMIN_GIFT_INDEX_SURE_DELETE')}">{:lang('DELETE')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

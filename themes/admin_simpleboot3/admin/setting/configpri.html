@@ -1,0 +1,1625 @@
+<include file="public@header"/>
+<style type="text/css">
+    .cdnhide{
+        display: none;
+    }
+</style>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#A" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIG_JBSZ')}</a></li>
+        <li><a href="#B" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_LOGIN_SETTING')}</a></li>
+        <li><a href="#C" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_AURORA_SETTING')}</a></li>
+        <li><a href="#D" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_VRDIO_RECOMMANDED_SETTING')}</a></li>
+        <li><a href="#E" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_STATISTICS_SETTING')}</a></li>
+        <li><a href="#G" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_INVITE_SETTING')}</a></li>
+        <li><a href="#H" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_SETTING')}</a></li>
+        <li><a href="#I" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_WITHDRAW_SETTING')}</a></li>
+        <li><a href="#J" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_UP_HOT')}</a></li>
+        <li><a href="#K" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_VIP_SETTING')}</a></li>
+        <li><a href="#L" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_SHORT_VEDIO_WATCH_MODEL')}</a></li>
+        <li><a href="#M" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_CLOUD_SAVE_SETTING')}</a></li>
+        <li><a href="#N" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_DERICT_SETTING')}</a></li>
+        <li><a href="#O" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_SENSITIVE_WORD')}</a></li>
+		<li><a href="#P" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_EACHDAY_TASK')}</a></li>
+        <li><a href="#Q" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_PRODUCT_SETTING')}</a></li>
+        <li><a href="#R" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_SETTING')}</a></li>
+        <li><a href="#S" data-toggle="tab">{:lang('ADMIN_SETTING_CONFIGPRI_OPENINSTALL_SETTING')}</a></li>
+    </ul>
+    <form class="form-horizontal js-ajax-form margin-top-20" role="form" action="{:url('setting/configpriPost')}"
+          method="post">
+        <fieldset>
+            <div class="tabbable">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="A">						
+						
+                        
+
+                        <div class="form-group">
+                            <label for="input-cache_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_CACHE_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[cache_switch]" value="0" <eq name="config['cache_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[cache_switch]" value="1" <eq name="config['cache_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                
+                            </div>
+
+                        </div>
+
+						<div class="form-group">
+                            <label for="input-cache_time" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_CACHE_TIME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-cache_time" name="options[cache_time]" value="{$config['cache_time']|default=''}">  <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_CACHE_TIME_HINT')}</p>
+                            </div>
+                        </div>
+
+						
+
+                        <div class="form-group">
+                            <label for="input-auth_islimit" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_AUTH_LIMIT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[auth_islimit]" value="0" <eq name="config['auth_islimit']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[auth_islimit]" value="1" <eq name="config['auth_islimit']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_AUTH_LIMIT_HINT')}</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-private_letter_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_NOT_ATTENTION_SEND_MSG_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[private_letter_switch]" value="0" <eq name="config['private_letter_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[private_letter_switch]" value="1" <eq name="config['private_letter_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+
+                            </div>
+
+                        </div>
+
+						
+						<div class="form-group">
+                            <label for="input-private_letter_nums" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_NOT_ATTENTION_SEND_MSG_NUMBER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-private_letter_nums" name="options[private_letter_nums]" value="{$config['private_letter_nums']|default=''}">  
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_NOT_ATTENTION_SEND_MSG_NUMBER_HINT')}</p>
+                            </div>
+                        </div>
+						
+
+                        <div class="form-group">
+                            <label for="input-video_audit_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_VEDIO_CHECK_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[video_audit_switch]" value="0" <eq name="config['video_audit_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[video_audit_switch]" value="1" <eq name="config['video_audit_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_VEDIO_CHECK_SWITCH_HINT')}</p>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-video_audit_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO_HINT1')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO_HINT2')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO_HINT3')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO_HINT4')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO_HINT5')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO_HINT6')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO_HINT7')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO_HINT8')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO_HINT9')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SYSTEM_FUNCTION_INFO_HINT10')}</p>
+                            </div>
+
+                        </div>
+						
+						<div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+						
+                    </div>
+					
+					<!-- 登录配置 -->
+					
+                    <div class="tab-pane" id="B">
+					
+						<div class="form-group">
+                            <label for="input-reg_reward" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_REGISTER_PRIZE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-reg_reward"
+                                       name="options[reg_reward]" value="{$config.reg_reward|default=''}">
+                                       <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_REGISTER_PRIZE_HINT')}</p>
+                            </div>
+                        </div>
+					   
+                       <div class="form-group">
+                            <label for="input-login_wx_appid" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_WECHAT_APPID')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-login_wx_appid" name="options[login_wx_appid]" value="{$config['login_wx_appid']|default=''}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-login_wx_appsecret" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_WECHAT_APPSECRET')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-login_wx_appsecret" name="options[login_wx_appsecret]" value="{$config['login_wx_appsecret']|default=''}"> 
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-sendcode_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHORT_MSG_AUTH_COED_SEITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[sendcode_switch]" value="0" <eq name="config['sendcode_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[sendcode_switch]" value="1" <eq name="config['sendcode_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHORT_MSG_AUTH_COED_SEITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-code_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHORT_MSG_PORT_PLATFORM')}</label>
+                            <div class="col-md-6 col-sm-10" id="cdn">
+                                <label class="radio-inline"><input type="radio" value="1" name="options[code_switch]" <in value="1" name="config['code_switch']">checked="checked"</in>>{:lang('ADMIN_SETTING_CONFIGPRI_ALIYUN')}</label>
+                                <label class="radio-inline"><input type="radio" value="2" name="options[code_switch]" <in value="2" name="config['code_switch']">checked="checked"</in>>{:lang('ADMIN_SETTING_CONFIGPRI_RONG_LIAN_YUN')}</label>
+                                
+                               
+                            </div>
+                        </div>
+                        <div class="cdn_bd <neq name='config.code_switch' value='1'>cdnhide</neq>" id="code_switch_1">
+                            <div class="form-group">
+                                <label for="input-aly_keyid" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_ALIYUN_ACCESSKEY_ID')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-aly_keyid" name="options[aly_keyid]" value="{$config['aly_keyid']|default=''}">
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_ALIYUN_ACCESSKEY_ID_HINT')}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">                            
+                                <label for="input-aly_secret" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_ALIYUN_ACCESSKEY_SECRET')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-aly_secret" name="options[aly_secret]" value="{$config['aly_secret']|default=''}">
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_ALIYUN_ACCESSKEY_SECRET_HINT')}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="input-aly_sendcode_type" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_ALIYUN_SHORT_MSG_SEND_AREA')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <label class="radio-inline"><input type="radio" name="options[aly_sendcode_type]" value="1" <eq name="config['aly_sendcode_type']" value="1">checked</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_SEND_CHINA')}</label>
+                                    <label class="radio-inline"><input type="radio" name="options[aly_sendcode_type]" value="2" <eq name="config['aly_sendcode_type']" value="2">checked</eq> >{:lang('ADMIN_SETTING_CONFIGPRI_SEND_HMT_INTERNATIONAL')}</label>
+                                    <label class="radio-inline"><input type="radio" name="options[aly_sendcode_type]" value="3" <eq name="config['aly_sendcode_type']" value="3">checked</eq> >{:lang('ADMIN_SETTING_CONFIGPRI_SEND_GLOBAL')}</label>
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_ALIYUN_SHORT_MSG_SEND_AREA_HINT')}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="input-aly_signName" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_NATIONAL_SHORT_MSG_SIGNATURE')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-aly_signName" name="options[aly_signName]" value="{$config['aly_signName']|default=''}">
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_NATIONAL_SHORT_MSG_SIGNATURE_HINT')}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">                            
+                                <label for="input-aly_templateCode" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_NATIONAL_SHORT_MSG_TEMPLATE_ID')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-aly_templateCode" name="options[aly_templateCode]" value="{$config['aly_templateCode']|default=''}">
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_NATIONAL_SHORT_MSG_TEMPLATE_ID_HINT')}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="input-aly_hw_signName" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_HMT_INTERNATIONAL_SHORT_MSG_SIGNATURE')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-aly_hw_signName" name="options[aly_hw_signName]" value="{$config['aly_hw_signName']|default=''}">{:lang('ADMIN_SETTING_CONFIGPRI_HMT_INTERNATIONAL_SHORT_MSG_SIGNATURE_HINT')}
+                                </div>
+                            </div>
+
+                            <div class="form-group">                            
+                                <label for="input-aly_hw_templateCode" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_HMT_INTERNATIONAL_SHORT_MSG_TEMPLATE_ID')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-aly_hw_templateCode" name="options[aly_hw_templateCode]" value="{$config['aly_hw_templateCode']|default=''}">{:lang('ADMIN_SETTING_CONFIGPRI_HMT_INTERNATIONAL_SHORT_MSG_TEMPLATE_ID_HINT')}
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="cdn_bd <neq name='config.code_switch' value='2'>cdnhide</neq>" id="code_switch_2">
+                            <div class="form-group">
+                                <label for="input-ccp_sid" class="col-sm-2 control-label">容联云ACCOUNT SID</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-ccp_sid" name="options[ccp_sid]" value="{$config['ccp_sid']|default=''}">  
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="input-ccp_token" class="col-sm-2 control-label">容联云AUTH TOKEN</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-ccp_token" name="options[ccp_token]" value="{$config['ccp_token']|default=''}">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="input-ccp_appid" class="col-sm-2 control-label">容联云应用APPID</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-ccp_appid" name="options[ccp_appid]" value="{$config['ccp_appid']|default=''}">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="input-ccp_tempid" class="col-sm-2 control-label">容联云短信模板ID</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-ccp_tempid" name="options[ccp_tempid]" value="{$config['ccp_tempid']|default=''}">
+                                </div>
+                            </div>
+                        </div>
+
+                        
+						
+                        <div class="form-group">
+                            <label for="input-iplimit_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHORT_MSG_AUTH_COED_IP_LIMIT_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[iplimit_switch]" value="0" <eq name="config['iplimit_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[iplimit_switch]" value="1" <eq name="config['iplimit_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHORT_MSG_AUTH_COED_IP_LIMIT_SWITCH')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-iplimit_times" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHORT_MSG_AUTH_COED_IP_LIMIT_NUMBER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-iplimit_times" name="options[iplimit_times]" value="{$config['iplimit_times']|default=''}">  <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHORT_MSG_AUTH_COED_IP_LIMIT_NUMBER_HINT')}</p>
+                            </div>
+                        </div>
+						
+                        <div class="form-group">
+                            <label for="input-same_device_ip_regnums" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SAME_DEVICE_IP_RESIGTER_USER_NUMBER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-same_device_ip_regnums" name="options[same_device_ip_regnums]" value="{$config['same_device_ip_regnums']|default=''}">  <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SAME_DEVICE_IP_RESIGTER_USER_NUMBER_HINT')}</p>
+                            </div>
+                        </div>
+						
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					
+					<!-- 极光配置 -->
+                    <div class="tab-pane" id="C">
+
+                        <div class="form-group">
+                            <label for="input-jpush_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_AURORA_SEND_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[jpush_switch]" value="0" <eq name="config['jpush_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[jpush_switch]" value="1" <eq name="config['jpush_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_AURORA_SEND_SWITCH_HINT1')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_AURORA_SEND_SWITCH_HINT2')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-jpush_sandbox" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_AURORA_SEND_SCHEMA')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[jpush_sandbox]" value="0" <eq name="config['jpush_sandbox']" value="0">checked</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_AURORA_DEVELOP')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[jpush_sandbox]" value="1" <eq name="config['jpush_sandbox']" value="1">checked</eq> >{:lang('ADMIN_SETTING_CONFIGPRI_AURORA_PRODUCT')}</label>
+                            </div>
+                        </div>
+                        
+						<div class="form-group">
+                            <label for="input-jpush_key" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_AURORA_APP_KEY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-jpush_key" name="options[jpush_key]" value="{$config['jpush_key']|default=''}">  
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-jpush_secret" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_AURORA_MASTER_SECRET')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-jpush_secret" name="options[jpush_secret]" value="{$config['jpush_secret']|default=''}">  
+                            </div>
+                        </div>
+	
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 推荐列表设置 -->
+                    <div class="tab-pane" id="D">
+                        
+                        <div class="form-group">
+                            <label for="input-video_showtype" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_RECOMMEND_VEDIO_SHOW_WAY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[video_showtype]" value="0" <eq name="config['video_showtype']" value="0">checked</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_RECOMMEND_VEDIO_RANDOM')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[video_showtype]" value="1" <eq name="config['video_showtype']" value="1">checked</eq> >{:lang('ADMIN_SETTING_CONFIGPRI_RECOMMEND_VEDIO_EXPOSURE')}</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-ad_video_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_ADVERTISING_VEDIO_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[ad_video_switch]" value="0" <eq name="config['ad_video_switch']" value="0">checked</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_ADVERTISING_VEDIO_CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[ad_video_switch]" value="1" <eq name="config['ad_video_switch']" value="1">checked</eq> >{:lang('ADMIN_SETTING_CONFIGPRI_ADVERTISING_VEDIO_OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_ADVERTISING_VEDIO_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-ad_video_loop" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_ADVERTISING_POLLING_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[ad_video_loop]" value="0" <eq name="config['ad_video_loop']" value="0">checked</eq>>{:lang('NO')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[ad_video_loop]" value="1" <eq name="config['ad_video_loop']" value="1">checked</eq> >{:lang('YES')}</label>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-video_ad_num" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_MANY_VEDIO_ONE_ADVERTISING')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-video_ad_num" name="options[video_ad_num]" value="{$config['video_ad_num']|default=''}" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');">  <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_MANY_VEDIO_ONE_ADVERTISING_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-comment_weight" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_COMMENT_WEIGHT_VALUE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-comment_weight" name="options[comment_weight]" value="{$config['comment_weight']|default=''}">  <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_COMMENT_WEIGHT_VALUE_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-like_weight" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_LIKE_WEIGHT_VALUE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-like_weight" name="options[like_weight]" value="{$config['like_weight']|default=''}">  <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_COMMENT_WEIGHT_VALUE_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-share_weight" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHARE_WEIGHT_VALUE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-share_weight" name="options[share_weight]" value="{$config['share_weight']|default=''}">  <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_COMMENT_WEIGHT_VALUE_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-show_val" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_EXPOSURE_WEIGHT_VALUE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-show_val" name="options[show_val]" value="{$config['show_val']|default=''}" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');"> <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_COMMENT_WEIGHT_VALUE_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-hour_minus_val" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_EXPOSURE_SUB_EACHHOUR')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-hour_minus_val" name="options[hour_minus_val]" value="{$config['hour_minus_val']|default=''}" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');"> <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_COMMENT_WEIGHT_VALUE_HINT')}</p>
+                            </div>
+                        </div>
+					
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 统计配置 -->
+                    <div class="tab-pane" id="E">
+                        <div class="form-group">
+                            <label for="input-video_showtype" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_FRIEND_OPENAPI_APIKEY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-um_apikey" name="options[um_apikey]" value="{$config['um_apikey']|default=''}">  
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-video_showtype" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_FRIEND_OPENAPI_APISECURITY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-um_apisecurity" name="options[um_apisecurity]" value="{$config['um_apisecurity']|default=''}">  
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-video_showtype" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_FRIEND_ANDROIDAPP_APPKEY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-um_appkey_android" name="options[um_appkey_android]" value="{$config['um_appkey_android']|default=''}">  
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-video_showtype" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_FRIEND_IOSAPP_APPKEY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-um_appkey_ios" name="options[um_appkey_ios]" value="{$config['um_appkey_ios']|default=''}">  
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					
+					<!-- 邀请配置 -->
+                    <div class="tab-pane" id="G">
+
+                        <div class="form-group">
+                            <label for="input-agent_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_INVITE_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[agent_switch]" value="0" <eq name="config['agent_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[agent_switch]" value="1" <eq name="config['agent_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-agent_must" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_INVITE_COED_NEED')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[agent_must]" value="0" <eq name="config['agent_must']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[agent_must]" value="1" <eq name="config['agent_must']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-video_showtype" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_INVITE_NEW_PRIZE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-agent_reward" name="options[agent_reward]" value="{$config['agent_reward']|default=''}">{:lang('ADMIN_SETTING_CONFIGPRI_YUN_PIAO')}
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-video_showtype" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_WATCH_VEDIO_TIME_EACHDAY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-agent_v_l" name="options[agent_v_l]" value="{$config['agent_v_l']|default=''}">{:lang('ADMIN_SETTING_CONFIGPRI_MINUTE')}
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-video_showtype" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_WATCH_SOME_TIME_VEDIO_PRIZE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-agent_v_a" name="options[agent_v_a]" value="{$config['agent_v_a']|default=''}">{:lang('ADMIN_SETTING_CONFIGPRI_YUN_PIAO')}
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-video_showtype" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_WATCH_SOME_TIME_VEDIO_PRIZE_UPUSER_PRIZE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-agent_a" name="options[agent_a]" value="{$config['agent_a']|default=''}">{:lang('ADMIN_SETTING_CONFIGPRI_YUN_PIAO')}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 支付管理 -->
+                    <div class="tab-pane" id="H">
+
+						<div class="form-group">
+                            <label for="input-aliapp_partner" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_ZFB_COOPERATOR_IDENTITY_ID')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-aliapp_partner" name="options[aliapp_partner]" value="{$config['aliapp_partner']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_ZFB_COOPERATOR_IDENTITY_ID')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-aliapp_seller_id" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_ZFB_ACCOUNT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-aliapp_seller_id" name="options[aliapp_seller_id]" value="{$config['aliapp_seller_id']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_ZFB_ACCOUNT_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="aliapp_key_android" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_ZFB_ANDROID_KEY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <textarea class="form-control" name="options[aliapp_key_android]"  id="aliapp_key_android">{$config['aliapp_key_android']|default=''}</textarea>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_ZFB_ANDROID_KEY_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="aliapp_key_ios" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_ZFB_IOS_KEY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <textarea class="form-control" name="options[aliapp_key_ios]"  id="aliapp_key_ios">{$config['aliapp_key_ios']|default=''}</textarea>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_ZFB_IOS_KEY_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-aliapp_check" class="col-sm-2 control-label" style="font-weight: normal;padding-top: 0;">-------------------------------</label>
+                            <div class="col-md-6 col-sm-10">
+                                -------------------------------------------------------------------------------------------------------------------------------------
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-wx_appid" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_WECHAT_PLATFORM_MOBILEAPP_APPID')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-wx_appid" name="options[wx_appid]" value="{$config['wx_appid']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_WECHAT_PLATFORM_MOBILEAPP_APPID')}</p>
+                            </div>
+                        </div>
+
+						<div class="form-group">
+                            <label for="input-wx_appsecret" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_WECHAT_PLATFORM_MOBILEAPP_APPSECRET')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-wx_appsecret" name="options[wx_appsecret]" value="{$config['wx_appsecret']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_WECHAT_PLATFORM_MOBILEAPP_APPSECRET')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-wx_mchid" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_WECHAT_MCHID')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-wx_mchid" name="options[wx_mchid]" value="{$config['wx_mchid']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_WECHAT_MCHID_HINT')}</p>
+                            </div>
+                        </div>
+						
+						
+						<div class="form-group">
+                            <label for="input-wx_key" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_WECHAT_KEY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-wx_key" name="options[wx_key]" value="{$config['wx_key']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_WECHAT_KEY_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-aliapp_check" class="col-sm-2 control-label" style="font-weight: normal;padding-top: 0;">-------------------------------</label>
+                            <div class="col-md-6 col-sm-10">
+                                -------------------------------------------------------------------------------------------------------------------------------------
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-braintree_paypal_environment" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_BP_MCHTYPE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="options[braintree_paypal_environment]">
+                                    <option value="0">沙盒</option>
+                                    <if condition="isset($config['braintree_paypal_environment'])">
+                                        <option value="1" <eq name="config['braintree_paypal_environment']" value="1">selected</eq>>生产</option>
+                                    </if>
+                                    
+                                </select>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_BP_MCHTYPE_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-braintree_merchantid_sandbox" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_BM_ID_SANDBOX')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-braintree_merchantid_sandbox" name="options[braintree_merchantid_sandbox]" value="{$config['braintree_merchantid_sandbox']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_BM_ID_SANDBOX_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-braintree_publickey_sandbox" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_B_PUBLICKEY_SANDBOX')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-braintree_publickey_sandbox" name="options[braintree_publickey_sandbox]" value="{$config['braintree_publickey_sandbox']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_B_PUBLICKEY_SANDBOX_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-braintree_privatekey_sandbox" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_B_PRIVATEKEY_SANDBOX')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-braintree_privatekey_sandbox" name="options[braintree_privatekey_sandbox]" value="{$config['braintree_privatekey_sandbox']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_B_PRIVATEKEY_SANDBOX_HINT')}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="input-braintree_merchantid_product" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_BM_ID_PRODUCT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-braintree_merchantid_product" name="options[braintree_merchantid_product]" value="{$config['braintree_merchantid_product']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_BM_ID_PRODUCT_HINT')}</p>
+                            </div>
+                            
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="input-braintree_publickey_product" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_B_PUBLICKEY_PRODUCT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-braintree_publickey_product" name="options[braintree_publickey_product]" value="{$config['braintree_publickey_product']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_B_PUBLICKEY_PRODUCT_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-braintree_privatekey_product" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_B_PRIVATEKEY_PRODUCT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-braintree_privatekey_product" name="options[braintree_privatekey_product]" value="{$config['braintree_privatekey_product']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_B_PRIVATEKEY_PRODUCT_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-aliapp_check" class="col-sm-2 control-label" style="font-weight: normal;padding-top: 0;">-------------------------------</label>
+                            <div class="col-md-6 col-sm-10">
+                                -------------------------------------------------------------------------------------------------------------------------------------
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-aliapp_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_YUN_ZFB_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[aliapp_switch]" value="0" <eq name="config['aliapp_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[aliapp_switch]" value="1" <eq name="config['aliapp_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_YUN_ZFB_PAY_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-ios_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_YUN_IOS_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[ios_switch]" value="0" <eq name="config['ios_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[ios_switch]" value="1" <eq name="config['ios_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_YUN_IOS_PAY_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-wx_switch" class="col-sm-2 control-label">{{:lang('ADMIN_SETTING_CONFIGPRI_YUN_WECHAT_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[wx_switch]" value="0" <eq name="config['wx_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[wx_switch]" value="1" <eq name="config['wx_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{$name_coin}{:lang('ADMIN_SETTING_CONFIGPRI_YUN_WECHAT_PAY_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-braintree_paypal_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_YUN_BP_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[braintree_paypal_switch]" value="0" <eq name="config['braintree_paypal_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[braintree_paypal_switch]" value="1" <eq name="config['braintree_paypal_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{$name_coin}{:lang('ADMIN_SETTING_CONFIGPRI_YUN_BP_PAY_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-aliapp_check" class="col-sm-2 control-label" style="font-weight: normal;padding-top: 0;">-------------------------------</label>
+                            <div class="col-md-6 col-sm-10">
+                                -------------------------------------------------------------------------------------------------------------------------------------
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-vip_aliapp_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_VIP_ZFB_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[vip_aliapp_switch]" value="0" <eq name="config['vip_aliapp_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[vip_aliapp_switch]" value="1" <eq name="config['vip_aliapp_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_VIP_ZFB_PAY_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <!-- 忽略vip苹果支付<div class="form-group">
+                            <label for="input-vip_ios_switch" class="col-sm-2 control-label">vip充值 苹果支付开关</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[vip_ios_switch]" value="0" <eq name="config['vip_ios_switch']" value="0">checked</eq>>关闭</label>
+                                <label class="radio-inline"><input type="radio" name="options[vip_ios_switch]" value="1" <eq name="config['vip_ios_switch']" value="1">checked</eq> >开启</label>
+                                <p class="help-block">vip充值 苹果支付是否开启</p>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label for="input-vip_wx_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_VIP_WECHAT_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[vip_wx_switch]" value="0" <eq name="config['vip_wx_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[vip_wx_switch]" value="1" <eq name="config['vip_wx_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_VIP_WECHAT_PAY_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-vip_coin_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_YIP_BLANCE_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[vip_coin_switch]" value="0" <eq name="config['vip_coin_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[vip_coin_switch]" value="1" <eq name="config['vip_coin_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_YIP_BLANCE_PAY_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-vip_braintree_paypal_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_YIP_BP_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[vip_braintree_paypal_switch]" value="0" <eq name="config['vip_braintree_paypal_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[vip_braintree_paypal_switch]" value="1" <eq name="config['vip_braintree_paypal_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_YIP_BP_PAY_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-aliapp_check" class="col-sm-2 control-label" style="font-weight: normal;padding-top: 0;">-------------------------------</label>
+                            <div class="col-md-6 col-sm-10">
+                                -------------------------------------------------------------------------------------------------------------------------------------
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_aliapp_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_ZFB_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="options[shop_aliapp_switch]">
+                                    <option value="0">{:lang('CLOSE')}</option>
+                                    <option value="1" <eq name="config['shop_aliapp_switch']" value="1">selected</eq>>{:lang('OPEN')}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_wx_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WECHAT_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="options[shop_wx_switch]">
+                                    <option value="0">{:lang('CLOSE')}</option>
+                                    <option value="1" <eq name="config['shop_wx_switch']" value="1">selected</eq>>{:lang('OPEN')}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_balance_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_BLANCE_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="options[shop_balance_switch]">
+                                    <option value="0">{:lang('CLOSE')}</option>
+                                    <option value="1" <eq name="config['shop_balance_switch']" value="1">selected</eq>>{:lang('OPEN')}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_braintree_paypal_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_BP_PAY_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[shop_braintree_paypal_switch]" value="0" <eq name="config['shop_braintree_paypal_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[shop_braintree_paypal_switch]" value="1" <eq name="config['shop_braintree_paypal_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_BP_PAY_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 提现配置 -->
+                    <div class="tab-pane" id="I">
+                        
+						<div class="form-group">
+                            <label for="input-cash_rate" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_WITHDRAW_PROPORTION')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-cash_rate" name="options[cash_rate]" value="{$config['cash_rate']|default=''}"> <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_WITHDRAW_PROPORTION_HINT')}<span style="color: #F00;">{:lang('ADMIN_SETTING_CONFIGPRI_EQUAL_ONE')}</span></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-cash_take" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_WITHDRAW_COMMISSION')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-cash_take" name="options[cash_take]" value="{$config['cash_take']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_WITHDRAW_COMMISSION_HINT1')}<br/>{:lang('ADMIN_SETTING_CONFIGPRI_WITHDRAW_COMMISSION_HINT2')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-cash_min" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_WITHDRAW_LOWEST_VALUE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-cash_min" name="options[cash_min]" value="{$config['cash_min']|default=''}">  
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-cash_start" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_EACHMONTH_WITHDRAW_DEADLINE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-cash_start" name="options[cash_start]" value="{$config['cash_start']|default=''}" style="width:100px;display:inline-block;"> - 
+                                <input type="text" class="form-control" id="input-cash_end" name="options[cash_end]" value="{$config['cash_end']|default=''}" style="width:100px;display:inline-block;">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_EACHMONTH_WITHDRAW_DEADLINE_HINT')}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-cash_max_times" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_EACHMONT_COMMIT_NUMBER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-cash_max_times" name="options[cash_max_times]" value="{$config['cash_max_times']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_EACHMONT_COMMIT_NUMBER_HINT')}</p>
+                            </div>
+                        </div>
+	
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 上热门 -->
+                    <div class="tab-pane" id="J">
+                        
+						<div class="form-group">
+                            <label for="input-popular_interval" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_HOT_VEDIO_ADD_GAP')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-popular_interval" name="options[popular_interval]" value="{$config['popular_interval']|default=''}"> 
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_HOT_VEDIO_ADD_GAP_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-popular_base" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_HOT_BASE_NUMBER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-popular_base" name="options[popular_base]" value="{$config['popular_base']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_HOT_BASE_NUMBER_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="popular_tips" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_HINT_CONTENT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <textarea class="form-control" name="options[popular_tips]"  id="popular_tips">{$config['popular_tips']|default=''}</textarea><p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_HINT_CONTENT_HINT')}</p>
+                            </div>
+                        </div>
+	
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIP设置 -->
+                    <div class="tab-pane" id="K">
+                        
+                        <div class="form-group">
+                            <label for="input-vip_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_VIP_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[vip_switch]" value="0" <eq name="config['vip_switch']" value="0">checked</eq>>{:lang('CLOSE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[vip_switch]" value="1" <eq name="config['vip_switch']" value="1">checked</eq> >{:lang('OPEN')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_VIP_SWITCH_HINT')}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-nonvip_upload_nums" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_NOT_VIP_UPLOAD_VEDIO_NUMBER_EACHDAY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-nonvip_upload_nums" name="options[nonvip_upload_nums]" value="{$config['nonvip_upload_nums']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_NOT_VIP_UPLOAD_VEDIO_NUMBER_EACHDAY_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 短视频观看模式 -->
+                    <div class="tab-pane" id="L">
+
+                        <div class="form-group">
+                            <label for="input-watch_video_type" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHORT_VEDIO_WATCH_MODEL')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[watch_video_type]" value="0" <eq name="config['watch_video_type']" value="0">checked</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_NUMBER_LIMIT_WAY')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[watch_video_type]" value="1" <eq name="config['watch_video_type']" value="1">checked</eq> >{:lang('ADMIN_SETTING_CONFIGPRI_CONTENT_LIMIT_WAY')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_LIMIT_WAY_HINT')}</p>
+                            </div>
+                        </div>
+                        
+						<div class="form-group">
+                            <label for="input-nonvip_watch_nums" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_FREE_WATCH_VEDIO_NUMBER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-nonvip_watch_nums" name="options[nonvip_watch_nums]" value="{$config['nonvip_watch_nums']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_FREE_WATCH_VEDIO_NUMBER_HINT')}</p>
+                            </div>
+                        </div>
+						
+						
+						
+						
+	
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					
+					<!-- 云存储设置 -->
+                    <div class="tab-pane" id="M">
+                        
+						<div class="form-group">
+							<label for="input-sex" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_CHOOSE_SAVE_WAY')}</label>
+							<div class="col-md-6 col-sm-10" id="cloudtype">
+								
+								<label class="radio-inline"><input type="radio" name="options[cloudtype]" value="1" <eq name="config['cloudtype']" value="1">checked="checked"</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_QI_NIU_CLOUD_SAVE')}</label>
+								<label class="radio-inline"><input type="radio" name="options[cloudtype]" value="2" <eq name="config['cloudtype']" value="2">checked="checked"</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_TENG_XUN_CLOUD_SAVE')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[cloudtype]" value="3" <eq name="config['cloudtype']" value="3">checked="checked"</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_YA_MA_XUN_SAVE')}</label>
+							</div>
+						</div>
+						
+						<div id="cloudtype_1" class="cloudtype_hide <neq name="config['cloudtype']" value="1">hide</neq>">
+
+                            <div class="form-group">
+                                <label for="input-qiniu_accesskey" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_ATTANTION')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_ATTANTION_HINT1')}</p>
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_PAY_ATTANTION_HINT2')}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="input-qiniu_zone" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_QI_NIU_CLOUD_SAVE_AREA')}</label>
+                                <div class="col-md-6 col-sm-10" id="qiniu_zone">
+                                    
+                                    <label class="radio-inline"><input type="radio" name="options[qiniu_zone]" value="z0" <eq name="config['qiniu_zone']" value="z0">checked="checked"</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_HUA_DONG')}</label>
+                                    <label class="radio-inline"><input type="radio" name="options[qiniu_zone]" value="z1" <eq name="config['qiniu_zone']" value="z1">checked="checked"</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_HUA_BEI')}</label>
+                                    <label class="radio-inline"><input type="radio" name="options[qiniu_zone]" value="z2" <eq name="config['qiniu_zone']" value="z2">checked="checked"</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_HUA_NAN')}</label>
+                                    <label class="radio-inline"><input type="radio" name="options[qiniu_zone]" value="na0" <eq name="config['qiniu_zone']" value="na0">checked="checked"</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_BEI_MEI')}</label>
+                                    <label class="radio-inline"><input type="radio" name="options[qiniu_zone]" value="as0" <eq name="config['qiniu_zone']" value="as0">checked="checked"</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_DONG_NAN_YA')}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="input-qiniu_protocol" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_QI_NIU_SAVE_DN')}</label>
+                                <div class="col-md-6 col-sm-10" id="qiniu_protocol">
+                                    
+                                    <label class="radio-inline"><input type="radio" name="options[qiniu_protocol]" value="http" <eq name="config['qiniu_protocol']" value="http">checked="checked"</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_HTTP')}</label>
+                                    <label class="radio-inline"><input type="radio" name="options[qiniu_protocol]" value="https" <eq name="config['qiniu_protocol']" value="https">checked="checked"</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_HTTPS')}</label>
+                                    
+                                </div>
+                            </div>
+						
+							<div class="form-group">
+								<label for="input-qiniu_accesskey" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_QI_NIU_CLOUD_SAVE_ACCESSKEY')}</label>
+								<div class="col-md-6 col-sm-10">
+									<input type="text" class="form-control" id="input-qiniu_accesskey" name="options[qiniu_accesskey]" value="{$config['qiniu_accesskey']|default=''}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-qiniu_secretkey" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_QI_NIU_CLOUD_SAVE_SECRETKEY')}</label>
+								<div class="col-md-6 col-sm-10">
+									<input type="text" class="form-control" id="input-qiniu_secretkey" name="options[qiniu_secretkey]" value="{$config['qiniu_secretkey']|default=''}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-qiniu_bucket" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_QI_NIU_CLOUD_SAVE_BUCKET')}</label>
+								<div class="col-md-6 col-sm-10">
+									<input type="text" class="form-control" id="input-qiniu_bucket" name="options[qiniu_bucket]" value="{$config['qiniu_bucket']|default=''}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-qiniu_domain" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_QI_NIU_CLOUD_SAVE_SPACE_DN')}</label>
+								<div class="col-md-6 col-sm-10">
+									<input type="text" class="form-control" id="input-qiniu_domain" name="options[qiniu_domain]" value="{$config['qiniu_domain']|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_QI_NIU_CLOUD_SAVE_SPACE_DN_HINT')}</p>
+								</div>
+							</div>
+							
+						
+						</div>
+						
+						
+						<div id="cloudtype_2" class="cloudtype_hide <neq name="config['cloudtype']" value="2">hide</neq>" >
+
+                            <div class="form-group">
+                                <label for="input-tx_private_signature" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_OPEN_PRIVATE_SIGNATURE_AUTH')}</label>
+                                <div class="col-md-6 col-sm-10" id="tx_private_signature">
+                                    
+                                    <label class="radio-inline"><input type="radio" name="options[tx_private_signature]" value="0" <eq name="config['tx_private_signature']" value="0">checked="checked"</eq>>{:lang('CLOSE')}</label>
+                                    <label class="radio-inline"><input type="radio" name="options[tx_private_signature]" value="1" <eq name="config['tx_private_signature']" value="1">checked="checked"</eq>>{:lang('OPEN')}</label>
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_OPEN_PRIVATE_SIGNATURE_AUTH_HINT')}</p>
+                                </div>
+                            </div>
+						
+							<div class="form-group">
+								<label for="input-txcloud_appid" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_APPID')}</label>
+								<div class="col-md-6 col-sm-10">
+									<input type="text" class="form-control" id="input-txcloud_appid" name="options[txcloud_appid]" value="{$config['txcloud_appid']|default=''}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-txcloud_secret_id" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_SECRET_ID')}</label>
+								<div class="col-md-6 col-sm-10">
+									<input type="text" class="form-control" id="input-txcloud_secret_id" name="options[txcloud_secret_id]" value="{$config['txcloud_secret_id']|default=''}">
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_SECRET_ID_HINT')}</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-txcloud_secret_key" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_SECRET_KEY')}</label>
+								<div class="col-md-6 col-sm-10">
+									<input type="text" class="form-control" id="input-txcloud_secret_key" name="options[txcloud_secret_key]" value="{$config['txcloud_secret_key']|default=''}">
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_SECRET_KEY_HINT1')}</p>
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_SECRET_KEY_HINT2')}</p>
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_SECRET_KEY_HINT3')}</p>
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_SECRET_KEY_HINT4')}</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-txcloud_region" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_REGION')}</label>
+								<div class="col-md-6 col-sm-10">
+									<input type="text" class="form-control" id="input-txcloud_region" name="options[txcloud_region]" value="{$config['txcloud_region']|default=''}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-txcloud_bucket" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_BUCKET')}</label>
+								<div class="col-md-6 col-sm-10">
+									<input type="text" class="form-control" id="input-txcloud_bucket" name="options[txcloud_bucket]" value="{$config['txcloud_bucket']|default=''}">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label for="input-tx_domain_url" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_SPACE_URL')}</label>
+								<div class="col-md-6 col-sm-10">
+									<input type="text" class="form-control" id="input-tx_domain_url" name="options[tx_domain_url]" value="{$config['tx_domain_url']|default=''}">
+									<p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_SAVE_SPACE_URL_HINT')}</p>
+								</div>
+							</div>
+						
+						</div>
+						
+						<div id="cloudtype_3" class="cloudtype_hide <neq name="config['cloudtype']" value="3">hide</neq>" >
+                            <div class="form-group">
+                                <label for="input-aws_bucket" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_YAMAXUN_SAVE_BUCKET')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-aws_bucket" name="options[aws_bucket]" value="{$config['aws_bucket']|default=''}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-aws_region" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_YAMAXUN_SAVE_REGION')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-aws_region" name="options[aws_region]" value="{$config['aws_region']|default=''}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-aws_hosturl" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_YAMAXUN_SAVE_SPACE_URL')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-aws_hosturl" name="options[aws_hosturl]" value="{$config['aws_hosturl']|default=''}">
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_YAMAXUN_SAVE_SPACE_URL_HINT')}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-aws_identitypoolid" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_YAMAXUN_ROLE_MASK')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-aws_identitypoolid" name="options[aws_identitypoolid]" value="{$config['aws_identitypoolid']|default=''}">{:lang('ADMIN_SETTING_CONFIGPRI_YAMAXUN_ROLE_MASK_HINT')}
+                                </div>
+                            </div>
+                        </div>
+	
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 直播配置 -->
+                    <div class="tab-pane" id="N">
+
+                        <div class="form-group">
+                            <label for="input-live_videos" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_NEED_UP_VEDIO_NUMBER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-live_videos" name="options[live_videos]" value="{$config['live_videos']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_NEED_UP_VEDIO_NUMBER_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-live_fans" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_NEED_FANS_NUMBER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-live_fans" name="options[live_fans]" value="{$config['live_fans']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_NEED_FANS_NUMBER_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-cdn_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_PUSH_POLL_STREAM')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[cdn_switch]" value="1" <eq name="config['cdn_switch']" value="1">checked</eq>>{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN')}</label>
+                               
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-tx_appid" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_APPID')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-tx_appid" name="options[tx_appid]" value="{$config['tx_appid']|default=''}">
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-tx_bizid" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_BIZID')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-tx_bizid" name="options[tx_bizid]" value="{$config['tx_bizid']|default=''}">
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-tx_push_key" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_PUSH_STREAM_GUARD_KEY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-tx_push_key" name="options[tx_push_key]" value="{$config['tx_push_key']|default=''}">
+                                
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+							<label for="input-tx_acc_key" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_LOW_DELAY_KEY')}</label>
+							<div class="col-md-6 col-sm-10">
+								<input type="text" class="form-control" id="input-tx_acc_key" name="options[tx_acc_key]" value="{$config['tx_acc_key']|default=''}">
+								<p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_LOW_DELAY_KEY_HINT')}</p>
+							</div>
+						</div>
+
+                        <div class="form-group">
+                            <label for="input-tx_api_key" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_API_POWER_KEY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-tx_api_key" name="options[tx_api_key]" value="{$config['tx_api_key']|default=''}">
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-tx_push" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_PUSH_STREAM_DN')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-tx_push" name="options[tx_push]" value="{$config['tx_push']|default=''}">
+                             <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_PUSH_STREAM_DN_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-tx_pull" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_BO_STREAM_AREA')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-tx_pull" name="options[tx_pull]" value="{$config['tx_pull']|default=''}">
+                             <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_PUSH_STREAM_DN_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                                <label for="input-live_txcloud_secret_id" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_API_KEY_SECRETID')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-live_txcloud_secret_id" name="options[live_txcloud_secret_id]" value="{$config['live_txcloud_secret_id']|default=''}">
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_API_KEY_SECRETID_HINT')}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-live_txcloud_secret_key" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_API_KEY_SECRETKEY')}</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="input-live_txcloud_secret_key" name="options[live_txcloud_secret_key]" value="{$config['live_txcloud_secret_key']|default=''}">
+                                    <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_TENGXUN_YUN_API_KEY_SECRETKEY_HINT')}</p>
+                                    
+                                </div>
+                            </div>
+
+                        <div class="form-group">
+                            <label for="input-userlist_time" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_S_DRIECT_ROOM_USER_LIST_REFRESH_GAP')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-userlist_time" name="options[userlist_time]" value="{$config['userlist_time']|default=''}">
+                             <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_S_DRIECT_ROOM_USER_LIST_REFRESH_GAP_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-chatserver" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_TALK_SERVER_HAS_PORT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-chatserver" name="options[chatserver]" value="{$config['chatserver']|default=''}">
+                             <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DRIECT_GESHI')}</p>
+                            </div>
+                        </div>
+                        
+    
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 敏感词 -->
+                    <div class="tab-pane" id="O">
+
+                        <div class="form-group">
+                            <label for="input-watch_video_type" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SENSITIVE_KEYWORD')}<p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SENSITIVE_KEYWORD_HINT1')}</p></label>
+                            
+                            <div class="col-md-6 col-sm-10">
+                                <textarea type="text" class="form-control" id="input-sensitive_words" name="options[sensitive_words]" style="height: 400px;">{$config['sensitive_words']|default=''}</textarea>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SENSITIVE_KEYWORD_HINT2')}</p>
+                            </div>
+                        </div>
+
+    
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					
+					<!-- 每日任务 -->
+					<div class="tab-pane" id="P">
+                        
+                        <div class="form-group">
+                            <label for="input-watch_live_term" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DAY_WATCH_DRIECT')}</label>
+                            <div class="col-md-6 col-sm-10"><br />
+                                {:lang('ADMIN_SETTING_CONFIGPRI_DAY_CONDITION')}<input type="text" class="form-control" id="input-watch_live_term" name="options[watch_live_term]" value="{$config['watch_live_term']|default='0'}"><br />
+                                {:lang('ADMIN_SETTING_CONFIGPRI_DAY_PRIZE')}<input type="text" class="form-control" id="input-watch_live_coin" name="options[watch_live_coin]" value="{$config['watch_live_coin']|default='0'}">
+								
+								<p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DAY_WATCH_DRIECT_HINT')}</p>
+                            </div>
+							
+                        </div>
+                       
+						
+						 <div class="form-group">
+                            <label for="input-watch_video_term" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DAY_WATCH_VEDIO')}</label>
+                            <div class="col-md-6 col-sm-10"><br />
+                                {:lang('ADMIN_SETTING_CONFIGPRI_DAY_CONDITION')}<input type="text" class="form-control" id="input-watch_video_term" name="options[watch_video_term]" value="{$config['watch_video_term']|default='0'}"><br />
+                                {:lang('ADMIN_SETTING_CONFIGPRI_DAY_PRIZE')}<input type="text" class="form-control" id="input-watch_video_coin" name="options[watch_video_coin]" value="{$config['watch_video_coin']|default='0'}">
+								<p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DAY_SHARE_DRIECT_PRIZE')}</p>
+                            </div>
+							
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-open_live_term" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DAY_DRIECT_PRIZE')}</label>
+                            <div class="col-md-6 col-sm-10"><br />
+                                {:lang('ADMIN_SETTING_CONFIGPRI_DAY_CONDITION')}<input type="text" class="form-control" id="input-open_live_term" name="options[open_live_term]" value="{$config['open_live_term']|default='0'}"><br />
+                                {:lang('ADMIN_SETTING_CONFIGPRI_DAY_PRIZE')}<input type="text" class="form-control" id="input-open_live_coin" name="options[open_live_coin]" value="{$config['open_live_coin']|default='0'}">
+								<p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DAY_SHARE_DRIECT_HINT')}</p>
+                            </div>
+							
+                        </div>
+						
+						
+						<div class="form-group">
+                            <label for="input-award_live_term" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DAY_GIVE_PRIZE')}</label>
+                            <div class="col-md-6 col-sm-10"><br />
+                                {:lang('ADMIN_SETTING_CONFIGPRI_DAY_CONDITION')}<input type="text" class="form-control" id="input-award_live_term" name="options[award_live_term]" value="{$config['award_live_term']|default='0'}"><br />
+                                {:lang('ADMIN_SETTING_CONFIGPRI_DAY_PRIZE')}<input type="text" class="form-control" id="input-award_live_coin" name="options[award_live_coin]" value="{$config['award_live_coin']|default='0'}">
+								<p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DAY_GIVE_DRIECT')}</p>
+                            </div>
+							
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-share_live_term" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_DAY_SHARE_PRIZE')}</label>
+                            <div class="col-md-6 col-sm-10"><br />
+                                {:lang('ADMIN_SETTING_CONFIGPRI_DAY_CONDITION')}<input type="text" class="form-control" id="input-share_live_term" name="options[share_live_term]" value="{$config['share_live_term']|default='0'}"><br />
+                                {:lang('ADMIN_SETTING_CONFIGPRI_DAY_PRIZE')}<input type="text" class="form-control" id="input-share_live_coin" name="options[share_live_coin]" value="{$config['share_live_coin']|default='0'}">
+								<p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_DAY_GIVE_SHARE')}</p>
+                            </div>
+							
+                        </div>
+                        
+                       
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+                    <!-- 店铺/商品配置 -->
+                    <div class="tab-pane" id="Q">
+
+                        <div class="form-group">
+                            <label for="input-shop_system_name" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_SYSTEM_SHOP_NAME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-shop_system_name" name="options[shop_system_name]" value="{$config['shop_system_name']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_TOP_TITLE')}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-shop_bond" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_RESIGTER_NEED_COIN')}({$name_coin})</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-shop_bond" name="options[shop_bond]" value="{$config['shop_bond']|default=''}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-show_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_CHECK_SHOP')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="options[show_switch]">
+                                    <option value="0">{:lang('CLOSE')}</option>
+                                    <option value="1" <eq name="config['show_switch']" value="1">selected</eq>>{:lang('OPEN')}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-show_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_JINGYING_CHECK')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="options[show_category_switch]">
+                                    <option value="0">{:lang('CLOSE')}</option>
+                                    <option value="1" <eq name="config['show_category_switch']" value="1">selected</eq>>{:lang('OPEN')}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-shoporder_percent" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_ORDER_COUCHENG')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-shoporder_percent" name="options[shoporder_percent]" value="{$config['shoporder_percent']|default='0'}">%
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_ORDER_COUCHENG_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-goods_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_PRODUCT_CHECK')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="options[goods_switch]">
+                                    <option value="0">{:lang('CLOSE')}</option>
+                                    <option value="1" <eq name="config['goods_switch']" value="1">selected</eq>>{:lang('OPEN')}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_certificate_desc" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_AUTH_INFO')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <textarea class="form-control" id="input-shop_certificate_desc" name="options[shop_certificate_desc]" >{$config.shop_certificate_desc|default=''}</textarea>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_payment_time" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_PAY_OUTTIME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-shop_payment_time" name="options[shop_payment_time]" value="{$config['shop_payment_time']|default='0'}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_PAY_OUTTIME_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_shipment_time" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_SEND_OUTTIME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-shop_shipment_time" name="options[shop_shipment_time]" value="{$config['shop_shipment_time']|default='0'}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_PAY_OUTTIME_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_receive_time" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_AUTO_SURETIME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-shop_receive_time" name="options[shop_receive_time]" value="{$config['shop_receive_time']|default='0'}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_PAY_OUTTIME_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_refund_time" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_BUYER_REPAY_SELLER_UNDO')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-shop_refund_time" name="options[shop_refund_time]" value="{$config['shop_refund_time']|default='0'}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_PAY_OUTTIME_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_refund_finish_time" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_SELLER_REJECT_BUYER_REPAY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-shop_refund_finish_time" name="options[shop_refund_finish_time]" value="{$config['shop_refund_finish_time']|default='0'}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_PAY_OUTTIME_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_receive_refund_time" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_ORDER_SURE_REPAY_AGREE_LINE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-shop_receive_refund_time" name="options[shop_receive_refund_time]" value="{$config['shop_receive_refund_time']|default='0'}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_PAY_OUTTIME_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shop_settlement_time" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_ORDER_SURE_PAY_TO_SELLER_TIME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-shop_settlement_time" name="options[shop_settlement_time]" value="{$config['shop_settlement_time']|default='0'}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_PAY_OUTTIME_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-balance_cash_min" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_BLANCE_WITHDRAW_LOWEST_VALUE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-balance_cash_min" name="options[balance_cash_min]" value="{$config['balance_cash_min']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_BLANCE_WITHDRAW_LOWEST_VALUE_HINT')}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-balance_cash_start" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_EACHMONTH_WITHDRAW_DEADLINE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-balance_cash_start" name="options[balance_cash_start]" value="{$config['balance_cash_start']|default=''}" style="width:100px;display:inline-block;"> - 
+                                <input type="text" class="form-control" id="input-balance_cash_end" name="options[balance_cash_end]" value="{$config['balance_cash_end']|default=''}" style="width:100px;display:inline-block;">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_EACHMONTH_WITHDRAW_DEADLINE_HINT')} </p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-balance_cash_max_times" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_EACHMONT_COMMIT_NUMBER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-balance_cash_max_times" name="options[balance_cash_max_times]" value="{$config['balance_cash_max_times']|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_EACHMONT_COMMIT_NUMBER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-shoporder_percent" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT1')}{$config['shop_payment_time']|default='0'}{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT12')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT2')}{$config['shop_shipment_time']|default='0'}{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT22')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT3')}{$config['shop_receive_time']|default='0'}{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT32')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT4')}{$config['shop_refund_time']|default='0'}{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT42')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT5')}{$config['shop_refund_finish_time']|default='0'}{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT52')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT6')}{$config['shop_receive_refund_time']|default='0'}{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT62')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT7')}{$config['shop_settlement_time']|default='0'}{:lang('ADMIN_SETTING_CONFIGPRI_SHOP_WAY_INFO_HINT72')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 物流配置 -->
+                    <div class="tab-pane" id="R">
+                        
+                        <div class="form-group">
+                            <label for="input-express_type" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_MODEL')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <label class="radio-inline"><input type="radio" name="options[express_type]" value="0" <eq name="config['express_type']" value="0">checked</eq> >{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_KAIFA')}</label>
+                                <label class="radio-inline"><input type="radio" name="options[express_type]" value="1" <eq name="config['express_type']" value="1">checked</eq> >{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_ZHENGSHI')}</label>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_KAIFA_HINT')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_ZHENGSHI_HINT')}<a href="http://www.kdniao.com" target="_blank">{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_BUY_NOW')}</a></p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-express_id_dev" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_USERID_KAIFA')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-express_id_dev" name="options[express_id_dev]" value="{$config['express_id_dev']|default=''}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-express_appkey_dev" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_API_KEY_KAIFA')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-express_appkey_dev" name="options[express_appkey_dev]" value="{$config['express_appkey_dev']|default=''}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-express_id" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_USERID_ZHENGSHI')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-express_id" name="options[express_id]" value="{$config['express_id']|default=''}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-express_appkey" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_LOGI_API_KEY_ZHENGSHI')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-express_appkey" name="options[express_appkey]" value="{$config['express_appkey']|default=''}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- openinstall配置 -->
+                    <div class="tab-pane" id="S">
+                        
+                        <div class="form-group">
+                            <label for="input-openinstall_switch" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_OPEN_SWITCH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="options[openinstall_switch]">
+                                    <option value="0">{:lang('CLOSE')}</option>
+                                    <option value="1" <eq name="config['openinstall_switch']" value="1">selected</eq>>{:lang('OPEN')}</option>
+                                </select>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_OPEN_SWITCH_HINT1')}</p>
+                                <p class="help-block">{:lang('ADMIN_SETTING_CONFIGPRI_OPEN_SWITCH_HINT2')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-openinstall_appkey" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_CONFIGPRI_OPEN_APPKEY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-openinstall_appkey" name="options[openinstall_appkey]" value="{$config['openinstall_appkey']|default=''}">
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+ <script>
+	(function(){
+		$("#cloudtype label.radio-inline").on('click',function(){
+			var v=$("input",this).val();
+	
+			
+			$(".cloudtype_hide").addClass('hide');
+			
+			$("#cloudtype_"+v).removeClass('hide');
+		
+		})
+
+       $("#cdn label").on('click',function(){
+            var v_d=$("input",this).attr('disabled');
+            if(v_d=='disabled'){
+                return !1;
+            }
+            var v=$("input",this).val();
+            var b=$("#code_switch_"+v);
+            $(".cdn_bd").hide();
+            b.show();
+        })
+	})()
+	</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:url('Gift/index')}">{:lang('ADMIN_GIFT_ADD_GIFTLIST')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Gift/edit_post')}" enctype="multipart/form-data">
+			<fieldset>	
+				<input type="hidden" name="id" value="{$gift['id']}">				
+				<div class="form-group">
+					<label for="input-type" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('TYPE')}</label>
+					<div class="col-md-6 col-sm-10" id="type">
+						<volist name="type" id="v">
+						<label class="radio-inline"><input type="radio" name="type" value="{$key}" <if condition="$key eq $gift['type']">checked</if>>{$v}</label>
+						</volist>
+					</div>
+				</div>
+					
+				
+				<div class="form-group">
+					<label for="input-mark" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_GIFT_INDEX_BIAOSHI')}</label>
+					<div class="col-md-6 col-sm-10" id="mark" style="position: relative;" id="mark">
+						<volist name="mark" id="v">
+						<label class="radio-inline" for="mark_{$key}"><input type="radio" name="mark" value="{$key}" id="mark_{$key}" <if condition="$key eq $gift['mark']">checked</if> <if condition="$gift['type'] eq 1 && $key==3">disabled</if>>{$v}</label>
+						</volist>
+					</div>
+				</div>
+
+				<div class="form-group" >
+					<label for="input-orderno" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('NUMBER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-orderno"  name="orderno" value="{$gift['orderno']}">
+					</div>
+				</div>
+
+				<div class="form-group" >
+					<label for="input-giftname" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_GIFT_INDEX_MINGCHNEG')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-giftname"  name="giftname" value="{$gift['giftname']}">
+					</div>
+				</div>
+
+				<div class="form-group" >
+					<label for="input-needcoin" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REPORT_ADD_SUOXUDIANSHU')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-needcoin"  name="needcoin" value="{$gift['needcoin']}">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="input-thumb" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('PIC')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="hidden" name="gifticon" id="thumb" value="{$gift['gifticon']}">
+						<a href="javascript:uploadOneImage('{:lang(\'PIC_UPLOAD\')}','#thumb');">
+							<if condition="$gift['gifticon'] neq ''">
+								<img src="{:get_upload_path($gift['gifticon'])}" id="thumb-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+							<else />
+								<img src="__TMPL__/public/assets/images/default-thumbnail.png" id="thumb-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+							</if>
+							
+
+						</a>
+						<input type="button" class="btn btn-sm btn-cancel-thumb" value="{:lang('ADMIN_ADVERT_ADD_CANCLE_PHOTO')}">
+						<p class="help-block">{:lang('ADMIN_GIFT_ADD_JIANYICHUCUN')}</p>
+					</div>
+				</div>
+				
+				<div id="swf_area" <if condition="$gift['type'] neq '1'">style="display: none;"</if> >
+					<div class="form-group" id="swftype">
+						<label for="input-swftype" class="col-sm-2 control-label">{:lang('ADMIN_GIFT_INDEX_DONGHUA')}</label>
+						<div class="col-md-6 col-sm-10">
+							<label class="radio-inline"><input type="radio" name="swftype" value="0" <if condition="$gift['swftype'] eq '0'">checked</if>>GIF</label>
+							<label class="radio-inline"><input type="radio" name="swftype" value="1" <if condition="$gift['swftype'] eq '1'">checked</if>>SVGA</label>
+							<p class="help-block">{:lang('ADMIN_GIFT_ADD_ZAILIWULEIXING')}</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="input-swf_thumb" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_GIFT_ADD_DONGHUATUPIAN')}</label>
+						<div class="col-md-6 col-sm-10">
+							<input type="hidden" name="swf" id="swf_thumb" value="{$gift['swf']}">
+							<a href="javascript:uploadOneImage('{:lang(\'PIC_UPLOAD\')}','#swf_thumb');" id="swftype_bd_0" <if condition="$gift['swftype'] eq '1'">style="display:none;"</if>>
+								<img src="__TMPL__/public/assets/images/default-thumbnail.png" id="swf_thumb-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+							</a>
+
+							<a href="javascript:void(0);" id="swftype_bd_1" <if condition="$gift['swftype'] eq '0'">style="display:none;" </if>>
+								
+	                            <input type="file" name="file"><br/>
+	                            <input type="text" value="{:get_upload_path($gift['swf'])}" class="form-control" readonly="readonly">
+	                        </a>
+
+							<input type="button" class="btn btn-sm btn-cancel-swf_thumb" id="swftype_cancel_0" value="{:lang('ADMIN_GIFT_ADD_CANCEL_TUPIAN')}" <if condition="$gift['swftype'] eq '1'">style="display:none;"</if>>
+						</div>
+					</div>
+					
+					
+					<div class="form-group" >
+						<label for="input-swftime" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_GIFT_INDEX_DONGHUA_SHICHANG')}</label>
+						<div class="col-md-6 col-sm-10">
+							<input type="text" class="form-control" id="input-swftime"  name="swftime" value="{$gift['swftime']}">
+							<p class="help-block">{:lang('ADMIN_GIFT_ADD_MIAOJINGDU')}</p>
+
+						</div>
+					</div>
+				</div>
+
+			</fieldset>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+					<a class="btn btn-default" href="{:url('Gift/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js?t={$time}"></script>
+	<script src="__STATIC__/admin/js/gift.js?t={$time}"></script>
+	
+</body>
+</html>

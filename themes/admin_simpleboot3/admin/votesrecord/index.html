@@ -1,0 +1,79 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_VOTESRECORD_INDEX_INCOME_RECORD')}</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" name="form1" method="post" action="">
+			{:lang('ADMIN_VOTESRECORD_INDEX_INCOME_BEHAVIOR')}
+            <select class="form-control" name="type">
+				<option value="">{:lang('ALL')}</option>
+                <volist name="type" id="v">
+                    <option value="{$key}" <if condition="input('request.type') neq '' && input('request.type') eq $key">selected</if>>{$v}</option>
+                </volist>
+			</select>
+
+			{:lang('ADMIN_VOTESRECORD_INDEX_INCOME_TIME')}
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;" autocomplete="off"> - 
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;" autocomplete="off">
+			{:lang('ADMIN_VOTESRECORD_INDEX_INCOME_VIP')}
+            <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                   placeholder="{:lang('ADMIN_CHARGE_INDEX_USER_OPTION')}">
+
+			{:lang('ADMIN_VOTESRECORD_INDEX_UP_VIP')}
+            <input class="form-control" type="text" name="touid" style="width: 200px;" value="{:input('request.touid')}"
+                   placeholder="{:lang('ID')}">
+			
+            <input type="button" class="btn btn-primary" value="{:lang('SEARCH')}" onclick="form1.action='{:url('Votesrecord/index')}';form1.submit();"/>
+            <a class="btn btn-danger" href="{:url('Admin/Votesrecord/index')}">{:lang('CLEAN')}</a>
+			<input type="button" class="btn btn-success" value="{:lang('EXPORT')}" onclick="form1.action='{:url('Votesrecord/export')}';form1.submit();"/>
+            
+	
+		</form>	
+    	
+		<form method="post" class="js-ajax-form" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ID')}</th>
+						<th>{:lang('ADMIN_VOTESRECORD_INDEX_BEHAVIOR')}</th>
+						<th>{:lang('ADMIN_VOTESRECORD_INDEX_VIPID')}</th>
+						<th>{:lang('ADMIN_VOTESRECORD_INDEX_UP_VIPID')}</th>
+						<th>{:lang('ADMIN_SETTING_CONFIGPRI_YUN_PIAO')}</th>
+						<th>{:lang('ADMIN_SETTING_CONFIGPRI_SUPERIOR_YUN_PIAO')}</th>
+						<th>{:lang('ADMIN_MANUAL_INDEX_TIME')}</th>
+						<!-- <th>{:lang('ACTIONS')}</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$type[$vo['action']]}</td>
+						<td>{$vo['userinfo']['user_nicename']} ( {$vo['uid']} )</td>	
+						<td>
+							<if condition="empty($vo['touserinfo'])">
+								--
+							<else />
+								{$vo['touserinfo']['user_nicename']} ( {$vo['touid']} )
+							</if>
+						</td>
+						<td>{$vo['votes']}</td>
+						<td>{$vo['touid_votes']}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<!-- <td>	
+                            <if condition="$vo['status'] eq 0 ">
+                            <a class="btn btn-xs btn-danger js-ajax-dialog-btn" href="{:url('Votesrecord/del',array('id'=>$vo['id']))}" data-msg="您确定要删除吗？">删除</a>
+                            </if>
+						</td> -->
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

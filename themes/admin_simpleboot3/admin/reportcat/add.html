@@ -1,0 +1,52 @@
+<include file="public@header"/>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Reportcat/index')}">{:lang('ADMIN_REPORTCAT_INDEX_REPORTCATLIST')}</a></li>
+			<li class="active"><a >{:lang('ADMIN_REPORTCAT_INDEX_LEIXING_ADD')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Reportcat/add_post')}">
+			<fieldset>
+
+				<div class="form-group" >
+					<label for="input-orderno" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('NUMBER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-orderno"  name="orderno" value="0">
+						<p class="help-block">{:lang('ADMIN_MUSIC_CLASSIFY_UPDATE_FILL_POSITIVE')}</p>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-title" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_VIDEO_EDIT_REPORT_TYPENAME')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-title"  name="title" value=""> 
+						<p class="help-block">{:lang('ADMIN_MUSIC_CLASSIFY_UPDATE_CONCISE')}</p>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-isdel" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('DISPLAY_FLAG')}</label>
+					<div class="col-md-6 col-sm-10">
+						<label class="radio-inline"><input type="radio" name="isdel" value="0" checked>{:lang('DISPLAY')}</label>
+						<label class="radio-inline"><input type="radio" name="isdel" value="1" >{:lang('ADMIN_VIDEOCLASS_EDIT_NO_SHOW')}</label>
+					</div>
+				</div>
+
+
+			</fieldset>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+					<a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	
+	
+</body>
+</html>

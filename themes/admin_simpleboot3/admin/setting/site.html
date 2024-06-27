@@ -1,0 +1,754 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#A" data-toggle="tab">{:lang('WEB_SITE_INFOS')}</a></li>
+        <li><a href="#B" data-toggle="tab">{:lang('ADMIN_SETTING_SITE_LOGIN_SWITCH')}</a></li>
+        <li><a href="#C" data-toggle="tab">{:lang('ADMIN_SETTING_SITE_APP_VERSION_CONTROLL')}</a></li>
+        <li><a href="#D" data-toggle="tab">{:lang('ADMIN_SETTING_SITE_SHARE_SETTING')}</a></li>
+        <li><a href="#E" data-toggle="tab">{:lang('ADMIN_SETTING_SITE_BEAUTY')}</a></li>
+        <li><a href="#F" data-toggle="tab">{:lang('ADMIN_SETTING_SITE_LOGIN_AGREEMENT_WINDOW')}</a></li>
+        <li><a href="#G" data-toggle="tab">{:lang('SEO_SETTING')}</a></li>
+    </ul>
+    <form class="form-horizontal js-ajax-form margin-top-20" role="form" action="{:url('setting/sitePost')}"
+          method="post">
+        <fieldset>
+            <div class="tabbable">
+                <div class="tab-content">
+
+					<!-- 网站信息 -->
+                    <div class="tab-pane active" id="A">
+                        
+                        <!-- <div class="form-group">
+                            <label for="input-admin_url_password" class="col-sm-2 control-label">
+                                后台加密码
+                                <a href="http://www.thinkcmf.com/faq.html?url=https://www.kancloud.cn/thinkcmf/faq/493509"
+                                   title="查看帮助手册"
+                                   data-toggle="tooltip"
+                                   target="_blank"><i class="fa fa-question-circle"></i></a>
+                            </label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-admin_url_password"
+                                       name="admin_settings[admin_password]"
+                                       value="{$admin_settings.admin_password|default=''}"
+                                       id="js-site-admin-url-password">
+                                <p class="help-block">英文字母数字，不能为纯数字</p>
+                                <p class="help-block" style="color: red;">
+                                    设置加密码后必须通过以下地址访问后台,请劳记此地址，为了安全，您也可以定期更换此加密码!</p>
+                                <php>
+                                    $root=cmf_get_root();
+                                    $root=empty($root)?'':'/'.$root;
+                                    $site_domain = cmf_get_domain().$root;
+                                </php>
+                                <p class="help-block">后台登录地址：<span id="js-site-admin-url">{$site_domain}/{$admin_settings.admin_password|default='admin'}</span>
+                                </p>
+                            </div>
+                        </div> -->
+						
+                        <div class="form-group">
+                            <label for="input-company_name" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_COMPANY_NAME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-company_name" name="options[company_name]"
+                                       value="{$site_info.company_name|default=''}">
+                                       <p class="help-block">{:lang('ADMIN_SETTING_SITE_COMPANY_NAME_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  for="input-company_desc" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_COMPANY_INTRO')}</label>
+                            <div class="col-md-6 col-sm-10">        
+                                <textarea  class="form-control" name="options[company_desc]">{$site_info['company_desc']|default=''}</textarea>
+                                <p class="help-block">{:lang('ADMIN_SETTING_SITE_COMPANY_INTRO_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-app_name" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_APP_NAME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-app_name" name="options[app_name]"
+                                       value="{$site_info.app_name|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_APP_NAME_HINT')}</p>
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label for="input-sitename" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_SITE_TITLE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-sitename" name="options[sitename]"
+                                       value="{$site_info.sitename|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_SITE_TITLE')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-site" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_SITE_DN')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-site" name="options[site]"
+                                       value="{$site_info.site|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_SITE_DN')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-name_coin" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_DIAMOND_NAME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-name_coin" name="options[name_coin]"
+                                       value="{$site_info.name_coin|default=''}">
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-name_votes" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_GOLD_NAME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-name_votes" name="options[name_votes]"
+                                       value="{$site_info.name_votes|default=''}">
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-copyright" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_COPYRIGHT_INFO')}</label>
+                            <div class="col-md-6 col-sm-10">
+								<textarea class="form-control" id="input-copyright" name="options[copyright]">{$site_info.copyright|default=''}</textarea><p class="help-block">{:lang('ADMIN_SETTING_SITE_COPYRIGHT_INFO_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-copyright_url" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_COPYRIGHT_URL')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-copyright_url" name="options[copyright_url]"
+                                       value="{$site_info.copyright_url|default=''}">
+                            </div>
+                        </div>
+                        
+						<div class="form-group">
+                            <label for="input-qq" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_SERVICE_QQ')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-qq" name="options[qq]"
+                                       value="{$site_info.qq|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_SERVICE_QQ_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-mobile" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_SERVICE_PHONE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-mobile" name="options[mobile]"
+                                       value="{$site_info.mobile|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_SERVICE_PHONE_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+							<label for="input-user_login" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_WATERMARK_IMAGE')}</label>
+							<div class="col-md-6 col-sm-10">
+								<input type="hidden" name="options[watermark]" id="thumbnail" value="{$site_info['watermark']}">
+								<a href="javascript:uploadOneImage('{:lang(\'PIC_UPLOAD\')}','#thumbnail');">
+									<if condition="empty($site_info.watermark)">
+									<img src="__TMPL__/public/assets/images/default-thumbnail.png"
+											 id="thumbnail-preview"
+											 style="cursor: pointer;max-width:100px;max-height:100px;"/>
+									<else/>
+									<img src="{:get_upload_path($site_info.watermark)}"
+										 id="thumbnail-preview"
+										 style="cursor: pointer;max-width:100px;max-height:100px;"/>
+									</if>
+								</a>
+								<input type="button" class="btn btn-sm btn-cancel-thumbnail" value="{:lang('ADMIN_SETTING_SITE_CANCEL_IMAGE')}">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="input-qr_url" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_CANCEL_IMAGE')}</label>
+							<div class="col-md-6 col-sm-10">
+								<input type="hidden" name="options[qr_url]" id="thumbewm" value="{$site_info['qr_url']}">
+								<a href="javascript:uploadOneImage('{:lang(\'PIC_UPLOAD\')}','#thumbewm');">
+									<if condition="empty($site_info.qr_url)">
+									<img src="__TMPL__/public/assets/images/default-thumbnail.png"
+											 id="thumbewm-preview"
+											 style="cursor: pointer;max-width:100px;max-height:100px;"/>
+									<else/>
+									<img src="{:get_upload_path($site_info.qr_url)}"
+										 id="thumbewm-preview"
+										 style="cursor: pointer;max-width:100px;max-height:100px;"/>
+									</if>
+								</a>
+								<input type="button" class="btn btn-sm btn-cancel-thumbewm" value="{:lang('ADMIN_SETTING_SITE_CANCEL_IMAGE')}">
+							</div>
+						</div>
+
+                        <div class="form-group">
+                            <label for="input-qr_url_ios" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_IOS_DOWNLOAD_QR')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="hidden" name="options[qr_url_ios]" id="thumbewm_ios" value="{$site_info['qr_url_ios']}">
+                                <a href="javascript:uploadOneImage('{:lang(\'PIC_UPLOAD\')}','#thumbewm_ios');">
+                                    <if condition="empty($site_info.qr_url_ios)">
+                                    <img src="__TMPL__/public/assets/images/default-thumbnail.png"
+                                             id="thumbewm_ios-preview"
+                                             style="cursor: pointer;max-width:100px;max-height:100px;"/>
+                                    <else/>
+                                    <img src="{:get_upload_path($site_info.qr_url_ios)}"
+                                         id="thumbewm_ios-preview"
+                                         style="cursor: pointer;max-width:100px;max-height:100px;"/>
+                                    </if>
+                                </a>
+                                <input type="button" class="btn btn-sm btn-cancel-thumbewm_ios" value="{:lang('ADMIN_SETTING_SITE_CANCEL_IMAGE')}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-recommend_classname" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_APP_DRIECT_SQUARE_NAME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-recommend_classname" name="options[recommend_classname]"
+                                       value="{$site_info.recommend_classname|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_APP_DRIECT_SQUARE_NAME')}</p>
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="1">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+					<!-- 登录开关 -->
+                    <div class="tab-pane" id="B">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_LOGIN_WAY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                
+									   
+									   
+								<php>
+									$qq='qq';
+									$wx='wx';
+                                    $ios='ios';
+									$sina='sina';
+									$facebook='facebook';
+									$twitter='twitter';
+								</php>
+								<label class="checkbox-inline"><input type="checkbox" value="qq" name="options[login_type][]" <in value="$site_info['login_type']" name="qq">checked="checked"</in>>{:lang('ADMIN_SETTING_SITE_LOGIN_QQ')}</label>
+								<label class="checkbox-inline"><input type="checkbox" value="wx" name="options[login_type][]" <in value="$site_info['login_type']" name="wx">checked="checked"</in>>{:lang('ADMIN_SETTING_SITE_LOGIN_WECHAT')}</label>
+                                <label class="checkbox-inline"><input type="checkbox" value="ios" name="options[login_type][]" <in value="$site_info['login_type']" name="ios">checked="checked"</in>>{:lang('ADMIN_SETTING_SITE_LOGIN_IOS')}</label>
+								<!--<label class="checkbox-inline"><input type="checkbox" value="sina" name="options[login_type][]" <in value="$site_info['login_type']" name="sina">checked="checked"</in>>新浪微博</label> -->
+								<!--<label class="checkbox-inline"><input type="checkbox" value="facebook" name="options[login_type][]" <in value="$site_info['login_type']" name="facebook">checked="checked"</in>>FaceBook</label>
+								<label class="checkbox-inline"><input type="checkbox" value="twitter" name="options[login_type][]" <in value="$site_info['login_type']" name="twitter">checked="checked"</in>>Twitter</label> -->
+   
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_SHARE_WAY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <php>
+									$share_qq='qq';
+									$share_qzone='qzone';
+									$share_wx='wx';
+									$share_wchat='wchat';
+									$share_sina='sina';
+									$share_facebook='facebook';
+									$share_twitter='twitter';
+								</php>
+								<label class="checkbox-inline"><input type="checkbox" value="wx" name="options[share_type][]" <in value="$site_info['share_type']" name="share_wx">checked="checked"</in>>{:lang('ADMIN_SETTING_SITE_LOGIN_WECHAT')}</label>
+								<label class="checkbox-inline"><input type="checkbox" value="wchat" name="options[share_type][]" <in value="$site_info['share_type']" name="share_wchat">checked="checked"</in>>{:lang('ADMIN_SETTING_SITE_SHARE_WECHAT_SPACE')}</label>
+								<label class="checkbox-inline"><input type="checkbox" value="qzone" name="options[share_type][]" <in value="$site_info['share_type']" name="share_qzone">checked="checked"</in>>{:lang('ADMIN_SETTING_SITE_SHARE_QQ_SPACE')}</label>
+								<label class="checkbox-inline"><input type="checkbox" value="qq" name="options[share_type][]" <in value="$site_info['share_type']" name="share_qq">checked="checked"</in>>{:lang('ADMIN_SETTING_SITE_LOGIN_QQ')}</label>
+							<!-- 	<label class="checkbox-inline"><input type="checkbox" value="sina" name="post[share_type][]" <in value="$site_info['share_type']" name="share_sina">checked="checked"</in>>新浪微博</label> -->
+								<!-- <label class="checkbox-inline"><input type="checkbox" value="twitter" name="post[share_type][]" <in value="$site_info['share_type']" name="share_twitter">checked="checked"</in>>Twitter</label>
+								<label class="checkbox-inline"><input type="checkbox" value="facebook" name="post[share_type][]" <in value="$site_info['share_type']" name="share_facebook">checked="checked"</in>>FaceBook</label> -->
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- APP版本管理 -->
+					
+                    <div class="tab-pane" id="C">
+                        <div class="form-group">
+                            <label for="input-apk_ver" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_APK_COPYRIGHT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-apk_ver" name="options[apk_ver]"
+                                       value="{$site_info.apk_ver|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_APK_COPYRIGHT_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-apk_url" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_APK_DOWNLOAD_URL')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-apk_url" name="options[apk_url]"
+                                       value="{$site_info.apk_url|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_APK_DOWNLOAD_URL_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label  for="input-apk_des" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_APK_UPDATE_INFO')}</label>
+                            <div class="col-md-6 col-sm-10">        
+								<textarea  class="form-control" name="options[apk_des]">{$site_info['apk_des']|default=''}</textarea><p class="help-block">{:lang('ADMIN_SETTING_SITE_APK_UPDATE_INFO_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-ipa_ver" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_IPA_COPYRIGHT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-ipa_ver" name="options[ipa_ver]"
+                                       value="{$site_info.ipa_ver|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_IPA_COPYRIGHT_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-ios_shelves" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_IPA_UP_COPYRIGHT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-ios_shelves" name="options[ios_shelves]"
+                                       value="{$site_info.ios_shelves|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_IPA_UP_COPYRIGHT_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-ipa_url" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_IPA_DOWNLOAD_URL')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-ipa_url" name="options[ipa_url]"
+                                       value="{$site_info.ipa_url|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_IPA_DOWNLOAD_URL_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label  for="input-ipa_des" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_IPA_UPDATE_INFO')}</label>
+                            <div class="col-md-6 col-sm-10">        
+								<textarea  class="form-control" name="options[ipa_des]">{$site_info['ipa_des']|default=''}</textarea><p class="help-block">{:lang('ADMIN_SETTING_SITE_IPA_UPDATE_INFO_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 分享设置 -->
+					
+                    <div class="tab-pane" id="D">
+                        <div class="form-group">
+                            <label for="input-app_android" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_ANDROID_APP_DOWNLOAD_URL')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-app_android" name="options[app_android]"
+                                       value="{$site_info.app_android|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_ANDROID_APP_DOWNLOAD_URL_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-app_ios" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_IOS_APP_DOWNLOAD_URL')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-app_ios" name="options[app_ios]"
+                                       value="{$site_info.app_ios|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_IOS_APP_DOWNLOAD_URL_HINT')}</p>
+                            </div>
+                        </div>
+						
+						
+						
+						<div class="form-group">
+                            <label for="input-video_share_title" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_SHORT_VEDIO_SHARE_TITLE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-video_share_title" name="options[video_share_title]"
+                                       value="{$site_info.video_share_title|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_SITE_SHORT_VEDIO_SHARE_TITLE_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-video_share_des" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_SHORT_VEDIO_SHARE_SAY_WAY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-video_share_des" name="options[video_share_des]"
+                                       value="{$site_info.video_share_des|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_SITE_SHORT_VEDIO_SHARE_SAY_WAY_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-agent_share_title" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_INVITE_FRIEND_SHARE_TITLE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-agent_share_title" name="options[agent_share_title]"
+                                       value="{$site_info.agent_share_title|default=''}">
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-agent_share_des" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_INVITE_FRIEND_SHARE_SAY_WAY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-agent_share_des" name="options[agent_share_des]"
+                                       value="{$site_info.agent_share_des|default=''}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-wx_siteurl" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_WECHAT_POPULARIZE_DN')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-wx_siteurl"
+                                       name="options[wx_siteurl]" value="{$site_info.wx_siteurl|default=''}">
+                                       <p class="help-block">{:lang('ADMIN_SETTING_SITE_WECHAT_POPULARIZE_DN_HINT')}</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="input-share_title" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_DIRECT_SHARE_TITLE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-share_title" name="options[share_title]"
+                                       value="{$site_info.share_title|default=''}">
+                                       <p class="help-block">{:lang('ADMIN_SETTING_SITE_DIRECT_SHARE_TITLE_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-share_des" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_DIRECT_SHARE_SAT_WAY')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-share_des" name="options[share_des]"
+                                       value="{$site_info.share_des|default=''}">
+                                       <p class="help-block">{:lang('ADMIN_SETTING_SITE_DIRECT_SHARE_SAT_WAY_HINT')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 美颜/萌颜设置 -->
+                    
+                    <div class="tab-pane" id="E">
+                        <div class="form-group">
+                            <label for="input-sprout_key" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_AUTH_COED_ANDROID')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-sprout_key" name="options[sprout_key]"
+                                       value="{$site_info.sprout_key|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_BEAUTY_AUTH_COED_ANDROID_HINT')}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-sprout_key_ios" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_AUTH_COED_IOS')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-sprout_key_ios" name="options[sprout_key_ios]"
+                                       value="{$site_info.sprout_key_ios|default=''}"><p class="help-block">{:lang('ADMIN_SETTING_SITE_BEAUTY_AUTH_COED_IOS_HINT')}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-brightness" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_BRIGHTNESS')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-brightness" name="options[brightness]"
+                                       value="{$site_info.brightness|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-skin_whiting" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_WHITE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-skin_whiting" name="options[skin_whiting]"
+                                       value="{$site_info.skin_whiting|default=''}">
+                                <p class="help-block">0-9 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-skin_smooth" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_BUFFING')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-skin_smooth" name="options[skin_smooth]"
+                                       value="{$site_info.skin_smooth|default=''}">
+                                <p class="help-block">0-9 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-skin_tenderness" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_RED')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-skin_tenderness" name="options[skin_tenderness]"
+                                       value="{$site_info.skin_tenderness|default=''}">
+
+                                <p class="help-block">0-9 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-eye_brow" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_EYEBROW')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-eye_brow" name="options[eye_brow]"
+                                       value="{$site_info.eye_brow|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-big_eye" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_BIGEYE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-big_eye" name="options[big_eye]"
+                                       value="{$site_info.big_eye|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-eye_length" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_EYE_DISTANCE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-eye_length" name="options[eye_length]"
+                                       value="{$site_info.eye_length|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-eye_corner" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_EYE_CORNER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-eye_corner" name="options[eye_corner]"
+                                       value="{$site_info.eye_corner|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-eye_alat" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_OPEN_EYE_CORNER')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-eye_alat" name="options[eye_alat]"
+                                       value="{$site_info.eye_alat|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-face_lift" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_THIN_FACE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-face_lift" name="options[face_lift]"
+                                       value="{$site_info.face_lift|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-face_shave" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_CUT_FACE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-face_shave" name="options[face_shave]"
+                                       value="{$site_info.face_shave|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-mouse_lift" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_MOUTH')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-mouse_lift" name="options[mouse_lift]"
+                                       value="{$site_info.mouse_lift|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-nose_lift" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_THIN_NOSE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-nose_lift" name="options[nose_lift]"
+                                       value="{$site_info.nose_lift|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-chin_lift" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_CHIN')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-chin_lift" name="options[chin_lift]"
+                                       value="{$site_info.chin_lift|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-forehead_lift" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_FOREHEAD')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-forehead_lift" name="options[forehead_lift]"
+                                       value="{$site_info.forehead_lift|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-forehead_lift" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_BEAUTY_LONG_NOSE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                 <input type="text" class="form-control" id="input-lengthen_noseLift" name="options[lengthen_noseLift]"
+                                       value="{$site_info.lengthen_noseLift|default=''}">
+                                <p class="help-block">0-100 {:lang('INTEGER')}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="F">
+                        
+
+                        <div class="form-group">
+                            <label for="input-login_alert_title" class="col-sm-2 control-label"><span
+                                    class="form-required"></span>{:lang('ADMIN_SETTING_SITE_WINDOW_TITLE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-login_alert_title" name="options[login_alert_title]" value="{$site_info.login_alert_title|default=''}">
+                            </div> 
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-login_alert_content" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_WINDOW_CONTENT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <textarea class="form-control" id="input-login_alert_content" name="options[login_alert_content]" >{$site_info.login_alert_content|default=''}</textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-login_clause_title" class="col-sm-2 control-label"><span
+                                    class="form-required"></span>{:lang('ADMIN_SETTING_SITE_APP_LOGIN_PAGE_BOTTOM_TITLE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-login_clause_title" name="options[login_clause_title]" value="{$site_info.login_clause_title|default=''}">
+                            </div> 
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-login_private_title" class="col-sm-2 control-label"><span
+                                    class="form-required"></span>{:lang('ADMIN_SETTING_SITE_PRIVACY_POLICY_NAME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-login_private_title" name="options[login_private_title]" value="{$site_info.login_private_title|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_SITE_PRIVACY_POLICY_NAME_HINT')}</p>
+                            </div> 
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-login_private_url" class="col-sm-2 control-label"><span
+                                    class="form-required"></span>{:lang('ADMIN_SETTING_SITE_PRIVACY_POLICY_GO_URL')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-login_private_url" name="options[login_private_url]" value="{$site_info.login_private_url|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_SITE_PRIVACY_POLICY_GO_URL_HINT')}</p>
+                            </div> 
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-login_service_title" class="col-sm-2 control-label"><span
+                                    class="form-required"></span>{:lang('ADMIN_SETTING_SITE_SERVICE_PROTOCOL_NAME')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-login_service_title" name="options[login_service_title]" value="{$site_info.login_service_title|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_SITE_SERVICE_PROTOCOL_NAME_HINT')}</p>
+                            </div> 
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-login_service_url" class="col-sm-2 control-label"><span
+                                    class="form-required"></span>{:lang('ADMIN_SETTING_SITE_SERVICE_PROTOCOL_GO_URL')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-login_service_url" name="options[login_service_url]" value="{$site_info.login_service_url|default=''}">
+                                <p class="help-block">{:lang('ADMIN_SETTING_SITE_SERVICE_PROTOCOL_GO_URL_HINT')}</p>
+                            </div> 
+                        </div>
+
+
+                        
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="1">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="G">
+                        <div class="form-group">
+                            <label for="input-site_seo_title" class="col-sm-2 control-label">{:lang('WEBSITE_SEO_TITLE')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-site_seo_title"
+                                       name="options[site_seo_title]" value="{$site_info.site_seo_title|default=''}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-site_seo_keywords" class="col-sm-2 control-label">{:lang('WEBSITE_SEO_KEYWORDS')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-site_seo_keywords"
+                                       name="options[site_seo_keywords]"
+                                       value="{$site_info.site_seo_keywords|default=''}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-site_seo_description" class="col-sm-2 control-label">{:lang('WEBSITE_SEO_DESCRIPTION')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <textarea class="form-control" id="input-site_seo_description"
+                                          name="options[site_seo_description]">{$site_info.site_seo_description|default=''}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="H">
+                        <div class="form-group">
+                            <label for="input-cdn_static_root" class="col-sm-2 control-label">{:lang('ADMIN_SETTING_SITE_STATIC_CDN_ADRESS')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-cdn_static_root"
+                                       name="cdn_settings[cdn_static_root]"
+                                       value="{$cdn_settings.cdn_static_root|default=''}">
+                                <p class="help-block">
+                                    {:lang('ADMIN_SETTING_SITE_STATIC_CDN_ADRESS_HINT1')}<br>
+                                    {:lang('ADMIN_SETTING_SITE_STATIC_CDN_ADRESS_HINT2')}<br>
+                                    {:lang('ADMIN_SETTING_SITE_STATIC_CDN_ADRESS_HINT3')}<br>
+                                    {:lang('ADMIN_SETTING_SITE_STATIC_CDN_ADRESS_HINT4')}<br>
+                                    {:lang('ADMIN_SETTING_SITE_STATIC_CDN_ADRESS_HINT5')}<br>
+                                    {:lang('ADMIN_SETTING_SITE_STATIC_CDN_ADRESS_HINT6')}<br>
+                                    {:lang('ADMIN_SETTING_SITE_STATIC_CDN_ADRESS_HINT7')}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+	(function(){
+		$('.btn-cancel-thumbnail').click(function () {
+			$('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+			$('#thumbnail').val('');
+		});
+		
+		$('.btn-cancel-thumbewm').click(function () {
+			$('#thumbewm-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+			$('#thumbewm').val('');
+		});
+		
+	})()
+
+</script>
+</body>
+</html>

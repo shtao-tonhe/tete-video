@@ -1,0 +1,88 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_SHOPAPPLY_INDEX_SHENQLIST')}</a></li>
+			<li ><a href="{:url('Shopapply/platformedit')}">{:lang('ADMIN_SHOPAPPLY_INDEX_DIANPUXINX')}</a></li>
+
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Shopapply/index')}">
+			{:lang('CHECK_STATUS')}
+			<select class="form-control" name="status">
+				<option value="">{:lang('ALL')}</option>
+                <volist name="status" id="v">
+                    <option value="{$key}" <if condition="input('request.status') neq '' && input('request.status') eq $key">selected</if> >{$v}</option>
+                </volist>    
+			</select>
+			{:lang('SUBMIT_TIME')}:
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" autocomplete="off" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;"> - 
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" autocomplete="off" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;">
+			{:lang('ADMIN_SHOPAPPLY_INDEX_USERID')}
+            <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                   placeholder="{:lang('ADMIN_SHOPAPPLY_INDEX_SHURUMEMBERID')}">
+			
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Shopapply/index')}">{:lang('CLEAN')}</a>
+		</form>				
+		<form method="post" class="js-ajax-form" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_VIPID')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_VIP')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_NAME')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_IDCARD')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_JINYINGXIANGMU')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_JINYINGLIANXIREN')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_SHOUJIHAO')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_DIQU')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_DIZHI')}</th>
+						<th>{:lang('CHECK_STATUS')}</th>
+						<th>{:lang('ADMIN_SHOPAPPLY_INDEX_FAHUONUMBER')}</th>
+						<th>{:lang('SUBMIT_TIME')}</th>
+						<th>{:lang('HANDLE_TIME')}</th>
+						<th>{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td>{$vo.uid}</td>
+						<td>{$vo['userinfo']['user_nicename']} </td>
+						<td>{$vo['username']}</td>
+						<td>{$vo['cardno']}</td>
+						<td>{$vo['classname']}</td>
+						<td>{$vo['contact']}</td>		
+						<td>{$vo['phone']}</td>		
+						<td>{$vo['province']} {$vo['city']} {$vo['area']}</td>
+						<td>{$vo['address']}</td>
+						<td>{$status[$vo['status']]}</td>
+						<td>{$vo['shipment_overdue_num']}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td>
+						 <if condition="$vo['status'] eq '0'" >
+						    {:lang('ADMIN_CERTIFICATE_PEDNING')}
+						 <else/>
+						 	<if condition="$vo['uptime'] neq '0'">
+                             {:date('Y-m-d H:i:s',$vo['uptime'])}
+						    <else />
+						    --
+							</if>
+						 </if>						
+						 </td>
+						<td>	
+                            <a class="btn btn-xs btn-primary" href='{:url("Shopapply/edit",array("id"=>$vo["uid"]))}'>{:lang('EDIT')}</a>
+							<a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Shopapply/del',array('id'=>$vo['uid']))}">{:lang('DELETE')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

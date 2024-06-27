@@ -1,0 +1,117 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a>{:lang('ADMIN_SETTING_UPLOAD_SETTING')}</a></li>
+    </ul>
+    <form method="post" class="js-ajax-form margin-top-20" role="form" action="{:url('setting/uploadPost')}">
+        <div class="form-group">
+            <label>{:lang('ADMIN_SETTING_UPLOAD_MAX_FILE_NUMBER')}</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="max_files" title="{:lang('ADMIN_SETTING_UPLOAD_MAX_FILE_NUMBER')}" placeholder="{:lang('ADMIN_SETTING_UPLOAD_MAX_FILE_NUMBER')}"
+                           value="{$upload_setting.max_files|default=20}">
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <p class="help-block">{:lang('ADMIN_SETTING_UPLOAD_MAX_FILE_NUMBER_HINT')}</p>
+        </div>
+        <div class="form-group">
+            <label>{:lang('ADMIN_SETTING_UPLOAD_FILE_PART_SIZE')}</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="chunk_size" title="{:lang('ADMIN_SETTING_UPLOAD_TITLE1')}"
+                           placeholder="{:lang('ADMIN_SETTING_UPLOAD_TITLE1')}" value="{$upload_setting.chunk_size|default=512}">
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <p class="help-block">{:lang('ADMIN_SETTING_UPLOAD_FILE_PART_SIZE_HINT')}</p>
+        </div>
+        <div class="form-group">
+            <label>{:lang('ADMIN_SETTING_UPLOAD_IMAGE_FILE')}</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="file_types[image][upload_max_filesize]"
+                           title="{:lang('ADMIN_SETTING_UPLOAD_TITLE2')}" placeholder="{:lang('ADMIN_SETTING_UPLOAD_TITLE2')}"
+                           value="{$upload_setting.file_types.image.upload_max_filesize|default=10240}">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control"
+                           name="file_types[image][extensions]"
+                           title="{:lang('ADMIN_SETTING_UPLOAD_TITLE3')}"
+                           placeholder="{:lang('ADMIN_SETTING_UPLOAD_TITLE3')}"
+                           value="{$upload_setting.file_types.image.extensions|default='jpg,jpeg,png,gif'}">
+                </div>
+            </div>
+            <p class="help-block">{:lang('ADMIN_SETTING_UPLOAD_IMAGE_FILE_HINT')}</p>
+        </div>
+        <div class="form-group">
+            <label>{:lang('ADMIN_SETTING_UPLOAD_VEDIO_FILE')}</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control"
+                           name="file_types[video][upload_max_filesize]"
+                           title="{:lang('ADMIN_SETTING_UPLOAD_TITLE2')}"
+                           placeholder="{:lang('ADMIN_SETTING_UPLOAD_TITLE2')}"
+                           value="{$upload_setting.file_types.video.upload_max_filesize|default=10240}">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control"
+                           name="file_types[video][extensions]"
+                           title="{:lang('ADMIN_SETTING_UPLOAD_TITLE3')}"
+                           placeholder="{:lang('ADMIN_SETTING_UPLOAD_TITLE3')}"
+                           value="{$upload_setting.file_types.video.extensions|default='mp4'}">
+                </div>
+            </div>
+            <p class="help-block">{:lang('ADMIN_SETTING_UPLOAD_VEDIO_FILE_HINT')}</p>
+        </div>
+        <div class="form-group">
+            <label>{:lang('ADMIN_SETTING_UPLOAD_MP3_FILE')}</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control"
+                           name="file_types[audio][upload_max_filesize]"
+                           title="{:lang('ADMIN_SETTING_UPLOAD_TITLE2')}"
+                           placeholder="{:lang('ADMIN_SETTING_UPLOAD_TITLE2')}"
+                           value="{$upload_setting.file_types.audio.upload_max_filesize|default=10240}">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control"
+                           name="file_types[audio][extensions]"
+                           title="{:lang('ADMIN_SETTING_UPLOAD_TITLE3')}"
+                           placeholder="{:lang('ADMIN_SETTING_UPLOAD_TITLE3')}"
+                           value="{$upload_setting.file_types.audio.extensions|default='mp3'}">
+                </div>
+            </div>
+            <p class="help-block">{:lang('ADMIN_SETTING_UPLOAD_MP3_FILE_HINT')}</p>
+        </div>
+        <div class="form-group">
+            <label>{:lang('ADMIN_SETTING_UPLOAD_FU_FILE')}</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="file_types[file][upload_max_filesize]"
+                           title="{:lang('ADMIN_SETTING_UPLOAD_TITLE2')}" placeholder="{:lang('ADMIN_SETTING_UPLOAD_TITLE2')}"
+                           value="{$upload_setting.file_types.file.upload_max_filesize|default=10240}">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control"
+                           name="file_types[file][extensions]"
+                           title="{:lang('ADMIN_SETTING_UPLOAD_TITLE3')}"
+                           placeholder="{:lang('ADMIN_SETTING_UPLOAD_TITLE3')}"
+                           value="{$upload_setting.file_types.file.extensions|default='txt,pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar'}">
+                </div>
+            </div>
+            <p class="help-block">
+                {:lang('ADMIN_SETTING_UPLOAD_FU_FILE_HINT')}</p>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

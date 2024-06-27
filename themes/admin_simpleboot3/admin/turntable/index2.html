@@ -1,0 +1,68 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_TURNTABLE_INDEX2_RECORD')}</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('turntable/index2')}">
+			{:lang('ADMIN_TURNTABLE_INDEX2_TIME')}
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" autocomplete="off" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;"> - 
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" autocomplete="off" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;">
+			{:lang('ADMIN_TURNTABLE_INDEX2_VIP')}
+            <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                   placeholder="{:lang('ADMIN_TURNTABLE_INDEX2_VIP_OPTION')}">
+			{:lang('ADMIN_TURNTABLE_INDEX2_ANCHOR')}
+            <input class="form-control" type="text" name="liveuid" style="width: 200px;" value="{:input('request.liveuid')}"
+                   placeholder="{:lang('ADMIN_TURNTABLE_INDEX2_ANCHOR_OPTION')}">
+			{:lang('ADMIN_TURNTABLE_INDEX2_DIRECT')}
+            <input class="form-control" type="text" name="showid" style="width: 200px;" value="{:input('request.showid')}"
+                   placeholder="{:lang('ADMIN_TURNTABLE_INDEX2_DIRECT_OPTION')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+            <br>
+            <br>
+			{:lang('ADMIN_TURNTABLE_INDEX2_GAMENUMBER')}{$count}
+            <br>
+            <br>
+			{:lang('ADMIN_TURNTABLE_INDEX2_ALLAMOUNT')}{$total}
+		</form>		
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+                        <th>{:lang('ADMIN_TURNTABLE_INDEX2_VIPID')}</th>
+                        <th>{:lang('ADMIN_TURNTABLE_INDEX2_ANCHORID')}</th>
+                        <th>{:lang('ADMIN_TURNTABLE_INDEX2_DIRECT_IDENTIFY')}</th>
+						<th>{:lang('PRICE')}</th>
+						<th>{:lang('ADMIN_TURNTABLE_INDEX2_NUMBER')}</th>
+						<th>{:lang('ADMIN_TURNTABLE_INDEX2_WIN')}</th>
+                        <th>{:lang('ADMIN_MANUAL_INDEX_TIME')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td>{$vo['userinfo']['user_nicename']} ({$vo['uid']})</td>
+						<td>{$vo['liveuidinfo']['user_nicename']} ({$vo['liveuid']})</td>
+                        <td>{$vo['showid']}</td>
+                        <td>{$vo['coin']}</td>
+						<td>{$vo['nums']}</td>
+						<td>
+                            <if condition="$vo['iswin'] eq 1">
+                                <volist name="vo.winlist" id="v">
+                                  {$type[$v['type']]}:  {$v['name']} X {$v['nums']} <br>
+                                </volist>
+                            <else/>
+                                未中奖
+                            </if>
+                        </td>
+                        <td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<include file="public@header"/>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_VIPCHARGERULES_INDEX_LIST')}</a></li>
+			<li><a href="{:url('Vipchargerules/add')}">{:lang('ADD')}</a></li>
+		</ul>
+
+		<form method="post" class="js-ajax-form" action="{:url('Vipchargerules/listorderset')}">
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit">{:lang('SORT')}</button>
+			</div>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('SORT')}</th>
+						<th align="center">{:lang('ID')}</th>
+						<th>{:lang('NAME')}</th>
+						<th>{:lang('PRICE')}</th>
+						<th>{:lang('ADMIN_VIPCHARGERULES_INDEX_RECHARGE_DAY_NUMBER')}</th>
+						<th>{:lang('ADMIN_VIPCHARGERULES_INDEX_COST_DIAMONDS')}</th>
+						<th>{:lang('PUBLISH_TIME')}</th>
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<foreach name="lists" item="vo">
+					<tr>
+						<td><input name="listorders[{$vo['id']}]" type="text" size="3" value="{$vo['orderno']}" class="input input-order"></td>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo['name']}</td>
+						<td>{$vo['money']}</td>
+						<td>{$vo['days']}</td>
+						<td>{$vo['coin']}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td align="center">
+							<a class="btn btn-xs btn-primary" href="{:url('Vipchargerules/edit',array('id'=>$vo['id']))}" >{:lang('EDIT')}</a>
+							
+							<a class="btn btn-xs btn-danger  js-ajax-dialog-btn" href="{:url('Vipchargerules/del',array('id'=>$vo['id']))}" data-msg="{:lang('DELETE_CONFIRM_MESSAGE')}">{:lang('DELETE')}</a>
+							
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

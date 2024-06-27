@@ -1,0 +1,108 @@
+<include file="public@header"/>
+<style>
+.table img{
+	max-width:100px;
+	max-height:100px;
+}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_MUSIC_BACKGROUND_LIST')}</a></li>
+			<li><a href="{:url('Music/music_add')}">{:lang('ADD')}</a></li>
+		</ul>
+		
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Music/index')}">
+			{:lang('ADMIN_MUSIC_BACKGROUND_SELECT_CHOICE')}
+			<select class="select_2 form-control" name="classify_id">
+				<option value="">{:lang('ALL')}</option>
+				<volist name="classify" id="vo">
+					<option value="{$vo['id']}" <if condition="input('request.classify_id') eq $vo['id']">selected</if> >{$vo['title']}</option>		
+				</volist>
+					
+			</select>
+
+			<!-- 选择上传类型：
+			<select class="select_2 form-control" name="upload_type">
+				<option value="0">全部</option>
+				<option value="1" <if condition="input('request.upload_type') eq 1">selected</if> >管理员上传</option>		
+				<option value="2" <if condition="input('request.upload_type') eq 2">selected</if> >用户上传</option>
+					
+			</select> -->
+			{:lang('KEYWORD')}
+			<input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}" placeholder="{:lang('ADMIN_MUSIC_BACKGROUND_NAME')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Admin/Music/index')}">{:lang('CLEAN')}</a>
+		</form>		
+		
+		<form method="post" class="js-ajax-form" >
+		
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">{:lang('ID')}</th>
+						<th>{:lang('ADMIN_MUSIC_BACKGROUND_NAME')}</th>
+						<th>{:lang('ADMIN_MUSIC_BACKGROUND_SINGER')}</th>
+						<th>{:lang('ADMIN_MUSIC_BACKGROUND_UPLOAD_TYPE')}</th>
+						<th>{:lang('ADMIN_MUSIC_BACKGROUND_UPLOADER')}</th>
+						<th>{:lang('ADMIN_MUSIC_BACKGROUND_COVER')}</th>
+						<th>{:lang('ADMIN_MUSIC_BACKGROUND_MUSIC_LENGTH')}</th>
+						<th>{:lang('ADMIN_MUSIC_BACKGROUND_MUSIC_ADDRESS')}</th>
+						<th>{:lang('ADMIN_MUSIC_BACKGROUND_USE_TIMES')}</th>
+						<th>{:lang('ADMIN_MUSIC_CLASSIFY_IS_DEL')}</th>
+						<th>{:lang('ADMIN_MUSIC_BACKGROUND_TYPE')}</th>
+						<th>{:lang('ADD_TIME')}</th>
+						<th>{:lang('EDIT_TIME')}</th>
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<php>$upload_type=array("1"=>"{:lang('ADMIN_MUSIC_BACKGROUND_EDIT_ADMIN')}","2"=>"{:lang('ADMIN_MUSIC_BACKGROUND_EDIT_USER')}");$isdel=array("0"=>"{:lang('NO')}","1"=>"{:lang('YES')}");</php>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo['title']}</td>
+						<td>{$vo['author']}</td>
+						<td>{$upload_type[$vo['upload_type']]}</td>
+						<td>{$vo['uploader_nicename']}({$vo['uploader']})</td>
+						<td><img class="imgtip" src="{:get_upload_path($vo['img_url'])}" width="50" height="50"></td>
+						<td>{$vo['length']}</td>
+						<td style="max-width: 300px;word-break:break-all;">{$vo['file_url']}</td>
+						<td>{$vo['use_nums']}</td>
+						<td>{$isdel[$vo['isdel']]}</td>
+						<td>{$vo['classify_title']}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td><if condition="$vo['updatetime'] neq '0'">{:date('Y-m-d H:i:s',$vo['updatetime'])}<else />--</if></td>
+						<td align="center">
+							<a class="btn btn-xs btn-primary" href="javascript:void(0)" onclick="musicListen({$vo['id']})" >{:lang('ADMIN_MUSIC_BACKGROUND_AUDITIONTWO')}</a>
+							<a class="btn btn-xs btn-primary" href="{:url('Music/music_edit',array('id'=>$vo['id']))}" >{:lang('EDIT')}</a>
+							 <if condition="$vo['isdel'] eq '0'">
+							 <a href="{:url('Music/music_del',array('id'=>$vo['id']))}" class="btn btn-xs btn-danger js-ajax-dialog-btn" data-msg="{:lang('DELETE_CONFIRM_MESSAGE')}">{:lang('DELETE')}</a>
+							 <else />
+							 <a href="{:url('Music/music_canceldel',array('id'=>$vo['id']))}" class="btn btn-xs btn-danger js-ajax-dialog-btn" data-msg="{:lang('ADMIN_MUSIC_CLASSIFY_CANCEL_DEL')}">{:lang('ADMIN_MUSIC_BACKGROUND_EDIT_CANCEL_DELETE')}</a>
+							</if>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script src="__STATIC__/layer/layer.js"></script>
+	<script type="text/javascript">
+		function musicListen(id){
+			layer.open({
+			  type: 2,
+			  title: '{:lang(\'ADMIN_MUSIC_BACKGROUND_AUDITION\')}',
+			  shadeClose: true,
+			  shade: 0.8,
+			  area: ['500px', '140px'],
+			  content: '/admin/music/music_listen&id='+id
+			}); 
+		}
+	</script>
+</body>
+</html>

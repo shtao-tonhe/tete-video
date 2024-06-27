@@ -1,0 +1,172 @@
+<include file="public@header"/>
+
+<style type="text/css">
+.textArea textarea{
+	width:90%;padding:3%;height:80%;margin:0 auto;margin-top:30px;
+	margin-left: 2%;
+}
+.textArea_btn{
+	text-align: right;
+	margin-top: 30px;
+}
+.textArea_btn input{
+	margin-right: 30px;
+}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_VIDEO_REPORTLIST_LIST')}</a></li>
+
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Video/reportlist')}">
+
+			{:lang('STATUS')}：
+			<select class="form-control" name="status" style="width: 200px;">
+				<option value="">{:lang('ALL')}</option>
+				<option value="0" <if condition="input('request.status') eq '0'">selected</if> >{:lang('ADMIN_VIDEO_REPORTLIST_PROCESSING')}</option>
+				<option value="1" <if condition="input('request.status') eq '1'">selected</if>>{:lang('HANDLE')}</option>
+
+			</select>&nbsp; &nbsp;
+
+
+			{:lang('SUBMIT_TIME')}:
+			<input type="text" name="start_time" class="js-bootstrap-date form-control" value="{:input('request.start_time')}" autocomplete="off" placeholder="{:lang('START_TIME')}">-
+			<input type="text" name="end_time" class="js-bootstrap-date form-control" value="{:input('request.end_time')}" autocomplete="off" placeholder="{:lang('END_TIME')}">&nbsp; &nbsp;
+
+
+			{:lang('KEYWORD')}:
+			 <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="{:lang('ADMIN_VIDEO_REPORTLIST_VIPID')}">
+			   
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Admin/Video/reportlist')}">{:lang('CLEAN')}</a>
+		</form>				
+		<form method="post" class="js-ajax-form" >
+
+		
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">{:lang('ID')}</th>
+						<th>{:lang('ADMIN_VIDEO_REPORTLIST_REPORTER')}</th>
+						<th>{:lang('ADMIN_VIDEO_REPORTLIST_INFORMANT')}</th>
+						<th>{:lang('ADMIN_VIDEO_REPORTLIST_VIDEO_ID')}</th>
+						<th>{:lang('ADMIN_VIDEO_REPORTLIST_CONTENT')}</th>
+						<th>{:lang('STATUS')}</th>
+						<th>{:lang('SUBMIT_TIME')}</th>
+						<th>{:lang('HANDLE_TIME')}</th>
+
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<php>$status=array("0"=>"{:lang('ADMIN_VIDEO_REPORTLIST_PROCESSING')}","1"=>"{:lang('HANDLE')}", "2"=>"{:lang('ADMIN_VIDEO_REPORTLIST_EXAMINE_LOST')}");</php>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo['userinfo']['user_nicename']} ( {$vo['uid']} )</td>	
+						<td>{$vo['touserinfo']['user_nicename']} ( {$vo['touid']} )</td>		
+						<td>{$vo['videoid']}</td>		
+						<td><?php echo nl2br($vo['content']);?></td>				
+						<td>{$status[$vo['status']]}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>						
+						<td>
+						 <if condition="$vo['status'] eq '0'" >
+							 {:lang('HANDLE')}
+						 <else/>
+							{:date('Y-m-d H:i:s',$vo['uptime'])}
+						 </if>						
+						 </td>
+
+						<td align="center">
+							<a class="btn btn-xs btn-primary" href="javascript:void(0)" onclick="videoListen({$vo['videoid']})" >{:lang('ADMIN_VIDEO_PI_VIDEO_LOOK_VIDEO')}</a>
+							<if condition="$vo['status'] eq '0'" >
+								<a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Video/setstatus',array('id'=>$vo['id']))}" data-msg="{:lang('ADMIN_VIDEO_REPORTLIST_MARK_OPTION')}" >{:lang('ADMIN_VIDEO_REPORTLIST_MARK')}</a>
+							</if>
+							<if condition="$vo['video_isdel'] neq '1'">
+								<a class="btn btn-xs btn-danger " href="javascript:void (0)" onclick="xiajia({$vo['videoid']})" >{:lang('ADMIN_VIDEO_REPORTLIST_DELETE')}</a>
+							</if>
+							<a href="{:url('Video/report_del',array('id'=>$vo['id']))}" class="btn btn-xs btn-danger js-ajax-delete" data-msg="{:lang('ARE_SURE_WANT_DELETE')}">{:lang('Delete_Report')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script src="__STATIC__/layer/layer.js"></script>
+	<script type="text/javascript">
+
+
+		var xiajia_status=0;
+
+		function xiajia(id){
+			var p={$p};
+
+			layer.open({
+			  type: 1,
+			  title:"{:lang('ADMIN_VIDEO_PI_LOWER_YESORNO')}",
+			  skin: 'layui-layer-rim', //加上边框
+			  area: ['30%', '30%'], //宽高
+			  content: '<div class="textArea"><textarea id="xiajia_reason" maxlength="50" placeholder="{:lang(\'ADMIN_VIDEO_PI_LOWER_REASON\')}" /> </div><div class="textArea_btn" ><input type="button" id="xiajia" value="{:lang(\'LOWER\')}" onclick="xiajia_submit('+id+','+p+')" /><input type="button" id="cancel" onclick="layer.closeAll();" value="{:lang(\'CANCEL\')}" /></div>'
+			});
+		}
+
+		function xiajia_submit(id,p){
+
+			var reason=$("#xiajia_reason").val();
+			if(xiajia_status==1){
+				return;
+			}
+			xiajia_status=1;
+			$.ajax({
+				url: '/admin/video/setXiajia.html',
+				type: 'POST',
+				dataType: 'json',
+				data: {id:id,reason: reason},
+				success:function(data){
+					var code=data.code;
+					if(code!=0){
+						layer.msg(data.msg);
+						return;
+					}
+
+					xiajia_status=0;
+					$("#xiajia").attr("disabled",true);
+					layer.msg("{:lang('ADMIN_VIDEO_REPORTLIST_LOWER_SUCCEED')}",{icon: 1,time:1000},function(){
+						layer.closeAll();
+						location.href='/admin/video/reportlist.html&p='+p;
+						
+					});
+				},
+				error:function(e){
+					$("#xiajia").attr("disabled",false);
+					console.log(e);
+				}
+			});
+			
+			
+		}
+	</script>
+
+
+	<script type="text/javascript">
+		function videoListen(id){
+
+			layer.open({
+			  type: 2,
+			  title: '{:lang(\'ADMIN_VIDEO_PI_VIDEO_LOOK_VIDEO\')}',
+			  shadeClose: true,
+			  shade: 0.8,
+			  area: ['500px', '750px'],
+			  content: '/admin/Video/video_listen.html&id='+id
+			}); 
+		}
+	</script>
+</body>
+</html>

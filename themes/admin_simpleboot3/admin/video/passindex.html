@@ -1,0 +1,297 @@
+<include file="public@header"/>
+<style>
+.table img{
+	max-width:100px;
+	max-height:100px;
+}
+.textArea textarea{
+	width:90%;padding:3%;height:80%;margin:0 auto;margin-top:30px;
+	margin-left: 2%;
+}
+.textArea_btn{
+	text-align: right;
+	margin-top: 30px;
+}
+.textArea_btn input{
+	margin-right: 30px;
+}
+</style>
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_VIDEO_PI_LIST')}</a></li>
+			<!-- <li><a href="{:url('Video/add')}">视频添加</a></li> -->
+		</ul>
+		
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Video/passindex')}">
+
+			{:lang('SORT')}
+			<select class="select_2 form-control" name="ordertype">
+				<option value="">{:lang('ADMIN_VIDEO_PI_DEFAULT')}</option>
+				<option value="1" <if condition="input('request.ordertype') eq 1">selected</if> >{:lang('ADMIN_VIDEO_PI_COMMENT_SORT')}</option>
+				<option value="2" <if condition="input('request.ordertype') eq 2">selected</if> >{:lang('ADMIN_VIDEO_PI_THUMB_SORT')}</option>
+				<option value="3" <if condition="input('request.ordertype') eq 3">selected</if> >{:lang('ADMIN_VIDEO_PI_SHARE_SORT')}</option>
+					
+			</select>
+
+			{:lang('ADMIN_IDEO_PI_CLASSIFY')}
+			<select class="select_2 form-control" name="classid">
+				<option value="">{:lang('ADMIN_VIDEO_PI_DEFAULT')}</option>
+				<volist name="classify" id="vo">
+					<option value="{$vo.id}" <if condition="input('request.classid') eq $vo.id">selected</if> >{$vo.title}</option>
+				</volist>		
+			</select>
+
+			{:lang('KEYWORD')}:
+			<input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}" placeholder="{:lang('ADMIN_VIDEO_PI_VIDEO_NUMBER')}">
+			<input class="form-control" type="text" name="keyword1" style="width: 200px;" value="{:input('request.keyword1')}" placeholder="{:lang('ADMIN_VIDEO_AD_TITLE')}">
+			<input class="form-control" type="text" name="keyword2" style="width: 200px;" value="{:input('request.keyword2')}" placeholder="{:lang('ADMIN_VIDEO_PI_USERNAME')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Admin/Video/passindex')}">{:lang('CLEAN')}</a>
+		</form>		
+		
+		<form method="post" class="js-ajax-form">
+
+			<div class="table-actions">
+                <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('Video/setBatchDel')}"
+                        data-subcheck="true">{:lang('ADMIN_VIDEO_PI_BATCH_DELETE')}
+                </button>
+
+                <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('Video/setBatchXiajia',array('status'=>'1'))}"
+                        data-subcheck="true">{:lang('ADMIN_VIDEO_PI_BATCH_LOWER')}
+                </button>
+
+                <p class="help-block" style="font-weight: bold;">{:lang('ADMIN_VIDEO_PI_OPTION')}</p>
+            </div>
+
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th width="16">	
+                            <label>
+                                <input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x">
+                            </label>	
+                        </th>
+						<th align="center">{:lang('ID')}</th>
+						<th>{:lang('ADMIN_VIDEO_PI_VIP')}</th>
+						<th style="max-width: 300px;">{:lang('TITLE')}</th>
+						<th>{:lang('ADMIN_IDEO_PI_CLASSIFY')}</th>
+						<th>{:lang('PIC')}</th>
+						<th>{:lang('ADMIN_VIDEO_PI_THUMBS_UP')}</th>
+						<th>{:lang('ADMIN_VIDEO_PI_COMMENT')}</th>
+						<th>{:lang('ADMIN_VIDEO_PI_SHARE')}</th>
+						<!-- <th>催更单价</th>
+						<th>已催更金额</th> -->
+						<th>{:lang('ADMIN_VIDEO_AD_CONDITION')}</th>
+						<th>{:lang('ADMIN_VIDEO_AD_COST_YUN')}</th>
+						<th>{:lang('ADMIN_UPPER_TYPE')}</th>
+						<th>{:lang('ADMIN_VIDEO_PI_BIND')}</th>
+						<th>{:lang('PUBLISH_TIME')}</th>
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<php>$isdel=array("0"=>"{:lang('UPPER')}","1"=>"{:lang('LOWER')}");$status=array("0"=>"{:lang('ADMIN_VIDEO_PI_EXAMINE')}","1"=>"{:lang('PASS')}","2"=>"{:lang('NO_PASS')}");</php>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td>
+                            <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}">
+                        </td>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo['userinfo']['user_nicename']} ({$vo['uid']})</td>
+						<td style="max-width: 300px;">{$vo['title']}</td>
+						<td>{$vo['class_name']}</td>
+						<td><img src="{:get_upload_path($vo['thumb'])}" class="imgtip" /></td>
+						<td>{$vo['likes']}</td>
+						<td>{$vo['comments']}</td>
+						<td>{$vo['shares']}</td>
+						<!-- <td>{$vo['urge_money']}</td>
+						<td>{$vo['hasurgemoney']}</td> -->
+						<td>{$status[$vo['status']]}</td>
+						<td>{$vo['coin']}</td>
+						<td>{$isdel[$vo['isdel']]}</td>
+						<td><if condition="$vo['isgoods'] eq '1'">是<else />否</if></td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td align="center">
+							<a class="btn btn-xs btn-primary" href="javascript:void(0)" onclick="videoListen({$vo['id']})" >{:lang('ADMIN_VIDEO_PI_LOOK')}</a>
+							
+							<a class="btn btn-xs btn-primary" href="{:url('Video/edit',array('id'=>$vo['id'],'from'=>'passindex'))}" >{:lang('EDIT')}</a>
+							 <if condition="$vo['isdel'] eq '0'">
+							<a class="btn btn-xs btn-danger"  href="javascript:void (0)" onclick="xiajia({$vo['id']})" >{:lang('LOWER')}</a></if>
+							
+							<a class="btn btn-xs btn-primary" href="javascript:void (0)" onclick="commentlists({$vo['id']})" >{:lang('ADMIN_VIDEO_PI_COMMENT_LIST')}</a>
+						
+							 <a class="btn btn-xs btn-danger" href="javascript:void (0)" onclick="del({$vo['id']})" >{:lang('DELETE')}</a>
+							<!-- <a href="{:url('Video/del',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="您确定要删除吗？">删除</a> -->
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+
+			<div class="table-actions">
+
+                <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('Video/setBatchDel')}"
+                        data-subcheck="true">{:lang('ADMIN_VIDEO_PI_BATCH_DELETE')}
+                </button>
+
+                <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('Video/setBatchXiajia',array('status'=>'1'))}"
+                        data-subcheck="true">{:lang('ADMIN_VIDEO_PI_BATCH_LOWER')}
+                </button>
+
+                <p class="help-block" style="font-weight: bold;">{:lang('ADMIN_VIDEO_PI_OPTION')}</p>
+            </div>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js?t={$time}"></script>
+	<script src="__STATIC__/layer/layer.js"></script>
+	<script type="text/javascript">
+
+
+		var xiajia_status=0;
+		var del_status=0;
+
+		function xiajia(id){
+			var p={$p};
+
+			layer.open({
+			  type: 1,
+			  title:"{:lang('ADMIN_VIDEO_PI_LOWER_YESORNO')}",
+			  title:"{:lang('ADMIN_VIDEO_PI_LOWER_YESORNO')}",
+			  skin: 'layui-layer-rim', //加上边框
+			  area: ['30%', '30%'], //宽高
+			  content: '<div class="textArea"><textarea id="xiajia_reason" maxlength="50" placeholder="{:lang(\'ADMIN_VIDEO_PI_LOWER_YESORNO\')}" /> </div><div class="textArea_btn" ><input type="button" id="xiajia" value="{:lang(\'LOWER\')}" onclick="xiajia_submit('+id+','+p+')" /><input type="button" id="cancel" onclick="layer.closeAll();" value="{:lang(\'CANCEL\')}" /></div>'
+			});
+		}
+
+		function xiajia_submit(id,p){
+
+			var reason=$("#xiajia_reason").val();
+			if(xiajia_status==1){
+				return;
+			}
+			xiajia_status=1;
+			$.ajax({
+				url: '/admin/video/setXiajia.html',
+				type: 'POST',
+				dataType: 'json',
+				data: {id:id,reason: reason},
+				success:function(data){
+					var code=data.code;
+					if(code!=0){
+						layer.msg(data.msg);
+						return;
+					}
+					xiajia_status=0;
+					//设置按钮不可用
+					$("#xiajia").attr("disabled",true);
+					$("#cancel").attr("disabled",true);
+					layer.msg($Think.lang('ADMIN_VIDEO_REPORTLIST_LOWER_SUCCEED'),{icon: 1,time:1000},function(){
+						layer.closeAll();
+						//location.href='/index.php?g=Admin&m=Video&a=index&p='+p;
+						location.reload();
+					});
+				},
+				error:function(e){
+					$("#xiajia").attr("disabled",false);
+					$("#cancel").attr("disabled",false);
+					console.log(e);
+				}
+			});
+			
+			
+		}
+
+		function del(id){
+			var p={$p};
+			
+		
+
+			layer.open({
+			  type: 1,
+			  title:"{:lang('ADMIN_VIDEO_PI_VIDEO_DELETE_TITLE')}",
+			  skin: 'layui-layer-rim', //加上边框
+			  area: ['30%', '30%'], //宽高
+			  content: '<div class="textArea"><textarea id="del_reason" maxlength="50" placeholder="{:lang(\'ADMIN_VIDEO_PI_VIDEO_DELETE_REASON\')}" /> </div><div class="textArea_btn" ><input type="button" id="delete" value="{:lang(\'DELETE\')}" onclick="del_submit('+id+','+p+')" /><input type="button" id="cancel" onclick="layer.closeAll();" value="{:lang(\'CANCEL\')}" /></div>'
+			});
+		}
+
+		function del_submit(id,p){
+
+			var reason=$("#del_reason").val();
+
+			if(del_status==1){
+				return;
+			}
+
+			del_status=1;
+
+			$.ajax({
+				url: '/admin/video/del.html',
+				type: 'POST',
+				dataType: 'json',
+				data: {id:id,reason: reason},
+				success:function(data){
+					var code=data.code;
+					if(code!=0){
+						layer.msg(data.msg);
+						return;
+					}
+
+					del_status=0;
+
+					if(data.msg=='{:lang(\'ADMIN_VIDEO_PI_VIDEO_SUBMIT_OPTION\')}'){
+						layer.msg(data.msg);
+						return;
+					}
+
+					//设置按钮不可用
+					$("#delete").attr("disabled",true);
+					$("#cancel").attr("disabled",true);
+
+					layer.msg("{:lang('DELETE_SUCCESS')}",{icon: 1,time:1000},function(){
+						layer.closeAll();
+						<!-- location.href='/admin/video/nopassindex.html&page='+p;  -->
+						location.reload();
+					});
+				},
+				error:function(e){
+					$("#delete").attr("disabled",false);
+					$("#cancel").attr("disabled",false);
+
+					console.log(e);
+				}
+			});
+			
+			
+		}
+
+		/*获取视频评论列表*/
+		function commentlists(videoid){
+			layer.open({
+				type: 2,
+				title: "{:lang('ADMIN_VIDEO_PI_VIDEO_COMMENT_LIST')}",
+				shadeClose: true,
+				shade: 0.8,
+				area: ['60%', '90%'],
+				content: '/admin/video/commentlists.html&videoid='+videoid 
+			}); 
+		}
+	</script>
+
+	<script type="text/javascript">
+		function videoListen(id){
+			layer.open({
+			  type: 2,
+			  title: '{:lang(\'ADMIN_VIDEO_PI_VIDEO_LOOK_VIDEO\')}',
+			  shadeClose: true,
+			  shade: 0.8,
+			  area: ['500px', '750px'],
+			  content: '/admin/video/video_listen.html&id='+id
+			}); 
+		}
+	</script>
+</body>
+</html>

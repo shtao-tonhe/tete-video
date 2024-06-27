@@ -1,0 +1,44 @@
+<include file="public@header"/>
+
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Manual/index')}">{:lang('ADMIN_MANUAL_INDEX_LIST')}</a></li>
+			<li class="active"><a >{:lang('ADMIN_MANUAL_INDEX_RECHARGE')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Manual/add_post')}">
+			<fieldset>
+				
+				<div class="form-group" >
+					<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_VIDEO_REPORTLIST_VIPID')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-user_login" name="user_login" />
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-coin" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_MANUAL_INDEX_RECHARGE_NUMBER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-coin" name="coin" maxlength="7" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')" />
+						<p class="help-block">{:lang('ADMIN_MANUAL_ADD_RECHARGE_NUMBER_OPTION')}</p>
+					</div>
+				</div>
+
+
+			
+
+			</fieldset>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+				<a class="btn btn-default" href="{:url('Manual/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

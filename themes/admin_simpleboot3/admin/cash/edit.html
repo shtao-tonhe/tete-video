@@ -1,0 +1,108 @@
+<include file="public@header"/>
+
+<style>
+input{
+    width:500px;
+}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Cash/index')}">{:lang('ADMIN_CASH_INDEX_RECORD')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Cash/edit_post')}">
+		   <input type="hidden" name="id" value="{$cash['id']}">
+		   <input type="hidden" name="uid" value="{$cash['uid']}">
+			<fieldset>
+
+				
+				<div class="form-group" >
+					<label for="input-user_nicename" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_POPULAR_INDEX_VIP')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-user_nicename" value="{$cash['userinfo']['user_nicename']} ( {$cash['uid']} )" readonly>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-votes" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_CASH_EDIT_REPLACE')}{$name_coin}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-votes"  name="votes" value="{$cash['votes']}" readonly>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-money" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_CASH_EDIT_READY_AMOUNT')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-money"  name="money" value="{$cash['money']}" readonly>
+					</div>
+				</div>
+				
+				
+				<div class="form-group" >
+					<label for="input-money" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_CASH_EDIT_READY_ACCOUNT')}</label>
+					<div class="col-md-6 col-sm-10">
+						
+						<div class="col-md-6 col-sm-10" style="padding-top:7px;">
+							{$type[$cash['type']]}  <br>
+		                    {$cash['name']}  <br>
+		                    {$cash['account']} <br>
+		                    {$cash['account_bank']}
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-cash_money" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_CASH_EDIT_USER_AMOUNT')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-cash_money" value="{$cash['cash_money']}" readonly>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-cash_take" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_CASH_EDIT_PLATFORM')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-cash_take" value="{$cash['cash_take']}" readonly>
+					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label for="input-trade_no" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_CHARGE_INDEX_PAYMENT_ORDERID')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text"class="form-control" id="input-trade_no"  name="trade_no" value="{$cash['trade_no']}">
+					</div>
+				</div>
+				
+			
+				<div class="form-group">
+					<label for="input-status" class="col-sm-2 control-label">{:lang('STATUS')}</label>
+					<div class="col-md-6 col-sm-10">
+						<select class="form-control" name="status">
+	                        <volist name="status" id="v">
+	                        <option value="{$key}" <eq name="cash['status']" value="$key">selected</eq>>{$v}</option>
+	                        </volist>
+	                    </select>
+	                    <p class="help-block">{:lang('ADMIN_CASH_EDIT_THIRD_STATE_OPTION')}</p>
+
+					</div>
+				</div>
+
+			</fieldset>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+				<if condition="$cash['status'] eq 0">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+				</if>
+				<a class="btn btn-default" href="{:url('Cash/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+			
+			
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

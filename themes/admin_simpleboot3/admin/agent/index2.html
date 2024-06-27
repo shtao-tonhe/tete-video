@@ -1,0 +1,53 @@
+<include file="public@header"/>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_AGENT_FXSY_LIST')}</a></li>
+		</ul>
+		
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Agent/index2')}">
+			{:lang('ADMIN_AGENT_FXGX_MEMBER')}
+			<input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+               placeholder="{:lang('ADMIN_AGENT_FXGX_INPUT_MEMBERID')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Admin/Agent/index2')}">{:lang('CLEAN')}</a>
+            <br>
+            <br>
+            
+		</form>		
+		<form method="post" class="js-ajax-form" >
+
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('ADMIN_AGENT_FXGX_MEMBERID')}</th>
+						<th>{:lang('ADMIN_AGENT_FXSY_PRIMARY_INCOME')}</th>
+						<!-- <th>二级收益</th> -->
+						<!-- <th>三级收益</th> -->
+
+					<!-- 	<th align="center">{:lang('ACTIONS')}</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>			
+						<td>{$vo['userinfo']['user_nicename']} ( {$vo['uid']} ) </td>
+						<td>{$vo['one_p']} </td>
+						<!-- <td>{$vo['two_p']} </td> -->
+						<!-- <td>{$vo['three_p']} </td> -->
+						<!-- <td align="center">	
+						 <a href="{:url('Agent/edit',array('id'=>$vo['id']))}" >编辑</a> | 
+							<a href="{:url('Agent/del',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="您确定要删除吗？">删除</a>
+						</td> -->
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

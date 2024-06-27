@@ -1,0 +1,171 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a>{:lang('USER_INDEXADMIN_INDEX')}</a></li>
+		<li ><a href="{:url('user/adminIndex/add')}">{:lang('USER_ADMIN_INDEX_NEW_NUMBER')}</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('user/adminIndex/index')}">
+		{:lang('BLOCK_USER')}
+		<select class="form-control" name="user_status" style="width: 200px;">
+            <option value="">{:lang('ALL')}</option>
+            <option value="1"  <if condition="input('request.user_status') eq '1'">selected</if> >{:lang('YES')}</option>
+			<option value="0"  <if condition="input('request.user_status') eq '0'">selected</if> >{:lang('NO')}</option>
+		</select>
+        {:lang('USER_ADMIN_INDEX_INTRO_ANCHOR')}
+        <select class="form-control" name="isrecommend" style="width: 200px;">
+            <option value="">{:lang('ALL')}</option>
+            <option value="1" <if condition="input('request.isrecommend') eq '1'">selected</if>>{:lang('YES')}</option>
+            <option value="0" <if condition="input('request.isrecommend') eq '0'">selected</if>>{:lang('NO')}</option>
+        </select>
+        {:lang('USER_ADMIN_INDEX_SUPERTUBE')}
+        <select class="form-control" name="issuper" style="width: 200px;">
+            <option value="">{:lang('ALL')}</option>
+            <option value="1" <if condition="input('request.issuper') eq '1'">selected</if>>{:lang('YES')}</option>
+            <option value="0" <if condition="input('request.issuper') eq '0'">selected</if>>{:lang('NO')}</option>
+        </select>
+        {:lang('USER_ADMIN_USER_ID')}
+        <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+               placeholder="{:lang('USER_ADMIN_INPUT_USER_ID')}">
+        {:lang('KEYWORD')}
+        <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="{:lang('USER_ADMIN_NAME_NICK_TEL')}">
+        <input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}"/>
+        <a class="btn btn-danger" href="{:url('user/adminIndex/index')}">{:lang('CLEAN')}</a>
+    </form>
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>{:lang('USER_ADMIN_NATION_AREA')}</th>
+                <th>{:lang('USERNAME')}</th>
+                <th>{:lang('NICENAME')}</th>
+                <th>{:lang('AVATAR')}</th>
+                <!-- <th>{:lang('EMAIL')}</th> -->
+                <!-- <th>手机</th> -->
+                <th>{$name_coin}{:lang('USER_ADMIN_BALANCE')}</th>
+                <th>{:lang('USER_ADMIN_CUMULATIVE_CONSUMPTION')}{$name_coin}</th>
+                <th>{$name_votes}{:lang('USER_ADMIN_BALANCE')}</th>
+                <th>{:lang('USER_ADMIN_CUMULATIVE')}{$name_votes}</th>
+                <th>{:lang('USER_ADMIN_RMB_BALANCE')}</th>
+                <th>{:lang('USER_ADMIN_ACCUMULATED_RMB')}</th>
+                <th>{:lang('USER_ADMIN_CUMULATIVE_CONSUMPTION_RMB')}</th>
+                <th>{:lang('USER_ADMIN_INVITATION_CODE')}</th>
+                <th>{:lang('USER_ADMIN_REGISTER_DEVICE')}</th>
+                <th>{:lang('REGISTRATION_TIME')}</th>
+                <th>{:lang('LAST_LOGIN_TIME')}</th>
+                <th>{:lang('LAST_LOGIN_IP')}</th>
+				<th>{:lang('USER_ADMIN_ADVERTISEMENT_VIDEO_PUB')}</th>
+                <th>{:lang('USER_ADMIN_VIP_EXPIRATION_TIME')}</th>
+                <th>{:lang('STATUS')}</th>
+                <th>{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <php>
+                $user_statuses=array("0"=>lang('USER_STATUS_BLOCKED'),"1"=>lang('USER_STATUS_ACTIVATED'),"2"=>lang('USER_STATUS_UNVERIFIED'));
+				$isAd=array("0"=>"{:lang('NO')}","1"=>"{:lang('YES')}");
+            </php>
+            <foreach name="list" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td><if condition="$vo['login_type'] eq 'phone'">{$vo.country_name}<else />--</if></td>
+                    <td>{$vo['user_login']?$vo['user_login']:($vo['mobile']?$vo['mobile']:lang('THIRD_PARTY_USER'))}
+                    </td>
+                    <td>{$vo['user_nicename']?$vo['user_nicename']:lang('NOT_FILLED')}</td>
+                    <td><img width="25" height="25" class="imgtip" src="{:get_upload_path($vo['avatar'])}"/></td>
+                    <!-- <td>{$vo.user_email}</td> -->
+                    <!-- <td>{$vo.mobile}</td> -->
+                    <td>{$vo.coin}</td>
+                    <td>{$vo.consumption}</td>
+                    <td>{$vo.votes}</td>
+                    <td>{$vo.votestotal}</td>
+                    <td>{$vo.balance}</td>
+                    <td>{$vo.balance_total}</td>
+                    <td>{$vo.balance_consumption}</td>
+                    <td>{$vo.code}</td>
+                    <td>{$vo.source}</td>
+                    <td>{:date('Y-m-d H:i:s',$vo['create_time'])}</td>
+                    <td><if condition="$vo['last_login_time'] gt 0">{:date('Y-m-d H:i:s',$vo['last_login_time'])}<else />--</if></td>
+                    <td>{$vo.last_login_ip}</td>
+					<td>{$isAd[$vo['is_ad']]}</td>
+                    <td>{$vo['vip_endtime_format']}</td>
+                    <td>
+                        <if condition="$vo['user_status'] eq '3'">
+                            <!-- 已注销 -->
+                            {:lang('USER_ADMIN_LOGOUT')}
+                        <else />
+                            <switch name="vo.user_status">
+                                <case value="0">
+                                    <span class="label label-danger">{$user_statuses[$vo['user_status']]}</span>
+                                </case>
+                                <case value="1">
+                                    <span class="label label-success">{$user_statuses[$vo['user_status']]}</span>
+                                </case>
+                                <case value="2">
+                                    <span class="label label-warning">{$user_statuses[$vo['user_status']]}</span>
+                                </case>
+                            </switch>
+                        </if>
+                        
+                    </td>
+                    <td>
+                        <if condition="$vo['user_status'] eq '3'">
+
+                        <else />
+
+                            <neq name="vo.id" value="1">
+                                <empty name="vo.user_status">
+                                    <a class="btn btn-xs btn-success js-ajax-dialog-btn"
+                                       href="{:url('adminIndex/cancelban',array('id'=>$vo['id']))}"
+                                       data-msg="{:lang('ACTIVATE_USER_CONFIRM_MESSAGE')}">{:lang('ACTIVATE_USER')}</a>
+                                    <else/>
+                                    <a class="btn btn-xs btn-warning js-ajax-dialog-btn"
+                                       href="{:url('adminIndex/ban',array('id'=>$vo['id']))}"
+                                       data-msg="{:lang('BLOCK_USER_CONFIRM_MESSAGE')}">{:lang('BLOCK_USER')}</a>
+                                </empty>
+                                <else/>
+                                <a class="btn btn-xs btn-warning disabled">{:lang('BLOCK_USER')}</a>
+                                
+                            </neq>
+
+                            <if condition="$vo.issuper eq '1'">
+                                <a class="btn btn-xs btn-success js-ajax-dialog-btn"
+                                       href="{:url('adminIndex/cancelsuper',array('id'=>$vo['id']))}"
+                                       data-msg="{:lang('USER_ADMIN_IS_CANCEL_SUPERTUBE')}">{:lang('USER_ADMIN_CANCEL_SUPERTUBE')}</a>
+                            <else />
+                                <a class="btn btn-xs btn-warning js-ajax-dialog-btn"
+                                       href="{:url('adminIndex/super',array('id'=>$vo['id']))}"
+                                       data-msg="{:lang('USER_ADMIN_IS_SET_SUPERTUBE')}">{:lang('USER_ADMIN_SET_SUPERTUBE')}</a>
+                            </if>
+
+                            <if condition="$vo.isrecommend eq '1'">
+                                <a class="btn btn-xs btn-success js-ajax-dialog-btn"
+                                       href="{:url('adminIndex/setrecommend',array('id'=>$vo['id'],'status'=>0))}"
+                                       data-msg="{:lang('USER_ADMIN_IS_CANCEL_ANCHOR')}">{:lang('USER_ADMIN_CANCEL_ANCHOR')}</a>
+                            <else />
+                                <a class="btn btn-xs btn-warning js-ajax-dialog-btn"
+                                       href="{:url('adminIndex/setrecommend',array('id'=>$vo['id'],'status'=>1))}"
+                                       data-msg="{:lang('USER_ADMIN_IS_SET_ANCHOR')}">{:lang('USER_ADMIN_SET_ANCHOR')}</a>
+                            </if>
+
+                            <a class="btn btn-xs btn-primary" href="{:url('adminIndex/setvip',array('id'=>$vo['id']))}">{:lang('USER_ADMIN_SET_VIP')}</a>
+
+                        </if>
+                        
+
+						<a class="btn btn-xs btn-primary" href="{:url('adminIndex/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+						<a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('adminIndex/del',array('id'=>$vo['id']))}" data-msg="{:lang('ADMIN_GIFT_INDEX_SURE_DELETE')}">{:lang('DELETE')}</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <div class="pagination">{$page}</div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

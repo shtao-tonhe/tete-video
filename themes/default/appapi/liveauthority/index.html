@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="telephone=no" name="format-detection">
+
+	<link type="text/css" rel="stylesheet" href="__STATIC__/appapi/css/liveauthority.css?t={$time}"/>
+    <title>直播权限说明</title>
+</head>
+<body class="liveauthority">
+    
+    <div class="tips">开启直播功能需要满足以下条件</div>
+    <div class="lists">
+        <div class="lists_left fansnum fl"></div>
+        <div class="lists_center fl">
+            <div class="lists_title">粉丝数量</div>
+            <div class="lists_des">≥{$live_fans}名</div>
+        </div>
+        <div class="lists_right fr">
+            <if condition="$fans_status eq 1">
+                <span class="ok">已达成</span>
+            <else />
+                未达成
+            </if>
+        </div>
+    </div>
+    <div class="lists">
+        <div class="lists_left videonum fl"></div>
+        <div class="lists_center fl">
+            <div class="lists_title">发布视频</div>
+            <div class="lists_des">≥{$live_videos}个 (审核通过的视频)</div>
+        </div>
+        <div class="lists_right fr">
+            <if condition="$video_status eq 1">
+                <span class="ok">已达成</span>
+            <else />
+                未达成
+            </if>
+        </div>
+    </div>
+</body>
+</html>

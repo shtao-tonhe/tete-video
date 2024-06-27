@@ -1,0 +1,159 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a>{:lang('ADMIN_REFUNDLIST_INDEX_TUIKLIST')}</a></li>
+		</ul>
+
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Refundlist/index')}">
+
+			{:lang('ADMIN_REFUNDLIST_INDEX_TUIKUANGZHUANGTAI')}
+            <select class="form-control" name="status">
+				<option value="">{:lang('ADMIN_VIDEO_PI_DEFAULT')}</option>
+                <volist name="status" id="v">
+                    <option value="{$key}" <if condition="input('request.status') neq '' && input('request.status') eq $key">selected</if>>{$v}</option>
+                </volist>
+			</select>
+
+			{:lang('ADMIN_GOODSORDER_INDEX_ORDERTYPE')}
+			<select class="form-control" name="goods_type" >
+				<option value="">{:lang('ALL')}</option>
+				<option value="0" <if condition="input('request.goods_type') neq '' && input('request.goods_type') eq 0">selected</if>>{:lang('ADMIN_REFUNDLIST_INDEX_FABU')}</option>
+				<option value="1" <if condition="input('request.goods_type') neq '' && input('request.goods_type') eq 1">selected</if>>{:lang('ADMIN_REFUNDLIST_INDEX_ZIYT')}</option>
+
+					
+			</select>
+
+			{:lang('ADMIN_REFUNDLIST_INDEX_USERID')}
+            <input class="form-control" type="text" name="buyer_uid" style="width: 200px;" value="{:input('request.buyer_uid')}"
+                   placeholder="{:lang('ADMIN_REFUNDLIST_INDEX_SHURUUSERID')}">
+
+			{:lang('ADMIN_REFUNDLIST_INDEX_MAIJIAID')}
+            <input class="form-control" type="text" name="seller_uid" style="width: 200px;" value="{:input('request.seller_uid')}"
+                   placeholder="{:lang('ADMIN_REFUNDLIST_INDEX_SHURUMAIJIAID')}">
+
+			{:lang('ADMIN_REFUNDLIST_INDEX_SHENQSHIJIAN')}
+			<input class="form-control js-bootstrap-date" name="start_time" id="start_time" autocomplete="off" value="{:input('request.start_time')}" aria-invalid="false" style="width: 110px;"> - 
+            <input class="form-control js-bootstrap-date" name="end_time" id="end_time" autocomplete="off" value="{:input('request.end_time')}" aria-invalid="false" style="width: 110px;">
+                        
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Refundlist/index')}">{:lang('CLEAN')}</a>
+		</form>
+
+		<form method="post" class="js-ajax-form" action="">
+		
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+					  	
+						<th>{:lang('ADMIN_SHOPGOODS_COMMENTLIST_ORDERID')}</th>
+						<th>{:lang('ADMIN_GOODSORDER_INDEX_DINGDANCODE')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_MAIJIAXINX')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_MESSAGE')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_TUIKREASON')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_TUIKSHUOM')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_TUIKLEIX')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_SHENQSHIJ')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_DIANPCHULIJIEGUO')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_CHULITIME')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_BOHUICISHU')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_PINGTAIJIERU')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_LIYOU')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_SHUOM')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_TUP')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_JIEGUO')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_TIME')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_ZHANGHAO')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_IP')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_ZIDONCHULISHIJIAN')}</th>
+						<th>{:lang('ADMIN_REFUNDLIST_INDEX_CHULISTATUS')}</th>
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+					   
+						<td>{$vo.orderid}</td>
+						<td>{$vo.orderno}</td>
+						<td>{$vo['buyer_info']['user_nicename']}({$vo.uid})</td>
+						<td>
+							<if condition="$vo['shop_uid'] eq 1">
+								{:lang('ADMIN_REFUNDLIST_INDEX_ZIYT')}
+							<else />
+								{$vo['seller_info']['user_nicename']}({$vo.shop_uid})
+							</if>
+						</td>
+						<td>{$vo['reason']}</td>
+						<td>{$vo['content']}</td>
+						<td>{$type[$vo['type']]}</td>
+						<td>{:date('Y-m-d H:i',$vo['addtime'])}</td>
+						<td>{$shop_result[$vo['shop_result']]}</td>
+						<td><if condition="$vo.shop_process_time gt 0">{:date('Y-m-d H:i',$vo['shop_process_time'])}</if></td>
+						<td>{$vo['shop_process_num']}</td>
+						<td><if condition="$vo.is_platform_interpose eq 0">否<else />是</if></td>
+						<td>{$vo['platform_interpose_reason']}</td>
+						<td>{$vo['platform_interpose_desc']}</td>
+						<td>
+							<if condition="$vo['platform_interpose_thumb'] neq ''">
+								<img width="40" src="{$vo['platform_interpose_thumb']}" class="imgtip" />
+							</if>
+						</td>
+						<td>{$platform_result[$vo['platform_result']]}</td>
+						<td><if condition="$vo.platform_process_time gt 0">{:date('Y-m-d H:i',$vo['platform_process_time'])}</if></td>
+						<td>{$vo['admin']}</td>
+						<td><if condition="$vo.ip gt 0">{:long2ip($vo['ip'])}<else />--</if></td>
+						<td><if condition="$vo['system_process_time'] neq ''">
+								{:date('Y-m-d H:i',$vo['system_process_time'])}
+							</if>
+                        </td>
+                        <td>{$status[$vo['status']]}</td>
+						
+						<td>
+
+							<if condition="$vo['status'] eq 0 and $vo['shop_result'] eq 0 and $vo['shop_process_num']<3 and $vo['shop_uid'] eq 1">
+
+                            	<a class="btn btn-xs btn-danger" href='{:url("Refundlist/platformedit",array("id"=>$vo["id"]))}'>{:lang('ADMIN_REFUNDLIST_INDEX_CHULITUIK')}</a>
+
+                            </if>
+
+                            <if condition="$vo['status'] eq 0 and $vo['is_platform_interpose'] eq 1">
+
+                            	<a class="btn btn-xs btn-danger" href='{:url("Refundlist/edit",array("id"=>$vo["id"]))}'>{:lang('ADMIN_REFUNDLIST_INDEX_JIERUCHULI')}</a>
+
+                            </if>
+                           
+                            <!-- <a class="btn btn-xs btn-primary" onclick="refundHistory({$vo['orderid']})">协商历史</a> -->
+                            <a class="btn btn-xs btn-primary" onclick="refundHistory({$vo['orderid']})">{:lang('ADMIN_REFUNDLIST_INDEX_LIS')}</a>
+							<!-- <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Refundlist/del',array('id'=>$vo['id']))}">{:lang('DELETE')}</a> -->
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			Wind.use('layer');
+		});
+
+
+		function refundHistory(orderid){
+
+		
+			layer.open({
+			  type: 2,
+			  title: '{:lang(\'ADMIN_REFUNDLIST_INDEX_LIS\')}',
+			  shadeClose: true,
+			  shade: 0.8,
+			  area: ['500px', '90%'],
+			  content: '/Appapi/Goodsorderrefund/index?user_type=platform&orderid='+orderid
+			}); 
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<include file="public@header"/>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_REPORT_CLASSIFY_YONGHUJUBAOFENLEI')}</a></li>
+			<li><a href="{:url('Report/classify_add')}">{:lang('ADD')}</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Report/classify')}">
+			{:lang('KEYWORD')}：
+        <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="{:lang('ADMIN_REPORT_CLASSIFY_CLASSIFY_NAME')}">
+        <input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}"/>
+        <a class="btn btn-danger" href="{:url('Admin/Report/classify')}">{:lang('CLEAN')}</a>
+		</form>
+		<form method="post" class="js-ajax-form" action="{:url('Report/classify_listorders')}">
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit">{:lang('SORT')}</button>
+			</div>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('NUMBER')}</th>
+						<th align="center">{:lang('ID')}</th>
+						<th>{:lang('ADMIN_REPORT_CLASSIFY_CLASSIFY_NAME')}</th>
+						<th>{:lang('ADD_TIME')}</th>
+						<th>{:lang('EDIT_TIME')}</th>
+						<th align="center">{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<php>$isdel=array("0"=>"{:lang('NO')}","1"=>"{:lang('YES')}");</php>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td><input name="listorders[{$vo['id']}]" type="text" size="3" value="{$vo['orderno']}" class="input input-order"></td>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo['title']}</td>
+						<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+						<td><if condition="$vo['updatetime'] neq '0'">{:date('Y-m-d H:i:s',$vo['updatetime'])}<else />--</if></td>
+						<td align="center">
+
+							<a class="btn btn-xs btn-primary" href="{:url('Report/classify_edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+							<a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Report/classify_del',array('id'=>$vo['id']))}" data-msg="{:lang('ARE_SURE_WANT_DELETE')}">{:lang('DELETE')}</a>
+							
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

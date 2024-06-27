@@ -1,0 +1,132 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Refundlist/index')}">{:lang('ADMIN_REFUNDLIST_INDEX_LIST')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Refundlist/platformedit_post')}">
+            
+            
+            <div class="form-group">
+				<label for="input-orderid" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_ORDERID')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-orderid" name="orderid" value="{$data['orderid']}" readonly="readonly">
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-orderno" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_CODE')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-orderno" value="{$data['orderno']}" readonly="readonly">
+				</div>
+			</div>
+
+            <div class="form-group">
+                <label for="input-user_nicename" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_MAIJIAXINX')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-user_nicename" value="{$data['buyer_info']['user_nicename']}（{$data['uid']}）" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-buyer_phone" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_LAIXIFANGSHI')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-buyer_phone" value="{$data['phone']}" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-seller_user_nicename" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_SHANGJIAXINX')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-seller_user_nicename" value="平台自营" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-reason" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_TUIKREASON')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-reason" value="{$data['reason']}" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-content" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_TUIKSHUOM')}</label>
+                <div class="col-md-6 col-sm-10">
+                    
+                    <textarea readonly="readonly" style="width: 100%;min-height: 100px;">{$data['content']}</textarea>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="input-type" class="col-sm-2 control-label"><span class="form-required">*</span> {:lang('ADMIN_REFUNDLIST_INDEX_TUIKLEIX')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-type" value="{$type[$data['type']]}" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-total" class="col-sm-2 control-label"><span class="form-required">*</span>退款金额</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-total" value="{$data['reason']}" readonly="readonly">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="input-addtime" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_SHENQSHIJ')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-addtime" value="{:date('Y-m-d H:i',$data['addtime'])}" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-shop_process_num" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REFUNDLIST_INDEX_CISHU')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="input-shop_process_num" value="{$data['shop_process_num']}" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-type" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('CHECK_STATUS')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <select class="form-control" name="type">
+                        <option value="1">{:lang('AGREE')}</option>
+                        <option value="0">{:lang('REFUSE')}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-reasonid" class="col-sm-2 control-label"><span class="form-required">*</span> {:lang('ADMIN_REFUNDLIST_INDEX_REASON')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <select class="form-control" name="reason">
+                        <volist name="refuse_reason" id="v">
+                        <option value="{$v['name']}">{$v['name']}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-refuse_desc" class="col-sm-2 control-label"><span class="form-required"></span>{:lang('ADMIN_REFUNDLIST_INDEX_MIAOSU')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <textarea class="form-control" name="refuse_desc" placeholder="300字以内" maxlength="300"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="hidden" name="id" value="{$data.id}" />
+                    <input type="hidden" name="orderid" value="{$data.orderid}" />
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+					<a class="btn btn-default" href="{:url('Refundlist/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+    
+</body>
+</html>

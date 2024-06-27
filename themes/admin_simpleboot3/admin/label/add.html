@@ -1,0 +1,64 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('label/index')}">{:lang('ADMIN_LABEL_INDEX_TOPIC_LIST')}</a></li>
+			<li class="active"><a >{:lang('ADMIN_LABEL_INDEX_ADD_TOPIC')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('label/add_post')}">
+		
+			<fieldset>
+				
+				<div class="form-group" >
+					<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('NAME')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-name"  name="name" maxlength="6"><p class="help-block">{:lang('ADMIN_LABEL_EDIT_NAME_OPTION')}</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_LABEL_INDEX_COVER')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="hidden" name="thumb" id="thumbewm" value="">
+						<a href="javascript:uploadOneImage('{:lang(\'PIC_UPLOAD\')}','#thumbewm');">
+							<img src="__TMPL__/public/assets/images/default-thumbnail.png" id="thumbewm-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+						</a>
+						<input type="button" class="btn btn-sm btn-cancel-thumbewm" value="{:lang('ADMIN_LABEL_EDIT_PIC_NO')}"> <p class="help-block">{:lang('ADMIN_LABEL_EDIT_COVER_OPTION')} </p>
+					</div>
+				</div>
+
+                <div class="form-group" >
+					<label for="input-des" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('DESC')}</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="input-des"  name="des" maxlength="50"><p class="help-block">{:lang('ADMIN_LABEL_EDIT_DESCRIBE_OPTION')}</p>
+					</div>
+				</div>
+				
+                
+			</fieldset>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+					<a class="btn btn-default" href="{:url('label/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+			
+			
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+		(function(){
+	
+			$('.btn-cancel-thumbewm').click(function () {
+				$('#thumbewm-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+				$('#thumbewm').val('');
+			});
+			
+		})()
+
+	</script>
+</body>
+</html>

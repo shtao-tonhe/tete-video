@@ -1,0 +1,56 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_REFUSEREASON_INDEX_LIST')}</a></li>
+			<li><a href="{:url('Refusereason/add')}">{:lang('ADD')}</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('Refusereason/index')}">
+			{:lang('KEYWORD')}:
+            <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+                   placeholder="{:lang('ADMIN_REFUNDREASON_INDEX_QUERYGUANJIANZI')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}">
+			<a class="btn btn-danger" href="{:url('Refusereason/index')}">{:lang('CLEAN')}    </a>
+		</form>
+		<form method="post" class="js-ajax-form" action="{:url('Refusereason/listOrder')}">
+			<div class="table-actions">
+                <button class="btn btn-primary btn-sm js-ajax-submit" type="submit">{:lang('SORT')}</button>
+            </div>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>{:lang('NUMBER')}</th>
+						<th>{:lang('ID')}</th>
+						<th>{:lang('ADMIN_REFUSEREASON_INDEX_REFUSEREASON')}</th>
+						<th>{:lang('ADD_TIME')}</th>
+						<th>{:lang('EDIT_TIME')}</th>
+						<th>{:lang('ADMIN_EXPRESS_INDEX_SHOWSTATUS')}</th>
+						<th>{:lang('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td><input name="list_orders[{$vo.id}]" class="input-order" type="text" value="{$vo.list_order}"></td>
+						<td>{$vo.id}</td>
+						<td>{$vo['name']}</td>
+						<td>{:date('Y-m-d H:i',$vo['addtime'])}</td>
+						<td><if condition="$vo['edittime'] neq '0'">{:date('Y-m-d H:i',$vo['edittime'])}<else />--</if></td>
+						<td>{$status[$vo['status']]}</td>
+						<td align="center">
+                            <a class="btn btn-xs btn-primary" href='{:url("Refusereason/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a>
+							
+							<a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Refusereason/del',array('id'=>$vo['id']))}" data-msg="{:lang('ADMIN_GIFT_INDEX_SURE_DELETE')}">{:lang('DELETE')}</a>
+							
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

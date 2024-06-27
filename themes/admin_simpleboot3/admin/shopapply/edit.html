@@ -1,0 +1,192 @@
+<include file="public@header" />
+<style type="text/css">
+	.red_tips{
+		color: #F00;
+	}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:url('Shopapply/index')}">{:lang('ADMIN_SHOPAPPLY_INDEX_SHENQLIST')}</a></li>
+			<li class="active"><a >{:lang('EDIT')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Shopapply/editPost')}">
+            <div class="form-group">
+				<label class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_REPORT_EDIT_HIUYUAN')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" value="{$data['userinfo']['user_nicename']} ({$data['uid']})" readonly>
+				</div>
+			</div>
+            
+            <!-- <div class="form-group">
+				<label for="input-thumb" class="col-sm-2 control-label"><span class="form-required">*</span>店铺图片</label>
+				<div class="col-md-6 col-sm-10">
+					<img src="{$data['thumb']}" width="135" style="cursor: hand">
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>名称</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control"  value="{$data['name']}" readonly>
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>简介</label>
+				<div class="col-md-6 col-sm-10">
+                    <textarea class="form-control" name="des" id="des" readonly>{$data['des']}</textarea>
+				</div>
+			</div> -->
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_INDEX_NAME')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['username']}" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_INDEX_IDCARD')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['cardno']}" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_INDEX_JINYINGXIANGMU')}</label>
+				<div class="col-md-6 col-sm-10">
+					<volist name="oneGoodsClass" id="vo">
+
+                    	<label class="checkbox-inline">
+                    		<input type="checkbox" value="{$vo['gc_id']}" name="classids[]" <in value="$seller_class" name="$vo['gc_id']">checked="checked"</in>>{$vo['gc_name']}<if condition="$vo['gc_isshow'] eq '0'"><span class="red_tips">({:lang('ADMIN_CERTIFICATE_NOT_SHOW')})</span><elseif condition="$vo['gc_isshow'] eq '3'" /><span class="red_tips">({:lang('ADMIN_CERTIFICATE_ALREADY_EXISTS')})</span></if>
+                    	</label>
+                    </volist>
+                    <p class="help-block">{:lang('ADMIN_SHOPAPPLY_EDIT_ONEXIANGMU')}</p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_EDIT_JINYINZHELIANX')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['contact']}" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_EDIT_PHONENUMBER')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['phone']}" readonly>
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_EDIT_DIQU')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['province']}-{$data['city']}-{$data['area']}" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_EDIT_DIZHI')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['address']}" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SETTING_SITE_SERVICE_PHONE')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['service_phone']}" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_EDIT_TUOHUORENSHOUJIHAO')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['receiver_phone']}" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_EDIT_TUIHUORENDIQU')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['receiver_province']}-{$data['receiver_city']}-{$data['receiver_area']}" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_EDIT_TUIHUOSHOURENXIANGQ')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['receiver_address']}" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_EDIT_TUIHUOSHOUHUOREN')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control"  value="{$data['receiver']}" readonly>
+				</div>
+			</div>
+
+            <div class="form-group">
+				<label for="input-needcoin" class="col-sm-2 control-label"><span class="form-required">*</span> {:lang('ADMIN_SHOPAPPLY_EDIT_YINYEZHIZHAO')}</label>
+				<div class="col-md-6 col-sm-10">
+					<img src="{$data['certificate']}" class="imgtip" width="135" style="cursor: hand">
+				</div>
+			</div>
+            <!-- <div class="form-group">
+				<label for="input-needcoin" class="col-sm-2 control-label"><span class="form-required">*</span>许可证</label>
+				<div class="col-md-6 col-sm-10">
+					<img src="{$data['license']}" width="135" style="cursor: hand">
+				</div>
+			</div> -->
+            
+            <div class="form-group">
+				<label for="input-needcoin" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_EDIT_QITAZHENJIAN')}</label>
+				<div class="col-md-6 col-sm-10">
+					<img src="{$data['other']}" width="135" class="imgtip" style="cursor: hand">
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-needcoin" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('CHECK_STATUS')}</label>
+				<div class="col-md-6 col-sm-10">
+					<select class="form-control" name="status">
+                        <volist name="status" id="v">
+                        <option value="{$key}" <eq name="data['status']" value="$key">selected</eq>>{$v}</option>
+                        </volist>
+                    </select>
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label for="input-needcoin" class="col-sm-2 control-label"><span class="form-required"></span>{:lang('ADMIN_SHOPAPPLY_EDIT_SHENHEYIJIAN')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <textarea class="form-control" name="reason" id="reason">{$data['reason']}</textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ADMIN_SHOPAPPLY_EDIT_DINGDANCHOUSHUI')}</label>
+				<div class="col-md-6 col-sm-10">
+                    <input type="text" name="order_percent" class="form-control"  value="{$data['order_percent']}" onkeyup="value=value.replace(/[^\d]/g,'')">
+                    <p class="help-block">{:lang('ADMIN_SHOPAPPLY_EDIT_ZHENGSHU')}</p>
+				</div>
+			</div>
+            
+
+            <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="hidden" name="uid" value="{$data.uid}" />
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('EDIT')}</button>
+					<a class="btn btn-default" href="{:url('Shopapply/index')}">{:lang('BACK')}</a>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

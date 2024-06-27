@@ -1,0 +1,68 @@
+<include file="public@header"/>
+
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a >{:lang('ADMIN_POPULAR_INDEX_LIST')}</a></li>
+
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('popular/index')}">
+
+
+			{:lang('SUBMIT_TIME')}:
+			<input type="text" name="start_time" class="js-bootstrap-date form-control" value="{:input('request.start_time')}" autocomplete="off" placeholder="{:lang('START_TIME')}">-
+			<input type="text" name="end_time" class="js-bootstrap-date form-control" value="{:input('request.end_time')}" autocomplete="off" placeholder="{:lang('END_TIME')}">&nbsp; &nbsp;
+
+			{:lang('KEYWORD')}:
+			 <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="{:lang('ADMIN_POPULAR_INDEX_VIP_AND_VIDEO_ID')}">
+			<input type="submit" class="btn btn-primary" value="{:lang('SEARCH')}"/>
+			<a class="btn btn-danger" href="{:url('Admin/Popular/index')}">{:lang('CLEAN')}</a>
+			
+		</form>				
+		<form method="post" class="js-ajax-form" >
+
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">{:lang('ADMIN_VIDEO_REPORTLIST_VIPID')}</th>
+						<th>{:lang('ADMIN_POPULAR_INDEX_VIP')}</th>
+						<th>{:lang('ADMIN_POPULAR_INDEX_PUBLISHER')}</th>
+						<th>{:lang('ADMIN_POPULAR_INDEX_VIDEOID')}</th>
+						<th>{:lang('PRICE')}</th>
+						<th>{:lang('ADMIN_POPULAR_INDEX_TIME')}</th>
+						<th>{:lang('ADMIN_POPULAR_INDEX_PLAY')}</th>
+						<th>{:lang('ADMIN_POPULAR_INDEX_PAY_TYPE')}</th>
+						<th>{:lang('STATUS')}</th>
+						<th>{:lang('SUBMIT_TIME')}</th>
+						<!-- <th align="center">{:lang('ACTIONS')}</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="lists" item="vo">
+					<tr>
+						<td align="center">{$vo.uid}</td>
+						<td>{$vo['userinfo']['user_nicename']} </td>
+						<td>{$vo['video_userinfo']['user_nicename']}({$vo['touid']}) </td>
+						<td>{$vo['videoid']}</td>
+						<td>{$vo['money']}</td>
+						<td>{$vo['length']}</td>
+						<td>{$vo['nums']}</td>
+						<td>{$vo['type_name']}</td>
+						<td>{$vo['status_name']}</td>
+						<td>{:date("Y-m-d H:i:s",$vo['addtime'])}</td>
+						<!-- <td align="center">	
+							<a href="{:url('popular/del',array('id'=>$vo['id']))}" class="btn btn-xs btn-danger js-ajax-delete" data-msg="您确定要删除吗？">删除</a> 
+						</td> -->
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
