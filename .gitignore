@@ -1,5 +1,8 @@
 .idea
+.vscode
+vendor/
 public
+/data/runtime
 target/
 .settings/
 .DS_Store

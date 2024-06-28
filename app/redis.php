@@ -1,30 +1,38 @@
 <?php
 /* redis */
 /* redis链接 */
-function connectionRedis(){
-    if(!isset($GLOBALS['redisdb'])){
-        $REDIS_HOST= config('database.REDIS_HOST');
-        $REDIS_AUTH= config('database.REDIS_AUTH');
-        $REDIS_PORT= config('database.REDIS_PORT');
-        $redis = new \Redis();
-        $redis -> connect($REDIS_HOST,$REDIS_PORT);
-        $redis -> auth($REDIS_AUTH);
+function connectionRedis()
+{
+  if (!isset($GLOBALS['redisdb'])) {
+    $REDIS_HOST = config('database.REDIS_HOST');
+    $REDIS_AUTH = config('database.REDIS_AUTH');
+    $REDIS_PORT = config('database.REDIS_PORT');
 
-        $GLOBALS['redisdb']=$redis;        
-    }
+    $redis = new \Redis();
+    $redis->connect($REDIS_HOST, $REDIS_PORT);
+    $redis->auth($REDIS_AUTH);
+
+    $GLOBALS['redisdb'] = $redis;
+  }
 }
-
+function ensureRedisConnection()
+{
+  if (!isset($GLOBALS['redisdb'])) {
+    connectionRedis();
+  }
+}
 /* 设置缓存 */
-function setcache($key,$info){
-    $config=getConfigPri();
-    if($config['cache_switch']!=1){
-        return 1;
-    }
-    $GLOBALS['redisdb']->set($key,json_encode($info));
-    $GLOBALS['redisdb']->expire($key, $config['cache_time']); 
-    
+function setcache($key, $info)
+{
+  $config = getConfigPri();
+  if ($config['cache_switch'] != 1) {
     return 1;
-}	
+  }
+  $GLOBALS['redisdb']->set($key, json_encode($info));
+  $GLOBALS['redisdb']->expire($key, $config['cache_time']);
+
+  return 1;
+}
 /**
  * redis 字符串（String） 类型
  * 将key和value对应。如果key已经存在了，它会被覆盖，而不管它是什么类型。
@@ -32,43 +40,48 @@ function setcache($key,$info){
  * @param $info
  * @param $exp 过期时间
  */
-function setcaches($key,$info,$time=0){
-    $GLOBALS['redisdb']->set($key,json_encode($info));
-    if($time > 0){
-        $GLOBALS['redisdb']->expire($key, $time); 
-    }
-    return 1;
+function setcaches($key, $info, $time = 0)
+{
+  $GLOBALS['redisdb']->set($key, json_encode($info));
+  if ($time > 0) {
+    $GLOBALS['redisdb']->expire($key, $time);
+  }
+  return 1;
 }
 /* 获取缓存 */
-function getcache($key){
-    $config=getConfigPri();
-    $isexist=$GLOBALS['redisdb']->Get($key);
-    if($config['cache_switch']!=1){
-        $isexist=false;
-    }
-    return json_decode($isexist,true);
-}	
-	
+function getcache($key)
+{
+  $config = getConfigPri();
+  $isexist = $GLOBALS['redisdb']->Get($key);
+  if ($config['cache_switch'] != 1) {
+    $isexist = false;
+  }
+  return json_decode($isexist, true);
+}
+
 /**
  * redis 字符串（String） 类型
  * 返回key的value。如果key不存在，返回特殊值nil。如果key的value不是string，就返回错误，因为GET只处理string类型的values。
  * @param $key
  */
-function getcaches($key){
-    /*var_dump($GLOBALS['redisdb']);
+function getcaches($key)
+{
+  /*var_dump($GLOBALS['redisdb']);
     die;*/
-    $isexist=$GLOBALS['redisdb']->Get($key);
-    return json_decode($isexist,true);
+  ensureRedisConnection();
+  $isexist = $GLOBALS['redisdb']->Get($key);
+  return json_decode($isexist, true);
 }
 
 /**
  * 删除一个或多个key
  * @param $keys  数组/ 数组以逗号拼接的string
  */
-function delcache($key){
-	
-    $isexist=$GLOBALS['redisdb']->del($key);
-    return 1;
+function delcache($key)
+{
+
+  $isexist = $GLOBALS['redisdb']->del($key);
+  return 1;
 }
 
 /**
@@ -77,8 +90,9 @@ function delcache($key){
  * @param $key
  *
  */
-function hGetAll($key){
-    return $GLOBALS['redisdb']->hGetAll($key);
+function hGetAll($key)
+{
+  return $GLOBALS['redisdb']->hGetAll($key);
 }
 
 /**
@@ -87,8 +101,9 @@ function hGetAll($key){
  * @param string $hashKey
  * @param string $value
  */
-function hSet( $key, $hashKey, $value ) {
-    return $GLOBALS['redisdb']->hSet($key, $hashKey, $value);
+function hSet($key, $hashKey, $value)
+{
+  return $GLOBALS['redisdb']->hSet($key, $hashKey, $value);
 }
 
 /**
@@ -100,9 +115,10 @@ function hSet( $key, $hashKey, $value ) {
  * @return
  * 当key不是哈希表(hash)类型时，返回一个错误。
  */
-function hMSet($key,$fieldArr){
-    
-    return $GLOBALS['redisdb']->hmset($key,$fieldArr);
+function hMSet($key, $fieldArr)
+{
+
+  return $GLOBALS['redisdb']->hmset($key, $fieldArr);
 }
 
 /**
@@ -111,8 +127,9 @@ function hMSet($key,$fieldArr){
  * @param   string  $hashKey
  * @return  string  The value, if the command executed successfully BOOL FALSE in case of failure
  */
-function hGet($key, $hashKey) {
-    return $GLOBALS['redisdb']->hGet($key,$hashKey);
+function hGet($key, $hashKey)
+{
+  return $GLOBALS['redisdb']->hGet($key, $hashKey);
 }
 
 /**
@@ -120,8 +137,9 @@ function hGet($key, $hashKey) {
  * @param string $key
  * @param array $hashKey 
  */
-function hMGet( $key, $hashKeys ) {
-    return $GLOBALS['redisdb']->hMGet($key,$hashKeys);
+function hMGet($key, $hashKeys)
+{
+  return $GLOBALS['redisdb']->hMGet($key, $hashKeys);
 }
 
 /**
@@ -132,8 +150,9 @@ function hMGet( $key, $hashKeys ) {
  * @param string $hashKey
  * @param value  自增值  整型/小数
  */
-function hIncrByFloat( $key, $hashKey, $value){
-    return $GLOBALS['redisdb']->hIncrByFloat( $key, $hashKey, $value);
+function hIncrByFloat($key, $hashKey, $value)
+{
+  return $GLOBALS['redisdb']->hIncrByFloat($key, $hashKey, $value);
 }
 
 /**
@@ -141,8 +160,9 @@ function hIncrByFloat( $key, $hashKey, $value){
  * @param string $key
  * @param string $hashKey
  */
-function hDel($key,$hashKey){
-    return $GLOBALS['redisdb']->hDel( $key, $hashKey);
+function hDel($key, $hashKey)
+{
+  return $GLOBALS['redisdb']->hDel($key, $hashKey);
 }
 
 
@@ -152,8 +172,9 @@ function hDel($key,$hashKey){
  * @param string $key
  * @param string $val
  */
-function lPush($key,$val){
-    return	$GLOBALS['redisdb']->lPush($key,$val);
+function lPush($key, $val)
+{
+  return  $GLOBALS['redisdb']->lPush($key, $val);
 }
 
 /**
@@ -162,22 +183,25 @@ function lPush($key,$val){
  * @param string $key
  * @param string $val
  */
-function rPush($key,$val){
-    return	$GLOBALS['redisdb']->rPush($key,$val);
+function rPush($key, $val)
+{
+  return  $GLOBALS['redisdb']->rPush($key, $val);
 }
 /**
  * 返回LIST顶部（左侧）的VALUE，并且从LIST中把该VALUE弹出。
  * @param string $key
  */
-function lPop($key){
-    return $GLOBALS['redisdb']->lPop($key);
+function lPop($key)
+{
+  return $GLOBALS['redisdb']->lPop($key);
 }
 /**
  * 返回LIST底部（右侧）的VALUE，并且从LIST中把该VALUE弹出。
  * @param string $key
  */
-function rPop($key){
-    return $GLOBALS['redisdb']->rPop($key);
+function rPop($key)
+{
+  return $GLOBALS['redisdb']->rPop($key);
 }
 
 
@@ -188,8 +212,9 @@ function rPop($key){
  * @param  double $score1  值
  * return 被成功添加的新成员的数量，不包括那些被更新的、已经存在的成员。
  */
-function zAdd($key,$score1,$value1){
-    return $GLOBALS['redisdb']->zAdd($key,$score1,$value1);
+function zAdd($key, $score1, $value1)
+{
+  return $GLOBALS['redisdb']->zAdd($key, $score1, $value1);
 }
 
 /**
@@ -198,8 +223,9 @@ function zAdd($key,$score1,$value1){
  * @param   string  $member
  * @return  float
  */
-function zScore( $key, $member ) {
-    return $GLOBALS['redisdb']->zScore( $key, $member );
+function zScore($key, $member)
+{
+  return $GLOBALS['redisdb']->zScore($key, $member);
 }
 
 /**
@@ -208,8 +234,9 @@ function zScore( $key, $member ) {
  * @return  int     the set's cardinality
 
  */
-function zSize($key){
-    return $GLOBALS['redisdb']->zSize($key);
+function zSize($key)
+{
+  return $GLOBALS['redisdb']->zSize($key);
 }
 
 /**
@@ -227,9 +254,10 @@ function zSize($key){
  * </pre>
  * member 成员的新 score 值，以字符串形式表示。
  */
-function zIncrBy( $key, $value, $member ) {
-    
-    return $GLOBALS['redisdb']->zIncrBy( $key, $value, $member );
+function zIncrBy($key, $value, $member)
+{
+
+  return $GLOBALS['redisdb']->zIncrBy($key, $value, $member);
 }
 
 /**
@@ -251,13 +279,15 @@ function zIncrBy( $key, $value, $member ) {
  * 指定区间内，带有 score 值(可选)的有序集成员的列表。
  * zRange 根据 score 正序   zRevRange 倒序
  */
-function zRange( $key, $start, $end, $withscores = null ) {
-    
-    return $GLOBALS['redisdb']->zRange( $key, $start, $end, $withscores) ;
-}
-function zRevRange( $key, $start, $end, $withscores = null ) {
+function zRange($key, $start, $end, $withscores = null)
+{
 
-    return $GLOBALS['redisdb']->zRevRange( $key, $start, $end, $withscores) ;
+  return $GLOBALS['redisdb']->zRange($key, $start, $end, $withscores);
+}
+function zRevRange($key, $start, $end, $withscores = null)
+{
+
+  return $GLOBALS['redisdb']->zRevRange($key, $start, $end, $withscores);
 }
 
 /**
@@ -266,9 +296,10 @@ function zRevRange( $key, $start, $end, $withscores = null ) {
  * @param   string  $member1
  * @return  int     Number of deleted values
  */
-function zRem( $key, $member1 ) {
-    
-    return $GLOBALS['redisdb']->zRem( $key, $member1 );
+function zRem($key, $member1)
+{
+
+  return $GLOBALS['redisdb']->zRem($key, $member1);
 }
 
 /**
@@ -278,5 +309,5 @@ function zRem( $key, $member1 ) {
  */
 function getLangKey($userId)
 {
-    return 'lang:user:' . $userId;
+  return 'lang:user:' . $userId;
 }
